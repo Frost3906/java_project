@@ -104,14 +104,15 @@ public class Register extends JFrame implements ActionListener{
 			//db에 입력하기
 			int result = ldao.reg(vo);
 			
-			if(result>0) {
+			if(result > 0) {
+				System.out.println();
+				this.dispose();
 				JOptionPane.showMessageDialog(this, "성공");
-				dispose();
 				
 				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
-				dispose();
+				this.dispose();
 			}
 		}
 	}

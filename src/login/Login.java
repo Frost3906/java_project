@@ -14,18 +14,19 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPasswordField;
 
 
 
 public class Login extends JFrame implements ActionListener{
 	private FirstPanel main;
 	private JPanel contentPane;
-	private final JLabel lb_id = new JLabel("ID");
-	private final JLabel lb_pw = new JLabel("PASSWORD");
-	private final JTextField txt_id = new JTextField();
-	private final JTextField txt_pw = new JTextField();
-	private final JButton btn_login;
-	private final JButton btn_reg;
+	private  JLabel lb_id = new JLabel("ID");
+	private  JLabel lb_pw = new JLabel("PASSWORD");
+	private  JTextField txt_id = new JTextField();
+	private  JButton btn_login;
+	private  JButton btn_reg;
+	private final JPasswordField txt_pw = new JPasswordField();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,14 +52,14 @@ public class Login extends JFrame implements ActionListener{
 		contentPane.add(txt_id);
 		txt_id.setColumns(10);
 		contentPane.add(lb_pw);
-		contentPane.add(txt_pw);
-		txt_pw.setColumns(10);
 		btn_login = new JButton("로그인");
 		btn_reg = new JButton("회원가입");
-		contentPane.add(btn_reg);
-		contentPane.add(btn_login);
 		btn_login.addActionListener(this);
 		btn_reg.addActionListener(this);
+		
+		contentPane.add(txt_pw);
+		contentPane.add(btn_reg);
+		contentPane.add(btn_login);
 		setVisible(true);
 		
 	}
@@ -71,21 +72,19 @@ public class Login extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource()==btn_reg) {
-			System.out.println("버튼 눌러짐");
-		}
-		if(e.getSource()==btn_login) {
+	
+		if(e.getSource() == btn_login) {
+			System.out.println("로그인");
 			LoginDAO dao = new LoginDAO();
 			LoginVO vo = new LoginVO();
-			vo=dao.login(txt_id.getText(), txt_pw.getText());
+			vo = dao.login(txt_id.getText(), txt_pw.getText());
 			if(vo.getName()!=null) {
 				System.out.println("로그인 성공");
 			}else {
 				System.out.println("로그인 실패");
 			}
 			
-		if(e.getSource()==btn_login) {
-			
+		
 		}else if(e.getSource()==btn_reg) {
 			
 			main.showRegFrm();
@@ -94,6 +93,6 @@ public class Login extends JFrame implements ActionListener{
 		
 	}
 
-	}
 }
+
 

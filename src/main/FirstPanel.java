@@ -19,7 +19,7 @@ public class FirstPanel{
     // 테스트프레임창
     public void showMainI(){
         login.dispose(); // 로그인창닫기
-        this.mainI = new MainInterface(); // 테스트프레임 오픈
+        this.mainI = new MainInterface(); // 메인 인터페이스 열기
     }
     public void showRegFrm() {
     	this.register = new Register();

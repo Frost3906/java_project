@@ -11,9 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class LoginVO {
-	private String name;
 	private String id;
 	private String passwd;
+	private String name;
 	private String email;
 	
 }
