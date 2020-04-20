@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+
 public class LoginDAO {
 
 	static {
@@ -30,7 +32,6 @@ public class LoginDAO {
 		}
 		return con;
 	}
-	
 	
 	
 	public LoginVO login(String id,String passwd) {
@@ -81,10 +82,9 @@ public class LoginDAO {
 		return result;
 		
 	}
-	
-	
-	
-	
+
+
+
 	
 	
 	
