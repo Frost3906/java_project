@@ -1,19 +1,13 @@
 package login;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 
 public class LoginVO {
-	private String id;
-	private String passwd;
-	private String name;
-	private String email;
-	
+	private String id, passwd, name, email;
 }

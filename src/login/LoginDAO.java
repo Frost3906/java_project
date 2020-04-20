@@ -13,7 +13,7 @@ public class LoginDAO {
 
 	static {
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -21,7 +21,7 @@ public class LoginDAO {
 	}
 	
 	public Connection getConnection() {
-		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String url = "jdbc:mysql://projectdb.cdiwkaggifue.ap-northeast-2.rds.amazonaws.com:3306/projectdb?serverTimezone=UTC&characterEncoding=UTF-8";
 		String user = "javadb";
 		String password = "12345";
 		Connection con = null;
@@ -38,7 +38,7 @@ public class LoginDAO {
 	public LoginVO login(String id,String passwd) {
 		LoginVO vo = null;
 		
-		String sql = "select name from reg where id like ? and passwd like ?";
+		String sql = "select name from userTBL where id like ? and passwd like ?";
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -62,10 +62,8 @@ public class LoginDAO {
 	
 	public int reg(LoginVO vo) {
 		// 회원가입에 필요한 정보 입력 후 primary(name , email) 이 중복되지 않을 시 int값 반환
-		String sql = "insert into reg values (?, ?, ?, ?)";
-		System.out.println(sql);
+		String sql = "insert into userTBL values (?, ?, ?, ?)";
 		int result=0;
-		System.out.println(sql);
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, vo.getId());
