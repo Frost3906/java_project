@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 
+
 public class LoginVO {
 	private String id, passwd, name, email;
 }
