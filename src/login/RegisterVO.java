@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 
-public class LoginVO {
-	private String id, password;
+public class RegisterVO {
+	private String id, password, name, email;
 	
 }
