@@ -69,7 +69,7 @@ public class LoginDAO {
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, vo.getName());
-//			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getId());
 			pstmt.setString(4, vo.getPasswd());
 			

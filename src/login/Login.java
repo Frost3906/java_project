@@ -6,6 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import main.*;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class Login extends JFrame implements ActionListener{
-
+	private FirstPanel main;
 	private JPanel contentPane;
 	private final JLabel lb_id = new JLabel("ID");
 	private final JLabel lb_pw = new JLabel("PASSWORD");
@@ -56,6 +62,13 @@ public class Login extends JFrame implements ActionListener{
 		contentPane.add(btn_login);
 		btn_login.addActionListener(this);
 		btn_reg.addActionListener(this);
+		setVisible(true);
+		
+	}
+
+
+	public void setMain(FirstPanel main) {
+		this.main = main;
 	}
 
 	@Override
@@ -74,8 +87,16 @@ public class Login extends JFrame implements ActionListener{
 				System.out.println("로그인 실패");
 			}
 			
+		if(e.getSource()==btn_login) {
+			
+		}else if(e.getSource()==btn_reg) {
+			
+			main.showRegFrm();
+		
 		}
 		
 	}
 
+	}
 }
+
