@@ -6,22 +6,27 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 
 public class Register extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField txt_regid;
-	private JTextField txt_regpw;
 	private JTextField txt_regname;
 	private JTextField txt_regmail;
+	private JButton btn_regcheck;
+	private LoginDAO ldao;
+	private final JPasswordField txt_regpw = new JPasswordField();
 
 
 	public static void main(String[] args) {
@@ -39,6 +44,9 @@ public class Register extends JFrame implements ActionListener{
 
 
 	public Register() {
+		
+		ldao = new LoginDAO();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -55,10 +63,7 @@ public class Register extends JFrame implements ActionListener{
 		
 		JLabel lb_regpw = new JLabel("PASSWORD");
 		contentPane.add(lb_regpw);
-		
-		txt_regpw = new JTextField();
 		contentPane.add(txt_regpw);
-		txt_regpw.setColumns(10);
 		
 		JLabel lb_regname = new JLabel("이름");
 		contentPane.add(lb_regname);
@@ -74,7 +79,8 @@ public class Register extends JFrame implements ActionListener{
 		contentPane.add(txt_regmail);
 		txt_regmail.setColumns(10);
 		
-		JButton btn_regcheck = new JButton("완료");
+		btn_regcheck = new JButton("완료");
+		btn_regcheck.addActionListener(this);
 		contentPane.add(btn_regcheck);
 		
 		setVisible(true);
@@ -83,6 +89,31 @@ public class Register extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		
+		if(e.getSource()==btn_regcheck) {
+			LoginVO vo = new LoginVO();
+		
+
+			vo.setId(txt_regid.getText());
+			vo.setPasswd(txt_regpw.getText());
+			vo.setName(txt_regname.getText());
+			vo.setEmail(txt_regmail.getText());
+			
+			
+			
+			//db에 입력하기
+			int result = ldao.reg(vo);
+			
+			if(result>0) {
+				JOptionPane.showMessageDialog(this, "성공");
+				dispose();
+				
+				
+			}else {
+				JOptionPane.showMessageDialog(this, "실패");
+				dispose();
+			}
+		}
 	}
 
 }

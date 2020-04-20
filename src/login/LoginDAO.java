@@ -44,13 +44,10 @@ public class LoginDAO {
 			pstmt.setString(1, id);
 			pstmt.setString(2, passwd);
 			ResultSet rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				vo = new LoginVO();
 				vo.setName(rs.getString("name"));
-//				vo.setEmail(rs.getString("email"));
-//				vo.setId(rs.getString("id"));
-//				vo.setPasswd(rs.getString("passwd"));
+
 			}
 			
 			
@@ -64,7 +61,7 @@ public class LoginDAO {
 	
 	public int reg(LoginVO vo) {
 		// 회원가입에 필요한 정보 입력 후 primary(name , email) 이 중복되지 않을 시 int값 반환
-		String sql = "insert into reg values(?,?,?,?)";
+		String sql = "insert into reg values (?, ?, ?, ?)";
 		int result=0;
 		
 		try (Connection con = getConnection();
