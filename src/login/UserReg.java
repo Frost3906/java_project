@@ -1,49 +1,27 @@
 package login;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-public class Register extends JFrame implements ActionListener{
+public class UserReg extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField txt_regid;
 	private JTextField txt_regpw;
 	private JTextField txt_regname;
 	private JTextField txt_regmail;
-
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Register frame = new Register();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-
-	public Register() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	
+	public UserReg() {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lb_regid = new JLabel("ID");
@@ -76,13 +54,6 @@ public class Register extends JFrame implements ActionListener{
 		
 		JButton btn_regcheck = new JButton("완료");
 		contentPane.add(btn_regcheck);
-		
-		setVisible(true);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
 	}
 
 }
