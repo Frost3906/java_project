@@ -89,6 +89,7 @@ public class BoardWrite extends JFrame implements ActionListener{
 			
 			if(result !=0) {
 				JOptionPane.showMessageDialog(this, "글이 등록되었습니다.", "게시글 작성",JOptionPane.INFORMATION_MESSAGE);
+				dao.refresh();
 				dispose();
 			}else {
 				JOptionPane.showMessageDialog(this, "글등록이 실패하였습니다.", "게시글 작성",JOptionPane.WARNING_MESSAGE);

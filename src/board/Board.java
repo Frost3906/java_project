@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -27,6 +28,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
 
 public class Board extends JFrame implements ActionListener{
 
@@ -201,6 +203,7 @@ public class Board extends JFrame implements ActionListener{
 		
 		if(btn==btn_write) {
 			BoardWrite bw = new BoardWrite();
+			
 			bw.show();
 		}
 		if(btn==btn_refresh) {
