@@ -8,7 +8,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
@@ -22,15 +24,32 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.mysql.cj.jdbc.Blob;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import javax.swing.JToggleButton;
+import javax.swing.UIManager;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 
 public class MainInterface extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JFileChooser chooser;
-	private JButton btn_open;
+	private JButton btn_upload, btn_open;
+	private JPanel panel_1;
+	private JTextField textField;
+	private JButton btnNewButton_2;
+	private Player play;
+	private File songFile;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton_3;
+	private JToggleButton btn_play;
 
 
 	public static void main(String[] args) {
@@ -41,6 +60,8 @@ public class MainInterface extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 					MainInterface frame = new MainInterface();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -53,18 +74,62 @@ public class MainInterface extends JFrame implements ActionListener{
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 460, 119);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setBounds(0, 0, 0, 0);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		btn_open = new JButton("찾아보기");
+		panel_1 = new JPanel();
+		panel_1.setBounds(12, 10, 428, 70);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(12, 5, 251, 23);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		
+		btnNewButton_2 = new JButton("◁");
+		btnNewButton_2.setBounds(12, 36, 45, 23);
+		panel_1.add(btnNewButton_2);
+		
+		btn_play = new JToggleButton();
+		btn_play.setText("PLAY");
+		btn_play.addActionListener(this); 
+		btn_play.setIcon(null);
+		btn_play.setBounds(66, 36, 140, 23);
+		panel_1.add(btn_play);
+		
+		btnNewButton = new JButton("▷");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(218, 36, 45, 23);
+		panel_1.add(btnNewButton);
+		
+		btn_upload = new JButton("UpLoad");
+		btn_upload.setBounds(332, 37, 83, 21);
+		btn_upload.addActionListener(this);
+		panel_1.add(btn_upload);
+		
+		btnNewButton_1 = new JButton("∞");
+		btnNewButton_1.setFont(new Font("굴림", Font.PLAIN, 15));
+		btnNewButton_1.setBounds(275, 36, 45, 23);
+		panel_1.add(btnNewButton_1);
+		
+		btn_open = new JButton("Open File");
 		btn_open.addActionListener(this);
-		contentPane.add(btn_open, BorderLayout.WEST);
+		btn_open.setBounds(275, 4, 140, 23);
+		panel_1.add(btn_open);
+		
 		
 	}
 	
@@ -108,35 +173,47 @@ public class MainInterface extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==btn_open) {
+		if(e.getSource()==btn_upload) {
 			MusicVO vo = new MusicVO();
 			MusicDAO dao = new MusicDAO();
-			byte[] returnval = null;
-			 JFileChooser choo = getChooser();
+			JFileChooser choo = getChooser();
 			 
-			 int retVal = choo.showOpenDialog(this);
+			int retVal = choo.showOpenDialog(this);
 			 
-			 if(retVal==0) {//열기 버튼 클릭한 경우
-				 File file = choo.getSelectedFile();
-				 vo.setTitle(file.getName());
+			if(retVal==0) {//열기 버튼 클릭한 경우
+				File file = choo.getSelectedFile();
+				 
 				 
 				 
 		
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
 			
-			int result = dao.upload(vo);
+				dao.upload(vo);
 				 
 			 }else {//취소 버튼 클릭한 경우
 				 return;
 			 }
+		}else if(e.getSource()==btn_open) {
+			JFileChooser choo = getChooser();
+			 
+			int retVal = choo.showOpenDialog(this);
+			 
+			if(retVal==0) {//열기 버튼 클릭한 경우
+				songFile= choo.getSelectedFile();
+				textField.setText(songFile.getName());
+			
+			}
+		}else if(e.getSource()==btn_play){
+			try {
+				play = new Player(new FileInputStream(songFile));
+				play.play();
+				
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (JavaLayerException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
-	
-	
-	
-		
-	
-	
-	
 }
