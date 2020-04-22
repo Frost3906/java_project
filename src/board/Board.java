@@ -121,6 +121,7 @@ public class Board extends JFrame implements ActionListener{
 		btn_write.addActionListener(this);
 
 		addview();
+		setVisible(true);
 		
 	}
 		

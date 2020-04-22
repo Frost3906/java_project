@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import main.*;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -79,9 +80,10 @@ public class Login extends JFrame implements ActionListener{
 			LoginVO vo = new LoginVO();
 			vo = dao.login(txt_id.getText(), txt_pw.getText());
 			if(vo.getName()!=null) {
-				System.out.println("로그인 성공");
+				main.showMainI();
+				
 			}else {
-				System.out.println("로그인 실패");
+				JOptionPane.showMessageDialog(this, "실패");
 			}
 			
 		
