@@ -28,6 +28,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	private JLabel la_boardno;
 	private JPanel panel_1;
 	private JButton btn_endwrite = new JButton("수정 완료");
+	private JButton btn_delete;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -87,6 +88,9 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		 btn_rewrite = new JButton("글 수정");
 		panel_1.add(btn_rewrite);
+		
+		btn_delete = new JButton("글 삭제");
+		panel_1.add(btn_delete);
 		btn_rewrite.addActionListener(this);
 		
 		JLabel lblNewLabel_1 = new JLabel("글내용");
@@ -97,6 +101,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		txt_content.setEditable(false);
 		txt_main.setEditable(false);
 		btn_endwrite.addActionListener(this);
+		btn_delete.addActionListener(this);
 	}
 	
 	public void textfill(int boardno) {
@@ -113,18 +118,22 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if(btn == btn_cancel) {
+		
+		
+		if(btn == btn_cancel) { // 취소버튼
 		dispose();
 		}
 		
-		if(btn==btn_rewrite) {
+		
+		if(btn==btn_rewrite) { // 수정버튼
 			txt_content.setEditable(true);
 			txt_main.setEditable(true);
 		btn_rewrite.setVisible(false);
 		panel_1.add(btn_endwrite);
 		}
 		
-		if(btn==btn_endwrite) {
+		
+		if(btn==btn_endwrite) { // 수정완료
 			BoardVO vo = new BoardVO();
 			BoardDAO dao = new BoardDAO();
 		vo.setContent(txt_content.getText());
@@ -136,8 +145,33 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		}else {
 			JOptionPane.showMessageDialog(this, "수정이 실패하였습니다.", "게시글 수정",JOptionPane.WARNING_MESSAGE);
 		}
+		txt_content.setEditable(false);
+		txt_main.setEditable(false);
 		btn_rewrite.setVisible(true);
 		btn_endwrite.setVisible(false);
+		}
+		
+		
+		if(btn==btn_delete) { // 삭제버튼
+			BoardVO vo = new BoardVO();
+			BoardDAO dao = new BoardDAO();
+			int no = Integer.parseInt(la_boardno.getText());
+			System.out.println(no);
+			
+			String option[]= {"예","아니오",};
+			int a = JOptionPane.showOptionDialog(this, "정말로 삭제하시겠습니까?", "게시글 삭제", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+			System.out.println(a);
+			if(a==0) {
+			int result = dao.delete(no);
+			
+			if(result !=0) {
+				JOptionPane.showMessageDialog(this, "글이 삭제되었습니다.", "게시글 삭제",JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+			}
+			}else {
+				JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.", "게시글 삭제취소",JOptionPane.WARNING_MESSAGE);
+			}
+			
 		}
 		
 	}
