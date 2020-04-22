@@ -1,13 +1,15 @@
 package board;
 
 import java.awt.BorderLayout;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import login.LoginVO;
+
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -43,6 +45,7 @@ public class Board extends JFrame implements ActionListener{
 	private JButton btn_write;
 	private JComboBox cbox;
 	private JButton btn_refresh;
+	private JLabel la_id;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -87,6 +90,9 @@ public class Board extends JFrame implements ActionListener{
 		btn_write.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel.add(btn_write);
 		
+		la_id = new JLabel("아이디");
+		panel.add(la_id);
+		
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
@@ -112,10 +118,11 @@ public class Board extends JFrame implements ActionListener{
 				return false;
 			}
 		};
-
+		
 		table = new JTable(model);
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 		table.getColumnModel().getColumn(0).setPreferredWidth(800);  //JTable 의 컬럼 길이 조절
+		table.getColumnModel().getColumn(3).setPreferredWidth(120);  //JTable 의 컬럼 길이 조절
 		table.setRowHeight(22);
 
 		scrollPane.setViewportView(table);
@@ -126,21 +133,21 @@ public class Board extends JFrame implements ActionListener{
 		setVisible(true);
 		
 	}
+	
+	
+	
+	
+	
 		
-		public void addview() {
+		public void addview() { // 게시판 보이기
 			BoardDAO dao = new BoardDAO();
 			model = (DefaultTableModel) table.getModel();
 			Vector<BoardVO> vec = dao.ViewBoard();
 			
 			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
+				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
 				model.addRow(objlist);
 
-//				if(model.getRowCount()>a*15) {
-//					a+=1;
-//					panel_1.add(new JLabel (a+""));
-//					
-//				}
 				
 			}
 			
@@ -154,44 +161,63 @@ public class Board extends JFrame implements ActionListener{
 		BoardDAO dao = new BoardDAO();
 		JButton btn = (JButton) e.getSource();
 		
-		if(btn == btn_read) {
+		if(btn == btn_read) {   //  글 보기
 			BoardVO vo = new BoardVO();
 			int rownum = table.getSelectedRow();
-			Object value = table.getValueAt(rownum, 2);
+			Object value = table.getValueAt(rownum, 2);  // boardno 값
+			Object value2 = table.getValueAt(rownum, 4);  // viewcount 값
+			Object value3 = table.getValueAt(rownum, 1);  // 작성자id 값
 			
+			int b = Integer.parseInt(value2.toString());
 			String a = value.toString();
-			System.out.println(a);
+			String idval2 = value3.toString();
 			
+			b+=1;
 			int boardno = Integer.parseInt(a);
+			
+			
 			BoardViewContent bvc = new BoardViewContent();
+			String idval = la_id.getText();
+			bvc.getid(idval);
 			bvc.textfill(boardno);
+			bvc.checkid(idval2);
 			bvc.show();
+			int c = Integer.parseInt(a);
+			dao.viewcount(b, c);
+			dispose();
 			
 		}
 		
-		if(btn==btn_search) {
+		if(btn==btn_search) {  //  글 검색
 			Vector<BoardVO> vec = new Vector<>();
 			
 //				model = (DefaultTableModel) table.getModel();
 			
 			
 			if(cbox.getSelectedItem().equals("제목")) {
-				String c = "contentname";
-				String s = txt_search.getText();
+				String box = "contentname";
+				String txt = txt_search.getText();
 				model.setNumRows(0);
-			vec=dao.Search(c, s);
+			vec=dao.Search(box, txt);
 			for(BoardVO vo:vec) {
 				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
 				model.addRow(objlist);
 			}
-			
-			
-			
-			}else if(cbox.getSelectedItem().equals("글내용")) {
-				String c = "content";
-				String s = txt_search.getText();
+			}
+			else if(cbox.getSelectedItem().equals("글내용")) {
+				String box = "content";
+				String txt = txt_search.getText();
 				model.setNumRows(0);
-			vec=dao.Search(c, s);
+			vec=dao.Search(box, txt);
+			for(BoardVO vo:vec) {
+				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
+				model.addRow(objlist);
+			}
+			}else if(cbox.getSelectedItem().equals("작성자")) {
+				String box = "writer";
+				String txt = txt_search.getText();
+				model.setNumRows(0);
+			vec=dao.Search(box, txt);
 			for(BoardVO vo:vec) {
 				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
 				model.addRow(objlist);
@@ -201,12 +227,17 @@ public class Board extends JFrame implements ActionListener{
 			
 		}
 		
-		if(btn==btn_write) {
+		if(btn==btn_write) {   //  글 쓰기
 			BoardWrite bw = new BoardWrite();
-			
+			String a = la_id.getText();
+			bw.writeid(a);
 			bw.show();
+			dispose();
 		}
-		if(btn==btn_refresh) {
+		
+		
+		
+		if(btn==btn_refresh) {   //  새로고침
 			refresh();
 		}
 		
@@ -214,17 +245,14 @@ public class Board extends JFrame implements ActionListener{
 	}
 	
 	public void refresh() {
-		Vector<BoardVO> vec = new Vector<>();
 		model.setNumRows(0);
-		BoardDAO dao = new BoardDAO();
-		
-		vec=dao.refresh();
-		for(BoardVO vo:vec) {
-			Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
-			model.addRow(objlist);
-		}
+		addview();
 		
 	}
 	
+	
+	public void getid(String a) {
+		la_id.setText(a);
+	}
 	
 }

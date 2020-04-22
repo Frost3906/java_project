@@ -29,6 +29,9 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	private JPanel panel_1;
 	private JButton btn_endwrite = new JButton("수정 완료");
 	private JButton btn_delete;
+	private JLabel la_id = new JLabel("");
+	private JLabel lblNewLabel_5;
+	private JLabel la_id2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -100,6 +103,12 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		contentPane.add(txt_content, BorderLayout.CENTER);
 		txt_content.setEditable(false);
 		txt_main.setEditable(false);
+		
+		lblNewLabel_5 = new JLabel("작성자 : ");
+		panel.add(lblNewLabel_5);
+		
+		la_id2 = new JLabel("아이디");
+		panel.add(la_id2);
 		btn_endwrite.addActionListener(this);
 		btn_delete.addActionListener(this);
 	}
@@ -111,7 +120,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		txt_main.setText(vo.getContentname());
 		txt_content.setText(vo.getContent());
 		la_boardno.setText(vo.getBoardno()+"");
-//		txt_writer.setText(vo2.getId());
+//		txt_writer.setText(vo2.get());
 	}
 	
 	
@@ -121,15 +130,24 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		
 		if(btn == btn_cancel) { // 취소버튼
+		Board board = new Board();
+		board.refresh();
 		dispose();
 		}
 		
 		
-		if(btn==btn_rewrite) { // 수정버튼
-			txt_content.setEditable(true);
-			txt_main.setEditable(true);
-		btn_rewrite.setVisible(false);
-		panel_1.add(btn_endwrite);
+		if(btn==btn_rewrite) {
+			if(la_id.getText().equals(la_id2.getText())==true) {
+				
+				// 수정버튼
+				txt_content.setEditable(true);
+				txt_main.setEditable(true);
+				btn_rewrite.setVisible(false);
+				panel_1.add(btn_endwrite);
+				
+			}else if(la_id.getText().equals(la_id2.getText())==false) {
+				JOptionPane.showMessageDialog(this, "작성자만 글을 수정할 수 있습니다.", "게시글 수정취소",JOptionPane.WARNING_MESSAGE);
+			}
 		}
 		
 		
@@ -142,6 +160,10 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		int result = dao.modify(vo);
 		if(result !=0) {
 			JOptionPane.showMessageDialog(this, "글이 수정되었습니다.", "게시글 수정",JOptionPane.INFORMATION_MESSAGE);
+			Board board = new Board();
+			board.refresh();
+			dispose();
+			
 		}else {
 			JOptionPane.showMessageDialog(this, "수정이 실패하였습니다.", "게시글 수정",JOptionPane.WARNING_MESSAGE);
 		}
@@ -153,27 +175,42 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		
 		if(btn==btn_delete) { // 삭제버튼
-			BoardVO vo = new BoardVO();
-			BoardDAO dao = new BoardDAO();
-			int no = Integer.parseInt(la_boardno.getText());
-			System.out.println(no);
-			
-			String option[]= {"예","아니오",};
-			int a = JOptionPane.showOptionDialog(this, "정말로 삭제하시겠습니까?", "게시글 삭제", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
-			System.out.println(a);
-			if(a==0) {
-			int result = dao.delete(no);
-			
-			if(result !=0) {
-				JOptionPane.showMessageDialog(this, "글이 삭제되었습니다.", "게시글 삭제",JOptionPane.INFORMATION_MESSAGE);
-				dispose();
-			}
-			}else {
-				JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.", "게시글 삭제취소",JOptionPane.WARNING_MESSAGE);
+			if(la_id.getText().equals(la_id2.getText())==true) {
+				
+				BoardVO vo = new BoardVO();
+				BoardDAO dao = new BoardDAO();
+				int no = Integer.parseInt(la_boardno.getText());
+				
+				String option[]= {"예","아니오",};
+				int a = JOptionPane.showOptionDialog(this, "정말로 삭제하시겠습니까?", "게시글 삭제", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+				System.out.println(a);
+				if(a==0) {
+					int result = dao.delete(no);
+					
+					if(result !=0) {
+						JOptionPane.showMessageDialog(this, "글이 삭제되었습니다.", "게시글 삭제",JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					}
+				}else {
+					JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.", "게시글 삭제취소",JOptionPane.WARNING_MESSAGE);
+				}
+			}else if(la_id.getText().equals(la_id2.getText())==false) {
+				JOptionPane.showMessageDialog(this, "작성자만 글을 삭제할 수 있습니다.", "게시글 삭제취소",JOptionPane.WARNING_MESSAGE);
+				
 			}
 			
 		}
 		
 	}
+	
+	public void getid(String a) {
+		la_id.setText(a);
+	}
+	
+	public void checkid(String b) {
+		la_id2.setText(b);
+		
+	}
+
 
 }

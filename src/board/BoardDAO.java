@@ -38,13 +38,14 @@ public class BoardDAO {
 	
 	public int write(BoardVO vo) {
 		// 게시글 작성후 게시하기를 눌렀을때, 게시글의 글내용을 board에 저장
-		String sql = "insert into board(contentname,content) values(?,?)";
+		String sql = "insert into board(contentname,content,writer,writedate,viewcount) values(?,?,?,now(),0)";
 		int result=0;
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, vo.getContentname());
 			pstmt.setString(2, vo.getContent());
+			pstmt.setString(3, vo.getWriter());
 
 			
 			result = pstmt.executeUpdate();
@@ -128,13 +129,16 @@ public class BoardDAO {
 	
 	
 	
+		
+		
 	// 게시판에 글 나타내기
 	// 작성된 글 내림차순으로 나타내기(boardno 기준)
-	
+
 	public Vector<BoardVO> ViewBoard (){
 		// 
 		
-		String sql = "select contentname,boardno from board order by boardno desc";
+		String sql = "select contentname,writer,boardno,writedate,viewcount from board order by boardno desc";
+//		String sql = "select contentname,writer,boardno,writedate,viewcount from board order by boardno desc";
 		
 		Vector<BoardVO> list = new Vector<BoardVO>();
 		
@@ -144,10 +148,12 @@ public class BoardDAO {
 			
 			while(rs.next()) {
 				BoardVO vo = new BoardVO();
-				vo.setBoardno(rs.getInt("boardno"));
 				vo.setContentname(rs.getString("contentname"));
+				vo.setWriter(rs.getString("writer"));
 				vo.setBoardno(rs.getInt("boardno"));
-			list.add(vo);
+				vo.setWritedate(rs.getString("writedate"));
+				vo.setViewcount(rs.getInt("viewcount"));
+				list.add(vo);
 			}
 			
 		} catch (Exception e) {
@@ -156,26 +162,30 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public Vector<BoardVO> Search(String c, String s){
-		// 
+	
+	
+	
+	
+	public Vector<BoardVO> Search (String c, String s){
 		
-		String sql = "select contentname,boardno from board where ? like ? order by boardno desc";
+		String sql = "select contentname,writer,boardno,writedate,viewcount from board where ? like ? order by boardno desc";
+		
 		Vector<BoardVO> list = new Vector<BoardVO>();
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
+			ResultSet rs = pstmt.executeQuery();
 			pstmt.setString(1, c);
 			pstmt.setString(2, "%"+s+"%");
-//			pstmt.setString(2, s);
-			
-			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				BoardVO vo = new BoardVO();
-				vo.setBoardno(rs.getInt("boardno"));
 				vo.setContentname(rs.getString("contentname"));
-//				vo.setBoardno(rs.getInt("boardno"));
-			list.add(vo);
+				vo.setWriter(rs.getString("writer"));
+				vo.setBoardno(rs.getInt("boardno"));
+				vo.setWritedate(rs.getString("writedate"));
+				vo.setViewcount(rs.getInt("viewcount"));
+				list.add(vo);
 			}
 			
 		} catch (Exception e) {
@@ -184,36 +194,17 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public Vector<BoardVO> refresh(){
-		// 
+	public void viewcount(int view,int boardno) {
 		
-		String sql = "select contentname,boardno from board where contentname like ? order by boardno desc";
-		Vector<BoardVO> list = new Vector<BoardVO>();
-		
-		try (Connection con = getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)){
-			pstmt.setString(1, "%%");
-//			pstmt.setString(2, s);
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				BoardVO vo = new BoardVO();
-				vo.setBoardno(rs.getInt("boardno"));
-				vo.setContentname(rs.getString("contentname"));
-//				vo.setBoardno(rs.getInt("boardno"));
-			list.add(vo);
+			String sql = "update board set viewcount= "+view+" where boardno = ?";
+			try(Connection con = getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setInt(1,boardno);
+				
+				pstmt.executeUpdate();
+			} catch (Exception e) {
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+		
 	}
-	
-	
-	
-	
-	
 	
 }

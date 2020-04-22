@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import board.Board;
 import main.*;
 
 import javax.swing.JLabel;
@@ -104,7 +105,13 @@ public class Login extends JFrame implements ActionListener{
 			LoginVO vo = new LoginVO();
 			vo = dao.login(txt_id.getText(), txt_pw.getText());
 			if(vo.getName()!=null) {
-				main.showMainI();				
+				String a = txt_id.getText();
+				Board board = new Board();
+				board.getid(a);
+				board.show();
+				dispose();
+//
+//				main.showMainI();				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
 			}			

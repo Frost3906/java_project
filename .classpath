@@ -10,6 +10,5 @@
 	<classpathentry kind="lib" path="D:/eclipse/jmf.jar"/>
 	<classpathentry kind="lib" path="D:/eclipse/lombok.jar"/>
 	<classpathentry kind="lib" path="D:/eclipse/mysql-connector-java-8.0.19.jar"/>
-	<classpathentry kind="lib" path="D:/eclipse/ojdbc8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
