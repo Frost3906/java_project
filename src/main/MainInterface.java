@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,9 +37,11 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 
-public class MainInterface extends JFrame implements ActionListener{
+public class MainInterface extends JFrame implements ActionListener,ItemListener{
 
 	private JPanel contentPane;
 	private JButton btn_upload, btn_open;
@@ -50,6 +54,7 @@ public class MainInterface extends JFrame implements ActionListener{
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_3;
 	private JToggleButton btn_play;
+	private Thread thread = new Thread();
 
 
 	public static void main(String[] args) {
@@ -73,8 +78,9 @@ public class MainInterface extends JFrame implements ActionListener{
 
 
 	public MainInterface() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 460, 119);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 460, 395);
+		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -129,6 +135,13 @@ public class MainInterface extends JFrame implements ActionListener{
 		btn_open.addActionListener(this);
 		btn_open.setBounds(275, 4, 140, 23);
 		panel_1.add(btn_open);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 92, 428, 255);
+		contentPane.add(scrollPane);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
 		
 		
 	}
@@ -204,16 +217,65 @@ public class MainInterface extends JFrame implements ActionListener{
 				textField.setText(songFile.getName());
 			
 			}
+		
 		}else if(e.getSource()==btn_play){
+			
 			try {
+				thread.start();
 				play = new Player(new FileInputStream(songFile));
 				play.play();
-				
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			} catch (JavaLayerException e1) {
 				e1.printStackTrace();
 			}
+		
+		}
+			
+	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+	
+		if(e.getStateChange()==1){
+//			try {
+////				play = new Player(new FileInputStream(songFile));
+////				play.play();
+//			} catch (FileNotFoundException e1) {
+//				e1.printStackTrace();
+//			} catch (JavaLayerException e1) {
+//				e1.printStackTrace();
+//			}
+		}else {
+			play.close();
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
