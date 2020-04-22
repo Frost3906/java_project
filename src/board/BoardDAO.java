@@ -166,17 +166,70 @@ public class BoardDAO {
 	
 	
 	
-	public Vector<BoardVO> Search (String c, String s){
+	public Vector<BoardVO> Searchcontentname (String s){
 		
-		String sql = "select contentname,writer,boardno,writedate,viewcount from board where ? like ? order by boardno desc";
-		
+		String sql = "select contentname,writer,boardno,writedate,viewcount from board where contentname like ? order by boardno desc";
 		Vector<BoardVO> list = new Vector<BoardVO>();
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+s+"%");
+			
 			ResultSet rs = pstmt.executeQuery();
-			pstmt.setString(1, c);
-			pstmt.setString(2, "%"+s+"%");
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setContentname(rs.getString("contentname"));
+				vo.setWriter(rs.getString("writer"));
+				vo.setBoardno(rs.getInt("boardno"));
+				vo.setWritedate(rs.getString("writedate"));
+				vo.setViewcount(rs.getInt("viewcount"));
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public Vector<BoardVO> Searchwriter (String s){
+		
+		String sql = "select contentname,writer,boardno,writedate,viewcount from board where writer like ? order by boardno desc";
+		Vector<BoardVO> list = new Vector<BoardVO>();
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+s+"%");
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setContentname(rs.getString("contentname"));
+				vo.setWriter(rs.getString("writer"));
+				vo.setBoardno(rs.getInt("boardno"));
+				vo.setWritedate(rs.getString("writedate"));
+				vo.setViewcount(rs.getInt("viewcount"));
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public Vector<BoardVO> Searchcontent (String s){
+		
+		String sql = "select contentname,writer,boardno,writedate,viewcount from board where content like ? order by boardno desc";
+		Vector<BoardVO> list = new Vector<BoardVO>();
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+s+"%");
+			
+			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				BoardVO vo = new BoardVO();

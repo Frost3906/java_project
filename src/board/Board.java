@@ -46,7 +46,8 @@ public class Board extends JFrame implements ActionListener{
 	private JComboBox cbox;
 	private JButton btn_refresh;
 	private JLabel la_id;
-
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -197,29 +198,28 @@ public class Board extends JFrame implements ActionListener{
 			if(cbox.getSelectedItem().equals("제목")) {
 				String box = "contentname";
 				String txt = txt_search.getText();
+				
 				model.setNumRows(0);
-			vec=dao.Search(box, txt);
+			vec=dao.Searchcontentname(txt);
 			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
+				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
 				model.addRow(objlist);
 			}
 			}
 			else if(cbox.getSelectedItem().equals("글내용")) {
-				String box = "content";
 				String txt = txt_search.getText();
 				model.setNumRows(0);
-			vec=dao.Search(box, txt);
+			vec=dao.Searchcontent(txt);
 			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
+				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
 				model.addRow(objlist);
 			}
 			}else if(cbox.getSelectedItem().equals("작성자")) {
-				String box = "writer";
 				String txt = txt_search.getText();
 				model.setNumRows(0);
-			vec=dao.Search(box, txt);
+			vec=dao.Searchwriter(txt);
 			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getContent(),vo.getBoardno()};
+				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
 				model.addRow(objlist);
 			}
 			}
