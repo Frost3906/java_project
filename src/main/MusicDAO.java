@@ -37,11 +37,12 @@ public class MusicDAO {
 	}
 	public int upload(MusicVO vo) {
 		// 회원가입에 필요한 정보 입력 후 primary(name , email) 이 중복되지 않을 시 int값 반환
-		String sql = "insert into musicTBL values (?)";
+		String sql = "insert into musicTBL values (?,?)";
 		int result=0;
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setBlob(1, vo.getBlob());
+			pstmt.setString(2, vo.getTitle());
 			
 			
 			result = pstmt.executeUpdate();

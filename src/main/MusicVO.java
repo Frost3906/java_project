@@ -18,6 +18,7 @@ import lombok.ToString;
 
 public class MusicVO {
 	 private Blob blob;
+	 private String title;
 	 
 	
 }

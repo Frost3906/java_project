@@ -118,7 +118,7 @@ public class MainInterface extends JFrame implements ActionListener{
 			 
 			 if(retVal==0) {//열기 버튼 클릭한 경우
 				 File file = choo.getSelectedFile();
-				 
+				 vo.setTitle(file.getName());
 				 
 				 
 		
