@@ -80,6 +80,25 @@ public class LoginDAO {
 		return result;
 		
 	}
+	public LoginVO getid(String a) {
+		LoginVO vo = new LoginVO();
+		
+		String sql = "select id from userTBL where name like ?";
+		int result=0;
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.setString(1, a);
+			
+			vo.setId(rs.getString("id"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+
+}
 
 
 
