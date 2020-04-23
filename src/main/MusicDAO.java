@@ -1,5 +1,8 @@
 package main;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +18,7 @@ import login.LoginVO;
 
 public class MusicDAO {
 
+	int i=0;
 
 	static {
 		try {
@@ -63,11 +67,27 @@ public class MusicDAO {
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()){
+				ResultSet rs = pstmt.executeQuery();){
 			
 			while(rs.next()) {
 				MusicVO vo = new MusicVO();
-				vo.setBlob((Blob) rs.getBlob(1));
+				
+				Blob blob = (Blob) rs.getBlob(1);
+                InputStream inputStream = blob.getBinaryStream();
+                OutputStream outputStream = new FileOutputStream("C:\\Users\\admin\\Desktop\\"+(i++)+".mp3");
+ 
+                int bytesRead = -1;
+                byte[] buffer = new byte[1024];
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+ 
+                inputStream.close();
+                outputStream.close();
+
+
+				
+				
 				vo.setTitle((rs.getString(2)));
 			
 				vecList.add(vo);
@@ -80,6 +100,8 @@ public class MusicDAO {
 		return vecList;
 		
 	}
+	
+	
 
 
 
