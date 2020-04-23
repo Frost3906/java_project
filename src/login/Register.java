@@ -60,12 +60,12 @@ public class Register extends JFrame implements ActionListener{
 		
 		ldao = new LoginDAO();
 		
-		icon = new ImageIcon("D:\\javasource\\java_project\\src\\login\\intro_register.jpg");
+		icon = new ImageIcon(Register.class.getResource("intro_register.jpg"));
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
+				super.paintComponents(g);
 				Dimension d = getSize();
 				g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-				super.paintComponents(g);
 				setVisible(true);
 			}
 		};
@@ -127,6 +127,8 @@ public class Register extends JFrame implements ActionListener{
 		btn_regcancel.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_regcancel.setBounds(229, 211, 70, 26);
 		background.add(btn_regcancel);
+		
+	
 		setContentPane(scrollPane);	
 		setVisible(true);
 		

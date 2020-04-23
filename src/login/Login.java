@@ -61,21 +61,21 @@ public class Login extends JFrame implements ActionListener {
 	public Login() {
 		setTitle("Music Player");	
 
-		icon = new ImageIcon("intro.jpg");
-
-
+		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
+				super.paintComponents(g);
 				Dimension d = getSize();
 				g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-				super.paintComponents(g);
-				setVisible(true);
+//				setVisible(true);
 			}
 		};
+		background.setLayout(null);
 			
 		scrollPane = new JScrollPane(background);
-		background.setLayout(null);
 		setContentPane(scrollPane);	
+		
+	
 				
 		lb_id.setBounds(129, 100, 63, 15);
 		background.add(lb_id);
