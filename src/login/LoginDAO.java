@@ -38,7 +38,7 @@ public class LoginDAO {
 	public LoginVO login(String id,String passwd) {
 		LoginVO vo = null;
 		
-		String sql = "select name from userTBL where id like ? and passwd like ?";
+		String sql = "select * from userTBL where id = ? and passwd = ?";
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -47,10 +47,10 @@ public class LoginDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				vo = new LoginVO();
-				vo.setName(rs.getString("name"));
-
-			}
-			
+				vo.setId(rs.getString(1));
+				vo.setPasswd(rs.getString(2));
+				vo.setName(rs.getString(3));
+				}		
 			
 		} catch (Exception e) {
 			e.printStackTrace();

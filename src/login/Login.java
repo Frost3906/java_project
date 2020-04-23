@@ -106,13 +106,14 @@ public class Login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_login) {
 			System.out.println("로그인");
-			LoginDAO dao = new LoginDAO();
-			LoginVO vo = new LoginVO();
-			vo = dao.login(txt_id.getText(), txt_pw.getText());
-			if(vo.getName()!=null) {
-				String a = txt_id.getText();
+			LoginDAO dao = new LoginDAO();			
+			LoginVO vo = dao.login(txt_id.getText(), txt_pw.getText());
+			if(vo !=null) {
+			//	String a = txt_id.getText();
 				Board board = new Board();
-				board.getid(a);
+//				LoginVO vo2 = new LoginVO();
+				//vo2.setId(txt_id.getText());
+				board.getvo(vo);
 				board.show();
 				dispose();
 //

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.sql.rowset.serial.SerialBlob;
@@ -236,6 +237,8 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 			if(retVal==0) {//열기 버튼 클릭한 경우
 				songFile= choo.getSelectedFile();
 				textField.setText(songFile.getName());
+				
+				
 				Object[] objlist = {songFile.getName()};
 				model.addRow(objlist);
 			

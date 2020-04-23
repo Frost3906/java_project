@@ -62,7 +62,7 @@ public class BoardDAO {
 	public BoardVO view(int boardno) {
 		// 게시글을 클릭 하였을때, 게시글의 내용을 보여줌 boardno로 검색
 		
-		String sql = "select contentname,content,boardno from board where boardno=?";
+		String sql = "select contentname,content,boardno,writer from board where boardno=?";
 		
 		BoardVO vo = null;
 		try(Connection con= getConnection();
@@ -76,6 +76,7 @@ public class BoardDAO {
 				vo=new BoardVO();
 			vo.setContentname(rs.getString("contentname"));
 			vo.setContent(rs.getString("content"));
+			vo.setWriter(rs.getString("writer"));
 			vo.setBoardno(rs.getInt("boardno"));
 			
 			}
@@ -164,6 +165,29 @@ public class BoardDAO {
 	
 	
 	
+	public int writecomment(BoardVO vo) {
+		
+		String sql = "insert into commenter values(?,?,?,now())";
+		int result=0;
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, vo.getBoardno());
+			pstmt.setString(2, vo.getCommentwriter());
+			pstmt.setString(3, vo.getComment());
+
+
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+		}
+		
+		return result;
+		
+	}
+	
+	
 	
 	
 	public Vector<BoardVO> Searchcontentname (String s){
@@ -193,14 +217,14 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public Vector<BoardVO> Searchwriter (String s){
+	public Vector<BoardVO> Searchwriter (String txt){
 		
 		String sql = "select contentname,writer,boardno,writedate,viewcount from board where writer like ? order by boardno desc";
 		Vector<BoardVO> list = new Vector<BoardVO>();
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
-			pstmt.setString(1, "%"+s+"%");
+			pstmt.setString(1, "%"+txt+"%");
 			
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -246,6 +270,58 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	
+	
+	
+	
+	
+	public Vector<BoardVO> commentSearch (int boardno){
+		
+		String sql = "select commentwriter,comment,writedate from commenter where boardno = ? order by writedate asc";
+		Vector<BoardVO> list = new Vector<BoardVO>();
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, boardno);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setCommentwriter(rs.getString("commentwriter"));
+				vo.setComment(rs.getString("comment"));
+				vo.setWritedate(rs.getString("writedate"));
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	public LoginVO getid2(LoginVO vo) {
+		String sql = "select id from userTBL where id like ?";
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, vo.getId());
+			
+			ResultSet rs = pstmt.executeQuery();
+			vo = null;
+			
+			if(rs.next()) {
+				vo.setId(rs.getString("id"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+		
+	}
+	
 	
 	public void viewcount(int view,int boardno) {
 		
