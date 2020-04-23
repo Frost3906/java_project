@@ -60,7 +60,7 @@ public class Login extends JFrame implements ActionListener {
 	 */
 	public Login() {
 		setTitle("Music Player");	
-		 icon = new ImageIcon("D:\\javasource\\java_project\\src\\login\\intro.jpg");
+		 icon = new ImageIcon("intro.jpg");
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -111,16 +111,16 @@ public class Login extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_login) {
-			System.out.println("로그인");
 			LoginDAO dao = new LoginDAO();
 			LoginVO vo = new LoginVO();
+			vo = dao.login(txt_id.getText(), txt_pw.getText());
+			System.out.println(vo);
 			if(vo.getName()!=null) {
 				String a = txt_id.getText();
 				Board board = new Board();
 				board.getid(a);
 				board.show();
 				dispose();
-//				main.showMainI();				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
 			}			
