@@ -15,11 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-<<<<<<< HEAD
-import java.util.Vector;
-=======
 import java.util.ArrayList;
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.sql.rowset.serial.SerialBlob;
