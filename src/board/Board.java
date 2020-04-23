@@ -147,12 +147,8 @@ public class Board extends JFrame implements ActionListener{
 			
 			for(BoardVO vo:vec) {
 				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
-				model.addRow(objlist);
-
-				
-			}
-			
-			
+				model.addRow(objlist);		
+			}		
 		}
 	
 
@@ -186,48 +182,41 @@ public class Board extends JFrame implements ActionListener{
 			bvc.show();
 			int c = Integer.parseInt(a);
 			dao.viewcount(b, c);
-			dispose();
-			
+			dispose();		
 		}
 		
 		if(btn==btn_search) {  //  글 검색
-			Vector<BoardVO> vec = new Vector<>();
-			
-//				model = (DefaultTableModel) table.getModel();
-			
-			
+			Vector<BoardVO> vec = new Vector<>();			
+//				model = (DefaultTableModel) table.getModel();					
 			if(cbox.getSelectedItem().equals("제목")) {
 				String box = "contentname";
-				String txt = txt_search.getText();
-				
+				String txt = txt_search.getText();			
 				model.setNumRows(0);
-			vec=dao.Searchcontentname(txt);
-			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
-				model.addRow(objlist);
-			}
+				vec=dao.Searchcontentname(txt);
+				for(BoardVO vo:vec) {
+					Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
+					model.addRow(objlist);
+				}
 			}
 			else if(cbox.getSelectedItem().equals("글내용")) {
 				String txt = txt_search.getText();
 				model.setNumRows(0);
-			vec=dao.Searchcontent(txt);
-			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
-				model.addRow(objlist);
-			}
+				vec=dao.Searchcontent(txt);
+				for(BoardVO vo:vec) {
+					Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
+					model.addRow(objlist);
+				}
 			}else if(cbox.getSelectedItem().equals("작성자")) {
 				String txt = txt_search.getText();
 				model.setNumRows(0);
-			vec=dao.Searchwriter(txt);
-			for(BoardVO vo:vec) {
-				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
-				model.addRow(objlist);
+				vec=dao.Searchwriter(txt);
+				for(BoardVO vo:vec) {
+					Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
+					model.addRow(objlist);
+				}
 			}
-			}
-			
-			
-		}
-		
+						
+		}		
 		if(btn==btn_write) {   //  글 쓰기
 			BoardWrite bw = new BoardWrite();
 			String a = la_id.getText();
@@ -235,14 +224,10 @@ public class Board extends JFrame implements ActionListener{
 			bw.show();
 			dispose();
 		}
-		
-		
-		
+				
 		if(btn==btn_refresh) {   //  새로고침
 			refresh();
-		}
-		
-		
+		}		
 	}
 	
 	public void refresh() {
@@ -250,8 +235,6 @@ public class Board extends JFrame implements ActionListener{
 		addview();
 		
 	}
-	
-	
 	public void getid(String a) {
 		la_id.setText(a);
 	}

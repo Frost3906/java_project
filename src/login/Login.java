@@ -46,7 +46,7 @@ public class Login extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					Login frame = new Login();
-					frame.setSize(450, 300);
+					//frame.setSize(450, 300);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,8 +60,10 @@ public class Login extends JFrame implements ActionListener {
 	 */
 	public Login() {
 		setTitle("Music Player");	
-
+		setBounds(700, 300, 450, 300);
+		
 		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
+		
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				super.paintComponents(g);
@@ -70,6 +72,7 @@ public class Login extends JFrame implements ActionListener {
 //				setVisible(true);
 			}
 		};
+		
 		background.setLayout(null);
 			
 		scrollPane = new JScrollPane(background);
