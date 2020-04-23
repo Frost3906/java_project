@@ -79,7 +79,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 460, 395);
+		setBounds(100, 100, 490, 439);
 		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,7 +92,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		panel.setLayout(null);
 		
 		panel_1 = new JPanel();
-		panel_1.setBounds(12, 10, 428, 70);
+		panel_1.setBounds(12, 10, 450, 114);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -107,7 +107,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		panel_1.add(btnNewButton_2);
 		
 		btn_play = new JToggleButton();
-		btn_play.setText("PLAY");
+		btn_play.setText("PLAY / STOP");
 		btn_play.addActionListener(this); 
 		btn_play.setIcon(null);
 		btn_play.setBounds(66, 36, 140, 23);
@@ -122,7 +122,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		panel_1.add(btnNewButton);
 		
 		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(332, 37, 83, 21);
+		btn_upload.setBounds(332, 37, 106, 21);
 		btn_upload.addActionListener(this);
 		panel_1.add(btn_upload);
 		
@@ -131,13 +131,17 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		btnNewButton_1.setBounds(275, 36, 45, 23);
 		panel_1.add(btnNewButton_1);
 		
-		btn_open = new JButton("Open File");
+		btn_open = new JButton("＋");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(275, 4, 140, 23);
+		btn_open.setBounds(275, 5, 45, 23);
 		panel_1.add(btn_open);
 		
+		JButton btnNewButton_4 = new JButton("－");
+		btnNewButton_4.setBounds(332, 5, 45, 23);
+		panel_1.add(btnNewButton_4);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 92, 428, 255);
+		scrollPane.setBounds(12, 134, 450, 255);
 		contentPane.add(scrollPane);
 		
 		JList list = new JList();
@@ -217,20 +221,20 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 				textField.setText(songFile.getName());
 			
 			}
-		
-		}else if(e.getSource()==btn_play){
-			
-			try {
-				thread.start();
-				play = new Player(new FileInputStream(songFile));
-				play.play();
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (JavaLayerException e1) {
-				e1.printStackTrace();
-			}
-		
 		}
+//		}else if(e.getSource()==btn_play){
+//			
+//			try {
+//				
+//				play = new Player(new FileInputStream(songFile));
+//				play.play();
+//			} catch (FileNotFoundException e1) {
+//				e1.printStackTrace();
+//			} catch (JavaLayerException e1) {
+//				e1.printStackTrace();
+//			}
+//		
+//		}
 			
 	}
 
@@ -239,14 +243,14 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	public void itemStateChanged(ItemEvent e) {
 	
 		if(e.getStateChange()==1){
-//			try {
-////				play = new Player(new FileInputStream(songFile));
-////				play.play();
-//			} catch (FileNotFoundException e1) {
-//				e1.printStackTrace();
-//			} catch (JavaLayerException e1) {
-//				e1.printStackTrace();
-//			}
+			try {
+				play = new Player(new FileInputStream(songFile));
+				play.play();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (JavaLayerException e1) {
+				e1.printStackTrace();
+			}
 		}else {
 			play.close();
 		}
