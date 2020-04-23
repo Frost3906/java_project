@@ -67,7 +67,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	private Thread thread = new Thread();
 	private JTable table;
 	private DefaultTableModel model;
-	private JButton btn_test;
 	SoundJLayer soundToPlay;
 	
 	public static void main(String[] args) {
@@ -89,7 +88,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 467, 443);
+		setBounds(100, 100, 467, 421);
 		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -154,7 +153,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 85, 431, 304);
+		scrollPane.setBounds(12, 85, 431, 284);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -171,10 +170,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
 		scrollPane.setViewportView(table);
-		
-		btn_test = new JButton("추가버튼 test");
-		btn_test.setBounds(174, 357, 97, 23);
-		contentPane.add(btn_test);
 		
 		
 
@@ -236,6 +231,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
+				vo.setTitle(file.getName());
 			
 				dao.upload(vo);
 				 
