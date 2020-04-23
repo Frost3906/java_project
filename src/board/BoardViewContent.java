@@ -74,7 +74,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 
 	public BoardViewContent() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 450);
+		setBounds(100, 100, 900, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setTitle("게시판");
@@ -192,11 +192,11 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		 txt_con = new JTextArea();
 		txt_con.setLineWrap(true);
-		txt_con.setBounds(77, 461, 715, 50);
+		txt_con.setBounds(77, 461, 693, 50);
 		contentPane.add(txt_con);
 		
 		 btn_con = new JButton("댓글작성");
-		btn_con.setBounds(794, 461, 85, 50);
+		btn_con.setBounds(771, 461, 108, 50);
 		contentPane.add(btn_con);
 		
 		 la_conid = new JLabel("id");
