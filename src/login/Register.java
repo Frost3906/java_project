@@ -131,11 +131,13 @@ public class Register extends JFrame implements ActionListener{
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		btn_regcheck = new JButton("등록");
+		btn_regcheck.addActionListener(this);
 		btn_regcheck.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_regcheck.setBackground(new Color(255, 192, 203));
 		panel_1.add(btn_regcheck);
 		
 		btn_regcancel = new JButton("취소");
+		btn_regcancel.addActionListener(this);
 		btn_regcancel.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_regcancel.setBackground(new Color(255, 192, 203));
 		panel_1.add(btn_regcancel);
@@ -168,13 +170,14 @@ public class Register extends JFrame implements ActionListener{
 			int result = ldao.reg(vo);
 			
 			if(result > 0) {
-				System.out.println();
 				this.dispose();
 				JOptionPane.showMessageDialog(this, "성공");				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
-				this.dispose();
 			}
+			
+		}else {
+			dispose();
 		}
 	}
 	

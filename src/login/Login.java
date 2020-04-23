@@ -125,8 +125,8 @@ public class Login extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "실패");
 			}			
 		
-			}else if(e.getSource()==btn_reg) {		
-					Register register = new Register();
+		}else if(e.getSource()==btn_reg) {		
+				Register register = new Register();
 		}	
 	}
 }

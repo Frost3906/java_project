@@ -64,9 +64,7 @@ public class MusicDBLoader extends JFrame implements ActionListener{
 			MusicDAO dao = new MusicDAO();
 			Vector<MusicVO> vecList = dao.getMusicList();
 			System.out.println(vecList);
-			vecList.
-			
-			JList<String> list = new JList<>());
+			JList<MusicVO> list = new JList<>(vecList);
 			scrollPane.setViewportView(list);
 		}
 		
