@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
+
+import com.mysql.cj.jdbc.Blob;
 
 import login.LoginVO;
 
@@ -52,6 +55,29 @@ public class MusicDAO {
 		}
 		
 		return result;
+		
+	}
+	public Vector<MusicVO> getMusicList(){
+		Vector<MusicVO> vecList = new Vector<MusicVO>();
+		String sql = "select * from musicTBL";
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			
+			while(rs.next()) {
+				MusicVO vo = new MusicVO();
+				vo.setBlob((Blob) rs.getBlob(1));
+				vo.setTitle((rs.getString(2)));
+			
+				vecList.add(vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vecList;
 		
 	}
 

@@ -38,7 +38,11 @@ public class LoginDAO {
 	public LoginVO login(String id,String passwd) {
 		LoginVO vo = null;
 		
+<<<<<<< HEAD
 		String sql = "select * from userTBL where id = ? and passwd = ?";
+=======
+		String sql = "select * from userTBL where id like ? and passwd like ?";
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 		
 		try (Connection con = getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -47,10 +51,20 @@ public class LoginDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				vo = new LoginVO();
+<<<<<<< HEAD
 				vo.setId(rs.getString(1));
 				vo.setPasswd(rs.getString(2));
 				vo.setName(rs.getString(3));
 				}		
+=======
+				vo.setId(rs.getString("id"));
+				vo.setPasswd(rs.getString("passwd"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+
+			}
+			
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 			
 		} catch (Exception e) {
 			e.printStackTrace();

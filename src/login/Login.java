@@ -1,53 +1,52 @@
 package login;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import board.Board;
 import main.*;
+import main.FirstPanel;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.FlowLayout;
 
-public class Login extends JFrame implements ActionListener{
-	private FirstPanel main;
-	private JPanel contentPane;
-	private JPanel panel = new JPanel();
-	private JPanel panel_1 = new JPanel();
-	private JPanel panel_2 = new JPanel();
-	private JPanel panel_3 = new JPanel();
-	private JPanel panel_4 = new JPanel();
-	private JButton btn_reg = new JButton("회원가입");
-	private JButton btn_login = new JButton("로그인");
-	private JLabel lb_id = new JLabel("아이디:");
-	private JTextField txt_id = new JTextField();
-	private JLabel lb_pw = new JLabel("비밀번호:");
+public class Login extends JFrame implements ActionListener {
 	
-	private ImageIcon icon;
+	private JScrollPane scrollPane;
+	private ImageIcon icon;	
+	private JButton btn_reg = new JButton("Sign Up");
+	private JButton btn_login = new JButton("Sign In");
+	private JLabel lb_id = new JLabel("Username");
+	private JTextField txt_id = new JTextField();	
+	private JLabel lb_pw = new JLabel("Password");	
 
-	private final JTextField txt_pw = new JPasswordField();
-
+	private JTextField txt_pw = new JPasswordField();	
+	private JPasswordField passwordField;
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Login frame = new Login();
+					frame.setSize(450, 300);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,77 +55,92 @@ public class Login extends JFrame implements ActionListener{
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public Login() {
-		icon = new ImageIcon("D:\\javasource\\java_project\\src\\login.jpg");
-		txt_pw.setBounds(196, 7, 116, 21);
-		txt_pw.setColumns(10);
-		txt_id.setBounds(196, 81, 116, 21);
-		txt_id.setColumns(10);
-		setTitle("로그인");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));	
-		contentPane.add(panel, BorderLayout.CENTER);	
-		panel.setLayout(new BorderLayout(0, 0));	
-		panel.add(panel_1, BorderLayout.CENTER);	
-		panel_1.setLayout(new GridLayout(2, 1, 0, 0));	
-		panel_1.add(panel_3);
-		panel_3.setLayout(null);
-		lb_id.setBounds(139, 84, 57, 15);	
-		panel_3.add(lb_id);	
-		panel_3.add(txt_id);
-		panel_1.add(panel_2);
-		panel_2.setLayout(null);
-		lb_pw.setBounds(127, 10, 57, 15);	
-		panel_2.add(lb_pw);	
-		panel_2.add(txt_pw);		
-		FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
-		flowLayout.setVgap(10);
-		panel.add(panel_4, BorderLayout.SOUTH);		
-		btn_reg.setBackground(new Color(255, 192, 203));
-		btn_reg.setFont(new Font("굴림", Font.BOLD, 12));
-		panel_4.add(btn_reg);		
-		btn_login.setBackground(new Color(255, 192, 203));
-		btn_login.setFont(new Font("굴림", Font.BOLD, 12));
-		panel_4.add(btn_login);
-	
-		setVisible(true);		
-		btn_login.addActionListener(this);
-		btn_reg.addActionListener(this);				
-	}
+		setTitle("Music Player");	
 
-	public void setMain(FirstPanel main) {
-		this.main = main;
+		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
+		JPanel background = new JPanel() {
+			public void paintComponent(Graphics g) {
+				super.paintComponents(g);
+				Dimension d = getSize();
+				g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+//				setVisible(true);
+			}
+		};
+		background.setLayout(null);
+			
+		scrollPane = new JScrollPane(background);
+		setContentPane(scrollPane);	
+		
+	
+				
+		lb_id.setBounds(129, 100, 63, 15);
+		background.add(lb_id);
+		
+		lb_pw.setBounds(129, 136, 61, 15);
+		background.add(lb_pw);
+		
+		txt_id = new JTextField();
+		txt_id.setBounds(202, 97, 118, 21);
+		background.add(txt_id);
+		txt_id.setColumns(10);
+		
+		txt_pw = new JPasswordField();
+		txt_pw.setBounds(202, 133, 118, 21);
+		background.add(txt_pw);
+		setContentPane(scrollPane);	
+		
+		btn_reg.setForeground(new Color(255, 255, 255));
+		btn_reg.setBackground(new Color(0, 51, 102));
+		btn_reg.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_reg.setBounds(126, 202, 85, 23);
+		background.add(btn_reg);
+		
+		btn_login.setForeground(new Color(255, 255, 255));
+		btn_login.setBackground(new Color(0, 51, 102));
+		btn_login.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_login.setBounds(223, 202, 85, 23);
+		background.add(btn_login);
+
+		
+		setVisible(true);
+		btn_login.addActionListener(this);
+		btn_reg.addActionListener(this);			
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_login) {
+<<<<<<< HEAD
 			System.out.println("로그인");
 			LoginDAO dao = new LoginDAO();			
 			LoginVO vo = dao.login(txt_id.getText(), txt_pw.getText());
 			if(vo !=null) {
 			//	String a = txt_id.getText();
+=======
+			LoginDAO dao = new LoginDAO();
+			LoginVO vo = new LoginVO();
+			vo = dao.login(txt_id.getText(), txt_pw.getText());
+			System.out.println(vo);
+			if(vo.getName()!=null) {
+				String a = txt_id.getText();
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 				Board board = new Board();
 //				LoginVO vo2 = new LoginVO();
 				//vo2.setId(txt_id.getText());
 				board.getvo(vo);
 				board.show();
 				dispose();
-//
-//				main.showMainI();				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
 			}			
 		
-			}else if(e.getSource()==btn_reg) {
-			
-				main.showRegFrm();	
-			}	
+		}else if(e.getSource()==btn_reg) {		
+				Register register = new Register();
+		}	
 	}
 }
-
-
