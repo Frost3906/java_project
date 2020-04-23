@@ -2,6 +2,7 @@ package login;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,25 +17,26 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+
 import java.awt.Font;
+import java.awt.Graphics;
 
 
 public class Register extends JFrame implements ActionListener{
-
-	private JPanel contentPane;
+	
+	private JScrollPane scrollPane;
+	private ImageIcon icon;
 	private LoginDAO ldao;
-	private JPanel panel;
-	private JButton btn_regcheck;
-	private JButton btn_regcancel;
-
 	private JTextField txt_regid;
+	private JTextField txt_regpw;
 	private JTextField txt_regname;
 	private JTextField txt_regmail;
-	private JTextField textField;
-
-	private final JPasswordField txt_regpw = new JPasswordField();
+	private JButton btn_regcheck;
+	private JButton btn_regcancel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,112 +55,94 @@ public class Register extends JFrame implements ActionListener{
 	public Register() {
 		setTitle("회원가입");
 		
+		setBounds(100, 100, 450, 300);
+		
 		ldao = new LoginDAO();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		icon = new ImageIcon(Register.class.getResource("intro_register.jpg"));
+		JPanel background = new JPanel() {
+			public void paintComponent(Graphics g) {
+				super.paintComponents(g);
+				Dimension d = getSize();
+				g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+				setVisible(true);
+			}
+		};
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(4, 1, 0, 0));
+		scrollPane = new JScrollPane(background);
+		background.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-		panel_2.setLayout(null);
+		JLabel lb_title = new JLabel("회원가입");
+		lb_title.setFont(new Font("굴림", Font.BOLD, 20));
+		lb_title.setBounds(182, 17, 88, 26);
+		background.add(lb_title);
 		
-		JLabel lb_regid = new JLabel("ID");
-		lb_regid.setFont(new Font("굴림", Font.BOLD, 12));
-		lb_regid.setBounds(165, 10, 13, 15);
-		panel_2.add(lb_regid);
+		JLabel lb_regid = new JLabel("Username");
+		lb_regid.setBounds(132, 61, 64, 15);
+		background.add(lb_regid);
 		
 		txt_regid = new JTextField();
-		txt_regid.setBounds(190, 7, 116, 21);
-		panel_2.add(txt_regid);
+		txt_regid.setBounds(215, 57, 116, 21);
+		background.add(txt_regid);
 		txt_regid.setColumns(10);
 		
-		JPanel panel_4 = new JPanel();
-		panel.add(panel_4);
-		panel_4.setLayout(null);
+		JLabel lb_regpw = new JLabel("Password");
+		lb_regpw.setBounds(133, 95, 67, 15);
+		background.add(lb_regpw);
 		
-		JLabel lb_regpw = new JLabel("PASSWORD");
-		lb_regpw.setFont(new Font("굴림", Font.BOLD, 12));
-		lb_regpw.setBounds(103, 10, 75, 15);
-		panel_4.add(lb_regpw);
-		
-	
-		txt_regpw.setBounds(190, 7, 116, 21);
-		panel_4.add(txt_regpw);
-		
-		textField = new JTextField();
-		textField.setBounds(190, 7, 116, 21);
-		panel_4.add(textField);
-		textField.setColumns(10);
+		txt_regpw = new JTextField();
+		txt_regpw.setBounds(215, 90, 116, 21);
+		background.add(txt_regpw);
 		txt_regpw.setColumns(10);
 		
-		JPanel panel_5 = new JPanel();
-		panel.add(panel_5);
-		panel_5.setLayout(null);
-		
 		JLabel lb_regname = new JLabel("이름");
-		lb_regname.setFont(new Font("굴림", Font.BOLD, 12));
-		lb_regname.setBounds(152, 10, 26, 15);
-		panel_5.add(lb_regname);
+		lb_regname.setBounds(166, 129, 30, 15);
+		background.add(lb_regname);
 		
 		txt_regname = new JTextField();
-		txt_regname.setBounds(190, 7, 116, 21);
-		panel_5.add(txt_regname);
+		txt_regname.setBounds(215, 124, 116, 21);
+		background.add(txt_regname);
 		txt_regname.setColumns(10);
 		
-		JPanel panel_3 = new JPanel();
-		panel.add(panel_3);
-		panel_3.setLayout(null);
-		
 		JLabel lb_regmail = new JLabel("이메일");
-		lb_regmail.setFont(new Font("굴림", Font.BOLD, 12));
-		lb_regmail.setBounds(139, 10, 39, 15);
-		panel_3.add(lb_regmail);
+		lb_regmail.setBounds(154, 164, 41, 15);
+		background.add(lb_regmail);
 		
 		txt_regmail = new JTextField();
-		txt_regmail.setBounds(190, 7, 116, 21);
-		panel_3.add(txt_regmail);
+		txt_regmail.setBounds(215, 158, 116, 21);
+		background.add(txt_regmail);
 		txt_regmail.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		btn_regcheck = new JButton("등록");
 		btn_regcheck.addActionListener(this);
+		btn_regcheck.setForeground(new Color(255, 255, 255));
+		btn_regcheck.setBackground(new Color(0, 51, 102));
 		btn_regcheck.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_regcheck.setBackground(new Color(255, 192, 203));
-		panel_1.add(btn_regcheck);
+		btn_regcheck.setBounds(147, 211, 70, 26);
+		background.add(btn_regcheck);
 		
 		btn_regcancel = new JButton("취소");
 		btn_regcancel.addActionListener(this);
+
+		btn_regcancel.setForeground(new Color(255, 255, 255));
+		btn_regcancel.setBackground(new Color(0, 51, 120));
 		btn_regcancel.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_regcancel.setBackground(new Color(255, 192, 203));
-		panel_1.add(btn_regcancel);
+		btn_regcancel.setBounds(229, 211, 70, 26);
+		background.add(btn_regcancel);
 		
-		JPanel panel_6 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_6.getLayout();
-		flowLayout.setVgap(10);
-		contentPane.add(panel_6, BorderLayout.NORTH);
-		
-		JLabel lblNewLabel = new JLabel("회원가입");
-		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 17));
-		panel_6.add(lblNewLabel);
-		
+	
+		setContentPane(scrollPane);	
 		setVisible(true);
-		btn_regcheck.addActionListener(this);
 		
+		btn_regcheck.addActionListener(this);
+			
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==btn_regcheck) {
+		if(e.getSource() == btn_regcheck) {
 			LoginVO vo = new LoginVO();
 		
 			vo.setId(txt_regid.getText());
@@ -180,5 +164,4 @@ public class Register extends JFrame implements ActionListener{
 			dispose();
 		}
 	}
-	
 }
