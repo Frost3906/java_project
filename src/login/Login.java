@@ -37,6 +37,7 @@ public class Login extends JFrame implements ActionListener {
 	private JLabel lb_pw = new JLabel("Password");	
 
 	private JTextField txt_pw = new JPasswordField();	
+	private JPasswordField passwordField;
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +60,10 @@ public class Login extends JFrame implements ActionListener {
 	 */
 	public Login() {
 		setTitle("Music Player");	
-		icon = new ImageIcon("D:\\javasource\\java_project\\src\\login\\intro.jpg");
+
+		icon = new ImageIcon("intro.jpg");
+
+
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -80,14 +84,14 @@ public class Login extends JFrame implements ActionListener {
 		background.add(lb_pw);
 		
 		txt_id = new JTextField();
-		txt_id.setBounds(204, 97, 116, 21);
+		txt_id.setBounds(202, 97, 118, 21);
 		background.add(txt_id);
 		txt_id.setColumns(10);
 		
-		txt_pw = new JTextField();
-		txt_pw.setBounds(204, 133, 116, 21);
+		txt_pw = new JPasswordField();
+		txt_pw.setBounds(202, 133, 118, 21);
 		background.add(txt_pw);
-		txt_pw.setColumns(10);
+		setContentPane(scrollPane);	
 		
 		btn_reg.setForeground(new Color(255, 255, 255));
 		btn_reg.setBackground(new Color(0, 51, 102));
@@ -100,6 +104,7 @@ public class Login extends JFrame implements ActionListener {
 		btn_login.setFont(new Font("굴림", Font.BOLD, 12));
 		btn_login.setBounds(223, 202, 85, 23);
 		background.add(btn_login);
+
 		
 		setVisible(true);
 		btn_login.addActionListener(this);
@@ -110,17 +115,16 @@ public class Login extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_login) {
-			System.out.println("로그인");
 			LoginDAO dao = new LoginDAO();
 			LoginVO vo = new LoginVO();
 			vo = dao.login(txt_id.getText(), txt_pw.getText());
+			System.out.println(vo);
 			if(vo.getName()!=null) {
 				String a = txt_id.getText();
 				Board board = new Board();
 				board.getid(a);
 				board.show();
 				dispose();
-//				main.showMainI();				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
 			}			
@@ -129,5 +133,4 @@ public class Login extends JFrame implements ActionListener {
 					Register register = new Register();
 		}	
 	}
-	
 }
