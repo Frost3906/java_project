@@ -125,7 +125,7 @@ public class Login extends JFrame implements ActionListener {
 			if(vo.getName()!=null) {
 				String a = txt_id.getText();
 				Board board = new Board();
-				board.getid(a);
+				board.getvo(vo);
 				board.show();
 				dispose();
 			}else {

@@ -14,7 +14,7 @@ public class BoardVO {
 	private int boardno,viewcount;
 	private String content;
 	private String contentname;
-	private String writer,writedate;
+	private String writer,writedate,comment,commentwriter,id;
 	
 
 }

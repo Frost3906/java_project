@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import login.LoginVO;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -24,6 +27,7 @@ public class BoardWrite extends JFrame implements ActionListener{
 	private JButton btn_write;
 	private JTextArea txt_content;
 	private JLabel la_id = new JLabel("testid");
+	private LoginVO vo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -84,17 +88,18 @@ public class BoardWrite extends JFrame implements ActionListener{
 		
 		
 		if(btn == btn_write) {
-			BoardVO vo = new BoardVO();
+			BoardVO bo = new BoardVO();
 			BoardDAO dao = new BoardDAO();
-			vo.setContentname(txt_main.getText());
-			vo.setContent(txt_content.getText());
-			vo.setWriter(la_id.getText());
-			int result = dao.write(vo);
+			bo.setContentname(txt_main.getText());
+			bo.setContent(txt_content.getText());
+			bo.setWriter(la_id.getText());
+			int result = dao.write(bo);
 			
 			if(result !=0) {
 				JOptionPane.showMessageDialog(this, "글이 등록되었습니다.", "게시글 작성",JOptionPane.INFORMATION_MESSAGE);
 				Board board = new Board();
 				board.refresh();
+				board.getvo(vo);
 				dispose();
 			}else {
 				JOptionPane.showMessageDialog(this, "글등록이 실패하였습니다.", "게시글 작성",JOptionPane.WARNING_MESSAGE);
@@ -107,14 +112,17 @@ public class BoardWrite extends JFrame implements ActionListener{
 		if(btn == btn_back) {
 			Board board = new Board();
 			board.refresh();
+			board.getvo(vo);
 			dispose();
 		}
 		
 		
 	}
 	
-	public void writeid(String a) {
-		la_id.setText(a);
+	public void getvo(LoginVO vo) {
+		this.vo = vo;
+		la_id.setText(vo.getId());
+		
 	}
 
 }

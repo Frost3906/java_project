@@ -14,7 +14,10 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.awt.FlowLayout;
@@ -46,6 +49,7 @@ public class Board extends JFrame implements ActionListener{
 	private JComboBox cbox;
 	private JButton btn_refresh;
 	private JLabel la_id;
+	private LoginVO voo;
 	
 	
 	public static void main(String[] args) {
@@ -133,6 +137,10 @@ public class Board extends JFrame implements ActionListener{
 		addview();
 		setVisible(true);
 		
+		
+
+		
+		
 	}
 		
 		public void addview() { // 게시판 보이기
@@ -153,7 +161,7 @@ public class Board extends JFrame implements ActionListener{
 		JButton btn = (JButton) e.getSource();
 		
 		if(btn == btn_read) {   //  글 보기
-			BoardVO vo = new BoardVO();
+			BoardVO bo = new BoardVO();
 			int rownum = table.getSelectedRow();
 			Object value = table.getValueAt(rownum, 2);  // boardno 값
 			Object value2 = table.getValueAt(rownum, 4);  // viewcount 값
@@ -169,10 +177,9 @@ public class Board extends JFrame implements ActionListener{
 			
 			BoardViewContent bvc = new BoardViewContent();
 			String idval = la_id.getText();
-
-			bvc.getid(idval);
+			
+			bvc.getvo(voo);
 			bvc.textfill(boardno);
-			bvc.checkid(idval2);
 			bvc.show();
 			int c = Integer.parseInt(a);
 			dao.viewcount(b, c);
@@ -213,10 +220,11 @@ public class Board extends JFrame implements ActionListener{
 		}		
 		if(btn==btn_write) {   //  글 쓰기
 			BoardWrite bw = new BoardWrite();
-			String a = la_id.getText();
-			bw.writeid(a);
+			bw.getvo(voo);
 			bw.show();
 			dispose();
+			
+			
 		}
 				
 		if(btn==btn_refresh) {   //  새로고침
@@ -229,8 +237,14 @@ public class Board extends JFrame implements ActionListener{
 		addview();
 		
 	}
-	public void getid(String a) {
-		la_id.setText(a);
+
+	
+	public void getvo(LoginVO vo) {
+		this.voo = vo;
+		la_id.setText(vo.getId());
+		
 	}
+	
+	
 	
 }
