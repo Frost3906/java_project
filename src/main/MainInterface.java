@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -35,9 +38,12 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 
-public class MainInterface extends JFrame implements ActionListener{
+public class MainInterface extends JFrame implements ActionListener,ItemListener{
 
 	private JPanel contentPane;
 	private JButton btn_upload, btn_open;
@@ -50,7 +56,10 @@ public class MainInterface extends JFrame implements ActionListener{
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_3;
 	private JToggleButton btn_play;
-
+	private Thread thread = new Thread();
+	private JTable table;
+	private DefaultTableModel model;
+	private JButton btn_test;
 
 	public static void main(String[] args) {
 		
@@ -73,8 +82,9 @@ public class MainInterface extends JFrame implements ActionListener{
 
 
 	public MainInterface() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 460, 119);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 467, 418);
+		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -130,6 +140,30 @@ public class MainInterface extends JFrame implements ActionListener{
 		btn_open.setBounds(275, 4, 140, 23);
 		panel_1.add(btn_open);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 92, 428, 255);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		String columnName[]= {"곡명","작곡가","시간"};
+		model = new DefaultTableModel(columnName,0) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		table = new JTable(model);
+		table.setFont(new Font("굴림", Font.PLAIN, 15));
+		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
+		scrollPane.setViewportView(table);
+		
+		btn_test = new JButton("추가버튼 test");
+		btn_test.setBounds(174, 357, 97, 23);
+		contentPane.add(btn_test);
+		
+		
+
 		
 	}
 	
@@ -202,18 +236,69 @@ public class MainInterface extends JFrame implements ActionListener{
 			if(retVal==0) {//열기 버튼 클릭한 경우
 				songFile= choo.getSelectedFile();
 				textField.setText(songFile.getName());
+				Object[] objlist = {songFile.getName()};
+				model.addRow(objlist);
 			
 			}
+		
 		}else if(e.getSource()==btn_play){
+			
 			try {
+				thread.start();
 				play = new Player(new FileInputStream(songFile));
 				play.play();
-				
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			} catch (JavaLayerException e1) {
 				e1.printStackTrace();
 			}
+		
+		}
+			
+	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+	
+		if(e.getStateChange()==1){
+//			try {
+////				play = new Player(new FileInputStream(songFile));
+////				play.play();
+//			} catch (FileNotFoundException e1) {
+//				e1.printStackTrace();
+//			} catch (JavaLayerException e1) {
+//				e1.printStackTrace();
+//			}
+		}else {
+			play.close();
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
