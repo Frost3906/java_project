@@ -134,11 +134,6 @@ public class Board extends JFrame implements ActionListener{
 		setVisible(true);
 		
 	}
-	
-	
-	
-	
-	
 		
 		public void addview() { // 게시판 보이기
 			BoardDAO dao = new BoardDAO();
@@ -151,7 +146,6 @@ public class Board extends JFrame implements ActionListener{
 			}		
 		}
 	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
