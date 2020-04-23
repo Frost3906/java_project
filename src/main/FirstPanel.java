@@ -16,7 +16,7 @@ public class FirstPanel{
         // 메인클래스 실행
     	FirstPanel main = new FirstPanel();
         main.login = new Login(); // 로그인창 보이기
-        main.login.setMain(main); // 로그인창에게 메인 클래스보내기
+        //main.login.setMain(main); // 로그인창에게 메인 클래스보내기
     }
    
     // 테스트프레임창

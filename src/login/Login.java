@@ -59,7 +59,7 @@ public class Login extends JFrame implements ActionListener {
 	 */
 	public Login() {
 		setTitle("Music Player");	
-		 icon = new ImageIcon("D:\\javasource\\java_project\\src\\login\\intro.jpg");
+		icon = new ImageIcon("D:\\javasource\\java_project\\src\\login\\intro.jpg");
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				Dimension d = getSize();
@@ -71,6 +71,7 @@ public class Login extends JFrame implements ActionListener {
 			
 		scrollPane = new JScrollPane(background);
 		background.setLayout(null);
+		setContentPane(scrollPane);	
 				
 		lb_id.setBounds(129, 100, 63, 15);
 		background.add(lb_id);
@@ -99,7 +100,6 @@ public class Login extends JFrame implements ActionListener {
 		btn_login.setFont(new Font("굴림", Font.BOLD, 12));
 		btn_login.setBounds(223, 202, 85, 23);
 		background.add(btn_login);
-		setContentPane(scrollPane);	
 		
 		setVisible(true);
 		btn_login.addActionListener(this);
