@@ -47,6 +47,7 @@ public class LoginDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				vo = new LoginVO();
+				vo.setId(rs.getString("id"));
 				vo.setName(rs.getString("name"));
 
 			}
