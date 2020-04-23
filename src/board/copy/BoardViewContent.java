@@ -1,4 +1,4 @@
-package board;
+package board.copy;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -39,6 +40,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 
 public class MainInterface extends JFrame implements ActionListener,ItemListener{
@@ -55,7 +57,9 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	private JButton btnNewButton_3;
 	private JToggleButton btn_play;
 	private Thread thread = new Thread();
-
+	private JTable table;
+	private DefaultTableModel model;
+	private JButton btn_test;
 
 	public static void main(String[] args) {
 		
@@ -79,7 +83,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 460, 395);
+		setBounds(100, 100, 467, 418);
 		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -140,9 +144,26 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		scrollPane.setBounds(12, 92, 428, 255);
 		contentPane.add(scrollPane);
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		table = new JTable();
+		String columnName[]= {"곡명","작곡가","시간"};
+		model = new DefaultTableModel(columnName,0) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		
+		table = new JTable(model);
+		table.setFont(new Font("굴림", Font.PLAIN, 15));
+		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
+		scrollPane.setViewportView(table);
+		
+		btn_test = new JButton("추가버튼 test");
+		btn_test.setBounds(174, 357, 97, 23);
+		contentPane.add(btn_test);
+		
+		
+
 		
 	}
 	
@@ -215,6 +236,8 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 			if(retVal==0) {//열기 버튼 클릭한 경우
 				songFile= choo.getSelectedFile();
 				textField.setText(songFile.getName());
+				Object[] objlist = {songFile.getName()};
+				model.addRow(objlist);
 			
 			}
 		
