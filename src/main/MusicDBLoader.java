@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 
 public class MusicDBLoader extends JFrame implements ActionListener{
@@ -63,8 +64,8 @@ public class MusicDBLoader extends JFrame implements ActionListener{
 		if(e.getSource()==btn_DBsearch) {
 			MusicDAO dao = new MusicDAO();
 			Vector<MusicVO> vecList = dao.getMusicList();
-			System.out.println(vecList);
 			JList<MusicVO> list = new JList<>(vecList);
+			
 			scrollPane.setViewportView(list);
 		}
 		

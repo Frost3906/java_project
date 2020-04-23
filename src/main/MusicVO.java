@@ -14,11 +14,14 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 
 public class MusicVO {
 	 private Blob blob;
 	 private String title;
-	 
+	 private byte[] buff;
+	@Override
+	public String toString() {
+		return title;
+	}
 	
 }

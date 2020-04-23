@@ -236,7 +236,9 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
-			
+				
+				vo.setTitle(file.getName());
+				
 				dao.upload(vo);
 				 
 			 }else {//취소 버튼 클릭한 경우
