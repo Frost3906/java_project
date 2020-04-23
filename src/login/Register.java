@@ -31,7 +31,6 @@ public class Register extends JFrame implements ActionListener{
 	private JScrollPane scrollPane;
 	private ImageIcon icon;
 	private LoginDAO ldao;
-	private JPanel panel;
 	private JTextField txt_regid;
 	private JTextField txt_regpw;
 	private JTextField txt_regname;
@@ -114,14 +113,19 @@ public class Register extends JFrame implements ActionListener{
 		background.add(txt_regmail);
 		txt_regmail.setColumns(10);
 		
-		JButton btn_regcheck = new JButton("등록");
+		JPanel panel_1 = new JPanel();
+		
+		btn_regcheck = new JButton("등록");
+		btn_regcheck.addActionListener(this);
 		btn_regcheck.setForeground(new Color(255, 255, 255));
 		btn_regcheck.setBackground(new Color(0, 51, 102));
 		btn_regcheck.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_regcheck.setBounds(147, 211, 70, 26);
 		background.add(btn_regcheck);
 		
-		JButton btn_regcancel = new JButton("취소");
+		btn_regcancel = new JButton("취소");
+		btn_regcancel.addActionListener(this);
+
 		btn_regcancel.setForeground(new Color(255, 255, 255));
 		btn_regcancel.setBackground(new Color(0, 51, 120));
 		btn_regcancel.setFont(new Font("굴림", Font.BOLD, 15));
@@ -150,13 +154,14 @@ public class Register extends JFrame implements ActionListener{
 			int result = ldao.reg(vo);
 			
 			if(result > 0) {
-				System.out.println();
 				this.dispose();
 				JOptionPane.showMessageDialog(this, "성공");				
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
-				this.dispose();
 			}
+			
+		}else {
+			dispose();
 		}
 	}
 }
