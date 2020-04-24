@@ -125,8 +125,7 @@ public class Login extends JFrame implements ActionListener {
 			LoginVO vo = new LoginVO();
 			vo = dao.login(txt_id.getText(), txt_pw.getText());
 			if(vo!=null) {
-				Board_panelver board = new Board_panelver();
-				board.getvo(vo);
+				Board_panelver board = new Board_panelver(vo);
 				board.show();
 				dispose();
 			}else {

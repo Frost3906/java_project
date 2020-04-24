@@ -24,6 +24,7 @@ import java.util.Vector;
 
 public class BoardPanel extends JPanel implements ActionListener{
 	
+
 	private JTable table;
 	private JPanel board_HeadPanel, board_FooterPanel;
 	private JScrollPane board_contentsPanel;
@@ -38,7 +39,8 @@ public class BoardPanel extends JPanel implements ActionListener{
 	
 
 	
-	public BoardPanel() {
+	public BoardPanel(LoginVO vo) {
+		this.voo=vo;
 		setBounds(12, 54, 884, 496);
 		setLayout(new BorderLayout(0, 0));
 		
@@ -65,20 +67,22 @@ public class BoardPanel extends JPanel implements ActionListener{
 		btn_write.setHorizontalAlignment(SwingConstants.RIGHT);
 		board_HeadPanel.add(btn_write);
 		
-		la_id = new JLabel("아이디");
+		la_id = new JLabel(voo.getId());
 		board_HeadPanel.add(la_id);
+
 		
 	    board_FooterPanel = new JPanel();
 		add(board_FooterPanel, BorderLayout.SOUTH);
 		
-		JLabel lblNewLabel_2 = new JLabel("1");
-		board_FooterPanel.add(lblNewLabel_2);
+		
 		
 		btn_read = new JButton("글보기");
+		btn_read.addActionListener(this);
 		btn_read.setHorizontalAlignment(SwingConstants.RIGHT);
 		board_FooterPanel.add(btn_read);
 		
 		btn_refresh = new JButton("새로고침");
+		btn_refresh.addActionListener(this);
 		board_FooterPanel.add(btn_refresh);
 		
 	 board_contentsPanel = new JScrollPane();
@@ -190,9 +194,9 @@ public class BoardPanel extends JPanel implements ActionListener{
 						
 		}
 		else if(e.getSource()==btn_write) {   //  글 쓰기
-			BoardWrite bw = new BoardWrite();
-			bw.getvo(voo);
+			BoardWrite bw = new BoardWrite(voo);
 			bw.show();
+			
 			
 		}
 				
@@ -208,11 +212,13 @@ public class BoardPanel extends JPanel implements ActionListener{
 		model.setNumRows(0);
 		addview();
 	}
-	public void setLoginID(LoginVO vo) {
-		this.voo = vo;
-		la_id.setText(vo.getId());
-		
+	
+	public void getrs(int rs) {
+		if(rs!=0) {
+			refresh();
+		}
 	}
+
 	
 	
 	

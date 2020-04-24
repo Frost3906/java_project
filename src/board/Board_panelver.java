@@ -43,7 +43,7 @@ public class Board_panelver extends JFrame implements ActionListener{
 	
 	private JComboBox cbox;
 	private JLabel la_id;
-	private LoginVO voo;
+	private static LoginVO voo;
 
 	/**
 	 * Launch the application.
@@ -52,7 +52,7 @@ public class Board_panelver extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Board_panelver frame = new Board_panelver();
+					Board_panelver frame = new Board_panelver(voo);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +64,8 @@ public class Board_panelver extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public Board_panelver() {
+	public Board_panelver(LoginVO vo) {
+		voo=vo;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 595);
@@ -74,8 +75,7 @@ public class Board_panelver extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		/*보드 패널 생성*/
-		boardPanel = new BoardPanel();
-		boardPanel.setLoginID(voo);
+		boardPanel = new BoardPanel(voo);
 		contentPane.add(boardPanel);
 		
 		playerPanel = new JPanel();
@@ -158,7 +158,6 @@ public class Board_panelver extends JFrame implements ActionListener{
 	}
 	public void getvo(LoginVO vo) {
 		this.voo = vo;
-		
 	}
 
 

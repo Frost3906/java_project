@@ -40,6 +40,9 @@ public class viewTest extends JFrame {
 		setContentPane(contentPane);
 		boardview = new BoardViewPanel();
 		contentPane.add(boardview);
+		
+		JPanel panel = new JPanel();
+		boardview.add(panel);
 	}
 
 }
