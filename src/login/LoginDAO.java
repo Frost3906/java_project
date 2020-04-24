@@ -75,7 +75,6 @@ public class LoginDAO {
 			pstmt.setString(4, vo.getEmail());
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
