@@ -45,6 +45,7 @@ public class BoardWrite extends JFrame implements ActionListener{
 	public BoardWrite() {
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		setTitle("게시글 작성");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

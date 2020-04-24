@@ -71,6 +71,7 @@ public class Board extends JFrame implements ActionListener{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 450);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -176,11 +177,6 @@ public class Board extends JFrame implements ActionListener{
 		
 		
 	}
-	
-	
-	
-	
-	
 		
 		public void addview() { // 게시판 보이기
 			BoardDAO dao = new BoardDAO();
@@ -193,7 +189,6 @@ public class Board extends JFrame implements ActionListener{
 			}		
 		}
 	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
