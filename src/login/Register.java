@@ -55,6 +55,7 @@ public class Register extends JFrame implements ActionListener{
 	public Register() {
 		setTitle("회원가입");
 		setBounds(700, 330, 450, 300);
+		setLocationRelativeTo(null);
 		
 		ldao = new LoginDAO();
 		

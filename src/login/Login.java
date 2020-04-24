@@ -59,6 +59,7 @@ public class Login extends JFrame implements ActionListener {
 	public Login() {
 		setTitle("Music Player");	
 		setBounds(700, 300, 450, 300);
+		setLocationRelativeTo(null);
 		
 		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
 		
@@ -75,9 +76,7 @@ public class Login extends JFrame implements ActionListener {
 			
 		scrollPane = new JScrollPane(background);
 		setContentPane(scrollPane);	
-			
-			
-			
+					
 		lb_id.setBounds(129, 100, 63, 15);
 		background.add(lb_id);
 		
@@ -116,8 +115,6 @@ public class Login extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
 		
 		if((e.getSource() == btn_login) || (e.getSource() == txt_pw)) {
 			LoginDAO dao = new LoginDAO();
