@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,10 +48,10 @@ public class Board extends JFrame implements ActionListener{
 	private JButton btn_read;
 	private JButton btn_search;
 	private JButton btn_write;
-	private JComboBox cbox;
 	private JButton btn_refresh;
 	private JLabel la_id;
 	private LoginVO voo;
+	private JComboBox cbox;
 	
 	
 	public static void main(String[] args) {
@@ -66,8 +68,10 @@ public class Board extends JFrame implements ActionListener{
 	}
 
 	public Board() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 450);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -77,7 +81,7 @@ public class Board extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		 cbox = new JComboBox();
+		cbox = new JComboBox();
 		cbox.setModel(new DefaultComboBoxModel(new String[] {"제목", "글내용", "작성자"}));
 		panel.add(cbox);
 		
@@ -133,20 +137,46 @@ public class Board extends JFrame implements ActionListener{
 
 		btn_search.addActionListener(this);
 		btn_write.addActionListener(this);
-
+		table.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.getClickCount()==2) {
+					view();
+					
+				}
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		
 		addview();
 		setVisible(true);
 		
-		
+		System.out.println(la_id.getText()+"접속자 id");
 
 		
 		
 	}
-	
-	
-	
-	
-	
 		
 		public void addview() { // 게시판 보이기
 			BoardDAO dao = new BoardDAO();
@@ -159,7 +189,6 @@ public class Board extends JFrame implements ActionListener{
 			}		
 		}
 	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -167,6 +196,9 @@ public class Board extends JFrame implements ActionListener{
 		JButton btn = (JButton) e.getSource();
 		
 		if(btn == btn_read) {   //  글 보기
+			
+			view();
+			
 			BoardVO bo = new BoardVO();
 			int rownum = table.getSelectedRow();
 			Object value = table.getValueAt(rownum, 2);  // boardno 값
@@ -194,7 +226,7 @@ public class Board extends JFrame implements ActionListener{
 		
 		if(btn==btn_search) {  //  글 검색
 			Vector<BoardVO> vec = new Vector<>();			
-//				model = (DefaultTableModel) table.getModel();					
+				model = (DefaultTableModel) table.getModel();					
 			if(cbox.getSelectedItem().equals("제목")) {
 				String box = "contentname";
 				String txt = txt_search.getText();			
@@ -248,6 +280,51 @@ public class Board extends JFrame implements ActionListener{
 	public void getvo(LoginVO vo) {
 		this.voo = vo;
 		la_id.setText(vo.getId());
+		
+	}
+	
+	public void view() {
+		BoardDAO dao = new BoardDAO();
+		BoardVO bo = new BoardVO();
+		int rownum = table.getSelectedRow();
+		Object value = table.getValueAt(rownum, 2);  // boardno 값
+		Object value2 = table.getValueAt(rownum, 4);  // viewcount 값
+		Object value3 = table.getValueAt(rownum, 1);  // 작성자id 값
+		
+		int b = Integer.parseInt(value2.toString());
+		String a = value.toString();
+		String idval2 = value3.toString();
+		
+		
+		
+		b+=1;
+		int boardno = Integer.parseInt(a);
+		BoardViewContent bvc = new BoardViewContent();
+		String idval = la_id.getText();
+		
+		
+		if(idval2.equals(la_id.getText())) {
+			bvc.getvo(voo);
+			bvc.textfill(boardno);
+			bvc.show();
+			int c = Integer.parseInt(a);
+			dao.viewcount(b, c);
+			dispose();
+			System.out.println(la_id.getText());
+			System.out.println(idval2);
+		}else {
+			bvc.unvi();
+			System.out.println(la_id.getText());
+			System.out.println(idval2);
+			bvc.unvi();
+			bvc.getvo(voo);
+			bvc.textfill(boardno);
+			bvc.show();
+			int c = Integer.parseInt(a);
+			dao.viewcount(b, c);
+			dispose();	
+			
+		}
 		
 	}
 	

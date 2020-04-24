@@ -336,4 +336,23 @@ public class BoardDAO {
 		
 	}
 	
+	public BoardVO gettime(BoardVO vo) {
+		String sql = "select now()";
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo.setWritedate(rs.getString("now()"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+		
+	}
+	
+	
 }
