@@ -40,7 +40,7 @@ import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
-
+import player.HaMelGomPot;
 import javazoom.jl.decoder.*;
 
 import javax.swing.JButton;
@@ -74,10 +74,10 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	private JTable table;
 	private DefaultTableModel model;
 	private JFileChooser choo;
+	private HaMelGomPot ha;
+	private String musicname;
 	
-//	SoundJLayer soundToPlay;
-	
-	
+
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -93,7 +93,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 			}
 		});
 	}
-
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -259,7 +258,17 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	@Override
 	public void itemStateChanged(ItemEvent e)  {
 		
-		
+		if(e.getStateChange()==1) {
+			//일시 정지 후 다시 재생 버튼을 누를 때 기존의 스레드 중지
+			ha.stop();
+			
+			//open 파일 경로
+			ha.open(musicname);
+			ha.start();
+			
+			//일시멈춤 후 재시작 버튼이 아니라 플레이 버튼을 누르는 경우
+			HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
+		}
 		
 	}
 }
