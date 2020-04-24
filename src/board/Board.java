@@ -48,10 +48,10 @@ public class Board extends JFrame implements ActionListener{
 	private JButton btn_read;
 	private JButton btn_search;
 	private JButton btn_write;
-	private JComboBox cbox;
 	private JButton btn_refresh;
 	private JLabel la_id;
 	private LoginVO voo;
+	private JComboBox cbox;
 	
 	
 	public static void main(String[] args) {
@@ -81,7 +81,7 @@ public class Board extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		 cbox = new JComboBox();
+		cbox = new JComboBox();
 		cbox.setModel(new DefaultComboBoxModel(new String[] {"제목", "글내용", "작성자"}));
 		panel.add(cbox);
 		
@@ -199,34 +199,34 @@ public class Board extends JFrame implements ActionListener{
 			
 			view();
 			
-//			BoardVO bo = new BoardVO();
-//			int rownum = table.getSelectedRow();
-//			Object value = table.getValueAt(rownum, 2);  // boardno 값
-//			Object value2 = table.getValueAt(rownum, 4);  // viewcount 값
-//			Object value3 = table.getValueAt(rownum, 1);  // 작성자id 값
-//			
-//			int b = Integer.parseInt(value2.toString());
-//			String a = value.toString();
-//			String idval2 = value3.toString();
-//			
-//			b+=1;
-//			int boardno = Integer.parseInt(a);
-//			
-//			
-//			BoardViewContent bvc = new BoardViewContent();
-//			String idval = la_id.getText();
-//			
-//			bvc.getvo(voo);
-//			bvc.textfill(boardno);
-//			bvc.show();
-//			int c = Integer.parseInt(a);
-//			dao.viewcount(b, c);
-//			dispose();		
+			BoardVO bo = new BoardVO();
+			int rownum = table.getSelectedRow();
+			Object value = table.getValueAt(rownum, 2);  // boardno 값
+			Object value2 = table.getValueAt(rownum, 4);  // viewcount 값
+			Object value3 = table.getValueAt(rownum, 1);  // 작성자id 값
+			
+			int b = Integer.parseInt(value2.toString());
+			String a = value.toString();
+			String idval2 = value3.toString();
+			
+			b+=1;
+			int boardno = Integer.parseInt(a);
+			
+			
+			BoardViewContent bvc = new BoardViewContent();
+			String idval = la_id.getText();
+			
+			bvc.getvo(voo);
+			bvc.textfill(boardno);
+			bvc.show();
+			int c = Integer.parseInt(a);
+			dao.viewcount(b, c);
+			dispose();		
 		}
 		
 		if(btn==btn_search) {  //  글 검색
 			Vector<BoardVO> vec = new Vector<>();			
-//				model = (DefaultTableModel) table.getModel();					
+				model = (DefaultTableModel) table.getModel();					
 			if(cbox.getSelectedItem().equals("제목")) {
 				String box = "contentname";
 				String txt = txt_search.getText();			
