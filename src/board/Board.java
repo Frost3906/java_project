@@ -68,6 +68,7 @@ public class Board extends JFrame implements ActionListener{
 	}
 
 	public Board() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 450);
 		contentPane = new JPanel();

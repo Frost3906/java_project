@@ -73,6 +73,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	}
 
 	public BoardViewContent() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 540);
 		contentPane = new JPanel();
