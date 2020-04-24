@@ -36,11 +36,9 @@ public class Login extends JFrame implements ActionListener {
 	private JTextField txt_id = new JTextField();	
 	private JLabel lb_pw = new JLabel("Password");	
 
-	private JTextField txt_pw = new JPasswordField();	
-	private JPasswordField passwordField;
-	/**
-	 * Launch the application.
-	 */
+	private JPasswordField txt_pw = new JPasswordField();	
+
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -92,6 +90,7 @@ public class Login extends JFrame implements ActionListener {
 		txt_id.setColumns(10);
 		
 		txt_pw = new JPasswordField();
+		txt_pw.addActionListener(this);
 		txt_pw.setBounds(202, 133, 118, 21);
 		background.add(txt_pw);
 		setContentPane(scrollPane);	
@@ -117,11 +116,13 @@ public class Login extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btn_login) {
+		
+		
+		
+		if((e.getSource() == btn_login) || (e.getSource() == txt_pw)) {
 			LoginDAO dao = new LoginDAO();
 			LoginVO vo = new LoginVO();
 			vo = dao.login(txt_id.getText(), txt_pw.getText());
-			System.out.println(vo);
 			if(vo.getName()!=null) {
 				String a = txt_id.getText();
 				Board board = new Board();
