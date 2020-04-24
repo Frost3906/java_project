@@ -19,7 +19,14 @@ import login.LoginVO;
 public class MusicDAO {
 
 	int i=0;
-
+	static MusicVO name;
+	static int pre;
+	int length = 0;
+	
+	public String Name() {
+		return Name();
+	}
+	
 	static {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -61,7 +68,7 @@ public class MusicDAO {
 		return result;
 		
 	}
-	public Vector<MusicVO> getMusicList(){
+	public Vector<MusicVO> getMusicList(int add){
 		Vector<MusicVO> vecList = new Vector<MusicVO>();
 		String sql = "select * from musicTBL";
 		
@@ -85,13 +92,19 @@ public class MusicDAO {
                 inputStream.close();
                 outputStream.close();
 
-
-				
-				
 				vo.setTitle((rs.getString(2)));
 			
 				vecList.add(vo);
 			}
+			
+			length = vecList.size();
+			if(add>=length) {
+				add=0;
+			}else if(add<0) {
+				add=length -1;
+			}
+			pre = add;
+			name = vecList.get(add);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,8 +114,23 @@ public class MusicDAO {
 		
 	}
 	
-	
-
-
+	public int Random() {
+		java.util.Random random = new java.util.Random();
+		
+		int[] check = new int[length];
+		int adder = 0;
+		
+		for(int r=0; r<length; r++) {
+			check[r] = random.nextInt(length);
+			
+			for(int i=0; i<r; i++) {
+				if(check[i]==check[r]) {
+					check[r] = random.nextInt(length);
+				}
+			}
+			adder = check[length-1];
+		}
+		return adder;
+	}
 
 }

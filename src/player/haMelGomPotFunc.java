@@ -1,6 +1,7 @@
-package MMF;
+package player;
 
 import java.io.FileInputStream;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -16,10 +17,12 @@ import com.mysql.cj.x.protobuf.MysqlxCrud.Limit;
 
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
+import main.MusicDAO;
+import main.MusicVO;
 import javazoom.jl.decoder.*;
 
 public class haMelGomPotFunc implements Runnable {
-	haMelGomPotDB hadb = new haMelGomPotDB();
+	MusicDAO hadb = new MusicDAO();
 	
 	static class Sample{
 		private short[] buffer;
@@ -39,7 +42,7 @@ public class haMelGomPotFunc implements Runnable {
 		}
 	}
 	
-//1. 중간에 javax부분은 볼륨조절용 클래스입니다. 볼륨조절을 안만드시는 분은 빼셔도 됩니다. sample클래스는 디코딩을 위해 javazoom이 제공하는 클래스를 오버라이딩 한 것 입니다.
+//1.sample클래스는 디코딩을 위해 javazoom이 제공하는 클래스를 오버라이딩 한 것 입니다.
 	
 	public static final int BUFFER_SIZE = 10000;
 	
@@ -58,6 +61,7 @@ public class haMelGomPotFunc implements Runnable {
 			try {
 				Header header;
 				SampleBuffer pb;
+				
 				FileInputStream in = new FileInputStream(path);
 				Bitstream bitstream = new Bitstream(in);
 				
@@ -81,22 +85,22 @@ public class haMelGomPotFunc implements Runnable {
 	
 	} //2. 스트림을 통해 샘플링하여 버퍼에 집어넣습니다.
 	
-	public boolean Open(String path) {
-		try {
-			decoder = new Decoder();
-			out = FactoryRegistry.systemRegistry().createAudioDevice();
-			playes = new ArrayList<Sample>(BUFFER_SIZE);
-			length = 0;
-			out.open(decoder);
-			Getplayes(path);
-		} catch (JavaLayerException e) {
-			decoder = null;
-			out = null;
-			playes = null;
-			return false;
-		}
-		return true;
-	}//3. db부분에서 불러온 파일주소를 불러오는 메소드
+//	public boolean Open(String path) {
+//		try {
+//			decoder = new Decoder();
+//			out = FactoryRegistry.systemRegistry().createAudioDevice();
+//			playes = new ArrayList<Sample>(BUFFER_SIZE);
+//			length = 0;
+//			out.open(decoder);
+//			Getplayes(path);
+//		} catch (JavaLayerException e) {
+//			decoder = null;
+//			out = null;
+//			playes = null;
+//			return false;
+//		}
+//		return true;
+//	}//3. db부분에서 불러온 파일주소를 불러오는 메소드
 	
 	
 	private Thread thisThread;

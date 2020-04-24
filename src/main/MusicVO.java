@@ -16,7 +16,8 @@ import lombok.ToString;
 @NoArgsConstructor
 
 public class MusicVO {
-	 private Blob blob;
+	
+	private Blob blob;
 	 private String title;
 	 private byte[] buff;
 	@Override

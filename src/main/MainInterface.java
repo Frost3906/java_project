@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -29,12 +30,18 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.cj.jdbc.Blob;
 
 import codecLib.mpa.Decoder;
+import javazoom.jl.decoder.Bitstream;
+import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.decoder.SampleBuffer;
 import javazoom.jl.player.AudioDevice;
+import javazoom.jl.player.FactoryRegistry;
 import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
+
+import javazoom.jl.decoder.*;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -49,10 +56,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 
+
 public class MainInterface extends JFrame implements ActionListener,ItemListener{
-
-
-     
+	
 	private JPanel contentPane;
 	private JButton btn_upload, btn_open;
 	private JPanel panel_1;
@@ -67,7 +73,10 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	private Thread thread = new Thread();
 	private JTable table;
 	private DefaultTableModel model;
-	SoundJLayer soundToPlay;
+	private JFileChooser choo;
+	
+//	SoundJLayer soundToPlay;
+	
 	
 	public static void main(String[] args) {
 
@@ -151,7 +160,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		panel_1.add(btnNewButton_4);
 		
 		
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 85, 431, 284);
 		contentPane.add(scrollPane);
@@ -171,8 +179,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
 		scrollPane.setViewportView(table);
 		
-		
-
 		
 	}
 	
@@ -200,8 +206,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		return returnValue;
 	}
 
-
-	
 	private JFileChooser getChooser() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setAcceptAllFileFilterUsed(false);
@@ -225,10 +229,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 			 
 			if(retVal==0) {//열기 버튼 클릭한 경우
 				File file = choo.getSelectedFile();
-				 
-				 
-				 
-		
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
 				vo.setTitle(file.getName());
@@ -244,7 +244,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 			int retVal = choo.showOpenDialog(this);
 			 
 			if(retVal==0) {//열기 버튼 클릭한 경우
-				songFile= choo.getSelectedFile();
+				songFile = choo.getSelectedFile();
 				textField.setText(songFile.getName());
 				
 				
@@ -256,107 +256,15 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 
 	}
 
-
 	@Override
 	public void itemStateChanged(ItemEvent e)  {
 		
-		if(e.getStateChange()==1) {
-			soundToPlay = new SoundJLayer(songFile.getPath());
-			soundToPlay.play();
-			
-		}else {
-			soundToPlay.stop();
-		}
 		
 		
 	}
-	
-	class SoundJLayer extends PlaybackListener implements Runnable
-	{
-	    private String filePath;
-	    private AdvancedPlayer player;
-	    private Thread playerThread;    
+}
 
-	    public SoundJLayer(String filePath)//파일의 경로를 filePath에 입력합니다.
-	    {
-	        this.filePath = filePath;//filePath의 값을 mp3의 경로 값으로 초기화.
-	    }
 
-	    public void play()
-	    {
-	        try
-	        {
-	            String urlAsString = this.filePath;//
-	            System.out.println("제대로 실행이 되었습니다.");
-	            this.player = new AdvancedPlayer(new FileInputStream(urlAsString));
-
-	            this.player.setPlayBackListener(this);
-
-	            this.playerThread = new Thread(this, "AudioPlayerThread");
-
-	            this.playerThread.start();
-	            System.out.println("제대로 실행이 되었습니다.");
-	        }
-	        catch (Exception ex)
-	        {
-	            ex.printStackTrace();
-	        }
-	    }
-	    
-	    public void stop() {
-			this.playerThread.stop();
-		
-	    }
-
-	    // PlaybackListener members
-
-	    public void playbackStarted(PlaybackEvent playbackEvent)
-	    {
-	        System.out.println("playbackStarted");
-	    }
-
-	    public void playbackFinished(PlaybackEvent playbackEvent)
-	    {
-	        System.out.println("playbackEnded");
-	    }    
-
-	    // Runnable members
-
-	    public void run()
-	    {
-	        try
-	        {
-	            this.player.play();
-	        }
-	        catch (javazoom.jl.decoder.JavaLayerException ex)
-	        {
-	            ex.printStackTrace();
-	        }
-
-	    }
-	}
-	
-
-	
-	
-	
-	
-//	public void play()  {
-//		try {
-//			play = new Player(new FileInputStream(songFile));
-//			play.play();
-//		} catch (FileNotFoundException e1) {
-//			e1.printStackTrace();
-//		} catch (JavaLayerException e1) {
-//			e1.printStackTrace();
-//		}
-//
-//	}
-//	
-//	public void stop() {
-//		play.close();
-//		}
-	}	
 
 
 
