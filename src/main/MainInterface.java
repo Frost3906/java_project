@@ -68,6 +68,7 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 	private JTable table;
 	private DefaultTableModel model;
 	SoundJLayer soundToPlay;
+	private JScrollPane scrollPane_1;
 	
 	public static void main(String[] args) {
 
@@ -88,17 +89,12 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 467, 421);
+		setBounds(100, 100, 766, 421);
 		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 0, 0);
-		contentPane.add(panel);
-		panel.setLayout(null);
 		
 		panel_1 = new JPanel();
 		panel_1.setBounds(12, 10, 431, 65);
@@ -170,6 +166,10 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
 		scrollPane.setViewportView(table);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(493, 121, 119, 158);
+		contentPane.add(scrollPane_1);
 		
 		
 

@@ -1,5 +1,6 @@
 package board;
 
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -31,7 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class BoardViewContent extends JFrame implements ActionListener{
+public class BoardViewPanel extends JPanel implements ActionListener{
 
 	private JPanel contentPane;
 	private JButton btn_cancel;
@@ -55,32 +56,12 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	private JButton  btn_concancel;
 	private JScrollPane scrollPane;
 	private LoginVO vo;
-
-
 	
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BoardViewContent frame = new BoardViewContent();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public BoardViewContent() {
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public BoardViewPanel() {
 		setBounds(100, 100, 900, 540);
-		setLocationRelativeTo(null);
+		setSize(900,540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setTitle("게시판");
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		
@@ -147,14 +128,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		 scrollPane = new JScrollPane();
 		scrollPane.setBounds(5, 411, 874, 22);
 		
-		
-//		setBounds(100, 100, 900, 552);  --  contentPane의 크기
-//		scrollPane.setBounds(5, 411, 874, 52);  -- scrollPane의 위치 및 크기
-//		txt_con.setBounds(77, 461, 715, 50); txtcon(댓글입력창) 의 위치 및 크기
-//		btn_con.setBounds(794, 461, 85, 50); btncon(댓글작성버튼) 의 위치 및 크기
-//		la_conid.setBounds(5, 461, 70, 50); conid ( 댓글입력창 옆 아이디) 의 위치 및 크기
-
-		
 		String columnName[]= {"아이디","댓글","작성날짜"};
 		table = new JTable();
 		model = new DefaultTableModel(columnName,0) {
@@ -164,9 +137,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 			}
 		};
 
-		
-		
-		
 		
 		table_1 = new JTable(model);
 		table_1.setShowVerticalLines(false);
@@ -226,9 +196,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		
 	}
-	
-	
-	
+
+
 	
 	private void setRowHeight(int i) {
 		
@@ -248,17 +217,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		
 		
-//		txt_writer.setText(vo2.get());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -364,7 +323,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		Board board = new Board();
 		board.refresh();
 		board.getvo(vo);
-		dispose();
 		}
 		
 		
@@ -396,8 +354,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 			Board board = new Board();
 			board.refresh();
 			board.getvo(vo);
-			
-			dispose();
+
 			
 		}else {
 			JOptionPane.showMessageDialog(this, "수정이 실패하였습니다.", "게시글 수정",JOptionPane.WARNING_MESSAGE);
@@ -424,7 +381,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 					
 					if(result !=0) {
 						JOptionPane.showMessageDialog(this, "글이 삭제되었습니다.", "게시글 삭제",JOptionPane.INFORMATION_MESSAGE);
-						dispose();
 					}
 				}else {
 					JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.", "게시글 삭제취소",JOptionPane.WARNING_MESSAGE);
