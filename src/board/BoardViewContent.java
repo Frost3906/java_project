@@ -208,15 +208,10 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		btn_con.addActionListener(this);
 		btn_conview.addActionListener(this);
 		
-//		if(la_id.getText().equals(la_id2.getText())==true) {
-//			btn_delete.setVisible(true);
-//			btn_rewrite.setVisible(true);
-//		}
-//		
-//		if(la_id.getText().equals(la_id2.getText())==false) {
-//			btn_delete.setVisible(false);
-//			btn_rewrite.setVisible(false);
-//		}
+//		System.out.println(la_id.getText()+"접속자 id");
+//		System.out.println(la_id2.getText()+"작성자 id");
+		
+		
 		scrollPane.setVisible(false);
 		btn_con.setVisible(false);
 		txt_con.setVisible(false);
@@ -225,7 +220,9 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		panel_1.add(la_id);
 		
 		setVisible(true);
-
+		
+		
+		
 	}
 	
 	
@@ -328,8 +325,10 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				long time = System.currentTimeMillis(); 
 				SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 				String str = dayTime.format(new Date(time));
-				
-				Object[] obj = {la_conid.getText(),txt_con.getText(),str};
+				BoardDAO dao = new BoardDAO();
+				BoardVO vo2 = new BoardVO();
+				vo2 = dao.gettime(vo2);
+				Object[] obj = {la_conid.getText(),txt_con.getText(),vo2.getWritedate()};
 				model.addRow(obj);			
 				int comment = table_1.getRowCount();
 				int size = comment*30;
@@ -342,7 +341,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				la_conid.setBounds(5, 431+size, 70, 50); 
 				scrollPane.setBounds(5, 411, 874, 22+size);
 				BoardVO vo = new BoardVO();
-				BoardDAO dao = new BoardDAO();
 				
 				int boardn = Integer.parseInt(la_boardno.getText());
 				
@@ -350,6 +348,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				vo.setCommentwriter(la_conid.getText());
 				vo.setComment(txt_con.getText());
 				dao.writecomment(vo);
+				txt_con.setText("");
 				JOptionPane.showMessageDialog(this, "댓글이 입력되었습니다.", "댓글입력", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
@@ -465,12 +464,18 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		}
 	}
 	
+	public void unvi() {
+		btn_delete.setVisible(false);
+		btn_rewrite.setVisible(false);
+	}
 	
-	public LoginVO getvo(LoginVO vo) {
-		this.vo = vo;
+	
+	public void getvo(LoginVO voo) {
+		this.vo = voo;
 		
 		la_id.setText(vo.getId());
 		
-		return vo;
 	}
+	
+	
 }

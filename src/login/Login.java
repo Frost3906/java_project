@@ -77,9 +77,9 @@ public class Login extends JFrame implements ActionListener {
 			
 		scrollPane = new JScrollPane(background);
 		setContentPane(scrollPane);	
-		
-	
-				
+			
+			
+			
 		lb_id.setBounds(129, 100, 63, 15);
 		background.add(lb_id);
 		
