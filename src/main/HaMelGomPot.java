@@ -1,4 +1,4 @@
-package player;
+package main;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -206,7 +206,7 @@ public class HaMelGomPot implements Runnable {
 		synchronized (this) {
 			stateCode = STATE_STOPPED;
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {				
 				e.printStackTrace();
 			}
