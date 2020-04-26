@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.awt.FlowLayout;
 
 public class BoardWrite extends JFrame implements ActionListener{
 
@@ -30,6 +31,7 @@ public class BoardWrite extends JFrame implements ActionListener{
 	private JLabel la_id;
 	private static LoginVO vo;
 	private int result;
+	private JLabel lblNewLabel_1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -58,6 +60,7 @@ public class BoardWrite extends JFrame implements ActionListener{
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel = new JLabel("제목");
 		panel.add(lblNewLabel);
@@ -65,6 +68,9 @@ public class BoardWrite extends JFrame implements ActionListener{
 		txt_main = new JTextField();
 		panel.add(txt_main);
 		txt_main.setColumns(10);
+		
+		lblNewLabel_1 = new JLabel("          작성자 : ");
+		panel.add(lblNewLabel_1);
 		
 		panel.add(la_id);
 		
@@ -78,6 +84,8 @@ public class BoardWrite extends JFrame implements ActionListener{
 		panel_1.add(btn_back);
 		
 		 txt_content = new JTextArea();
+		 txt_content.setLineWrap(true);
+		 txt_content.setWrapStyleWord(true);
 		contentPane.add(txt_content, BorderLayout.CENTER);
 		btn_back.addActionListener(this);
 		btn_write.addActionListener(this);

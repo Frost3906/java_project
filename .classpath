@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/eclipce/jar/jl1.0.1.jar"/>
-	<classpathentry kind="lib" path="D:/eclipce/jar/lombok.jar"/>
-	<classpathentry kind="lib" path="D:/eclipce/jar/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse/lombok.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse/mysql-connector-java-8.0.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

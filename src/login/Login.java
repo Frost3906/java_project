@@ -54,9 +54,7 @@ public class Login extends JFrame implements ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Login() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

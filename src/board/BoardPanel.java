@@ -39,6 +39,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 	private JComboBox cbox;
 	private JLabel la_id;
 	private LoginVO voo;
+	private JLabel lblNewLabel;
 	
 	
 
@@ -73,6 +74,9 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		la_id = new JLabel(voo.getId());
 		board_HeadPanel.add(la_id);
+		
+		lblNewLabel = new JLabel("님 환영합니다.");
+		board_HeadPanel.add(lblNewLabel);
 
 		
 	    board_FooterPanel = new JPanel();
@@ -89,7 +93,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 		btn_refresh.addActionListener(this);
 		board_FooterPanel.add(btn_refresh);
 		
-	 board_contentsPanel = new JScrollPane();
+		board_contentsPanel = new JScrollPane();
 		add(board_contentsPanel, BorderLayout.CENTER);
 		
 		
@@ -263,24 +267,50 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		b+=1;
 		int boardno = Integer.parseInt(a);
-		BoardViewPanel bvp = new BoardViewPanel();
+		BoardViewContent bvp = new BoardViewContent(voo);
+		bvp.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				refresh();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				refresh();
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+		});
 		String idval = la_id.getText();
 		
 		
 		if(idval2.equals(la_id.getText())) {
-			bvp.getvo(voo);
 			bvp.textfill(boardno);
 			bvp.show();
 			int c = Integer.parseInt(a);
 			dao.viewcount(b, c);
-			System.out.println(la_id.getText());
-			System.out.println(idval2);
 		}else {
 			bvp.unvi();
-			System.out.println(la_id.getText());
-			System.out.println(idval2);
 			bvp.unvi();
-			bvp.getvo(voo);
 			bvp.textfill(boardno);
 			bvp.show();
 			int c = Integer.parseInt(a);

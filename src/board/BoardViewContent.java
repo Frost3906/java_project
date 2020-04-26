@@ -54,7 +54,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	private JButton btn_conview;
 	private JButton  btn_concancel;
 	private JScrollPane scrollPane;
-	private LoginVO vo;
+	private static LoginVO voo;
 
 
 	
@@ -63,7 +63,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BoardViewContent frame = new BoardViewContent();
+					BoardViewContent frame = new BoardViewContent(voo);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,10 +72,11 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		});
 	}
 
-	public BoardViewContent() {
+	public BoardViewContent(LoginVO vo) {
+		voo = vo;
+		la_id.setText(voo.getId());
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 540);
+		setBounds(100, 100, 900, 450);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,53 +99,61 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		JLabel lblNewLabel_4 = new JLabel("                               ");
 		panel.add(lblNewLabel_4);
+		 
+		JLabel lblNewLabel_2 = new JLabel("글 번호 :");
+		panel.add(lblNewLabel_2);
 		
-		 la_boardno = new JLabel("New label");
+		la_boardno = new JLabel("New label");
 		panel.add(la_boardno);
 		
-		 panel_1 = new JPanel();
-		 panel_1.setBounds(5, 374, 874, 33);
+
+		JLabel lblNewLabel_6 = new JLabel("/");
+		panel.add(lblNewLabel_6);
+			
+		lblNewLabel_5 = new JLabel("작성자 : ");
+		panel.add(lblNewLabel_5);
+		
+	
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(5, 374, 874, 33);
 		contentPane.add(panel_1);
 		
-		 btn_cancel = new JButton("뒤로가기");
-		 btn_cancel.addActionListener(this);
+		btn_cancel = new JButton("뒤로가기");
+		btn_cancel.addActionListener(this);
 		 
-		 btn_concancel = new JButton("댓글 접기");
-		 btn_concancel.addActionListener(this);
+		btn_concancel = new JButton("댓글 접기");
+		btn_concancel.addActionListener(this);
 		btn_concancel.setVisible(false);
 		
-		 btn_conview = new JButton("댓글 보기");
-		 panel_1.add(btn_concancel);
+		btn_conview = new JButton("댓글 보기");
+		panel_1.add(btn_concancel);
 		panel_1.add(btn_conview);
 		panel_1.add(btn_cancel);
 		
 		JLabel lblNewLabel_3 = new JLabel("                         ");
 		panel_1.add(lblNewLabel_3);
 		
-		 btn_rewrite = new JButton("글 수정");
-		panel_1.add(btn_rewrite);
-		
 		btn_delete = new JButton("글 삭제");
 		panel_1.add(btn_delete);
-		btn_rewrite.addActionListener(this);
 		
 		JLabel lblNewLabel_1 = new JLabel("글내용");
-		lblNewLabel_1.setBounds(5, 36, 36, 338);
+		lblNewLabel_1.setBounds(5, 36, 45, 338);
 		contentPane.add(lblNewLabel_1);
 		
-		 txt_content = new JTextArea();
-		 txt_content.setBounds(41, 36, 838, 338);
+		txt_content = new JTextArea();
+		txt_content.setLineWrap(true);
+		txt_content.setWrapStyleWord(true);
+		txt_content.setBounds(77, 36, 802, 338);
 		contentPane.add(txt_content);
 		txt_content.setEditable(false);
 		txt_main.setEditable(false);
 		
-		lblNewLabel_5 = new JLabel("작성자 : ");
-		panel.add(lblNewLabel_5);
 		
 		la_id2 = new JLabel("id");
 		panel.add(la_id2);
 		
-		 scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(5, 411, 874, 22);
 		
 		
@@ -192,17 +201,17 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		contentPane.add(scrollPane);
 		
 		
-		 txt_con = new JTextArea();
+		txt_con = new JTextArea();
 		txt_con.setLineWrap(true);
-		txt_con.setBounds(77, 461, 693, 50);
+		txt_con.setBounds(78, 475, 693, 50);
 		contentPane.add(txt_con);
 		
-		 btn_con = new JButton("댓글작성");
-		btn_con.setBounds(771, 461, 108, 50);
+		btn_con = new JButton("댓글작성");
+		btn_con.setBounds(783, 475, 96, 50);
 		contentPane.add(btn_con);
 		
-		 la_conid = new JLabel("id");
-		la_conid.setBounds(5, 461, 70, 50);
+		la_conid = new JLabel("id");
+		la_conid.setBounds(5, 475, 70, 50);
 		contentPane.add(la_conid);
 		btn_endwrite.addActionListener(this);
 		btn_delete.addActionListener(this);
@@ -219,7 +228,11 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		txt_con.setVisible(false);
 		la_conid.setVisible(false);
 		
-		panel_1.add(la_id);
+		//panel_1.add(la_id);
+		
+		btn_rewrite = new JButton("글 수정");
+		panel_1.add(btn_rewrite);
+		btn_rewrite.addActionListener(this);
 		
 		setVisible(true);
 		
@@ -230,9 +243,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	
 	
 	
-	private void setRowHeight(int i) {
-		
-	}
+	
 
 	public void textfill(int boardno) {
 		BoardVO vo = new BoardVO();
@@ -293,7 +304,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 			if(size>=240) {
 				size=240;
 			}
-			setBounds(100, 100, 900, 522+size);
+			setSize(900,522+size);
+			//(100, 100, 900, 522+size);
 			txt_con.setBounds(77, 431+size, 715, 50);
 			btn_con.setBounds(794, 431+size, 85, 50); 
 			la_conid.setBounds(5, 431+size, 70, 50); 
@@ -313,7 +325,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 			btn_con.setVisible(false);
 			txt_con.setVisible(false);
 			la_conid.setVisible(false);
-			setBounds(100, 100, 900, 450);
+			//setBounds(100, 100, 900, 450);
+			setSize(900, 450);
 			model.setNumRows(0);
 //			setVisible(true);
 		}
@@ -337,7 +350,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				if(size>=240) {
 					size=240;
 				}
-				setBounds(100, 100, 900, 522+size);
+				setSize(900, 522+size);
 				txt_con.setBounds(77, 431+size, 715, 50);
 				btn_con.setBounds(794, 431+size, 85, 50); 
 				la_conid.setBounds(5, 431+size, 70, 50); 
@@ -361,9 +374,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		
 		if(btn == btn_cancel) { // 취소버튼
-		Board board = new Board();
-		board.refresh();
-		board.getvo(vo);
 		dispose();
 		}
 		
@@ -393,12 +403,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		int result = dao.modify(bo);
 		if(result !=0) {
 			JOptionPane.showMessageDialog(this, "글이 수정되었습니다.", "게시글 수정",JOptionPane.INFORMATION_MESSAGE);
-			Board board = new Board();
-			board.refresh();
-			board.getvo(vo);
-			
-			dispose();
-			
 		}else {
 			JOptionPane.showMessageDialog(this, "수정이 실패하였습니다.", "게시글 수정",JOptionPane.WARNING_MESSAGE);
 		}
@@ -418,7 +422,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				
 				String option[]= {"예","아니오",};
 				int a = JOptionPane.showOptionDialog(this, "정말로 삭제하시겠습니까?", "게시글 삭제", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
-				System.out.println(a);
 				if(a==0) {
 					int result = dao.delete(no);
 					
@@ -455,7 +458,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 			if(size>=240) {
 				size=240;
 			}
-			setBounds(100, 100, 900, 522+size);
+			setSize(900, 522);
+			//(100, 100, 900, 522+size);
 			txt_con.setBounds(77, 431+size, 715, 50);
 			btn_con.setBounds(794, 431+size, 85, 50); 
 			la_conid.setBounds(5, 431+size, 70, 50); 
@@ -469,13 +473,5 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	public void unvi() {
 		btn_delete.setVisible(false);
 		btn_rewrite.setVisible(false);
-	}
-	
-	
-	public void getvo(LoginVO voo) {
-		this.vo = voo;
-		
-		la_id.setText(vo.getId());
-		
 	}
 }
