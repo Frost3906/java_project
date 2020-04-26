@@ -15,12 +15,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.sql.rowset.serial.SerialBlob;
@@ -28,7 +30,10 @@ import javax.sql.rowset.serial.SerialException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.SliderUI;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.Blob;
@@ -57,8 +62,10 @@ import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
 
-public class MainInterface extends JFrame implements ActionListener,MouseListener,ItemListener{
+public class MainInterface extends JFrame implements ActionListener,MouseListener,ItemListener,ChangeListener{
 	
 	private JPanel contentPane;
 	private JButton btn_upload, btn_open,btn_pre,btn_next,btn_del,btn_stop,btn_pause;
@@ -66,7 +73,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 	private JPanel playArea;
 	private JTextField textField;
 	private Player play;
-	private File songFile;
+	private File songFile,file;
 	private Thread thread = new Thread();
 	private JTable table;
 	private DefaultTableModel model;
@@ -74,10 +81,10 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 	private HaMelGomPot ha;
 	private String musicName;
 	private ButtonGroup gl;
-	private ArrayList<File> MuList;
+	private ArrayList<String> MuList;
+	private JSlider slider;
 	int a = 0;
-	
-
+	 
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -96,7 +103,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 282, 259);
+		setBounds(100, 100, 282, 296);
 		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,7 +111,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		contentPane.setLayout(null);
 		
 		playArea = new JPanel();
-		playArea.setBounds(12, 10, 240, 125);
+		playArea.setBounds(12, 10, 240, 162);
 		contentPane.add(playArea);
 		playArea.setLayout(null);
 		
@@ -115,7 +122,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		textField.setColumns(10);
 		
 		btn_pre = new JButton("");
-		btn_pre.setIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_s.png")));
+		btn_pre.setIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_n.png")));
 		btn_pre.setFont(btn_pre.getFont().deriveFont(btn_pre.getFont().getSize() - 1f));
 		btn_pre.setBounds(50, 10, 45, 38);
 		playArea.add(btn_pre);
@@ -128,7 +135,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		playArea.add(btn_play);
 		
 		btn_next = new JButton("");
-		btn_next.setIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_s.png")));
+		btn_next.setIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_n.png")));
 		btn_next.setFont(btn_next.getFont().deriveFont(btn_next.getFont().getSize() - 1f));
 		btn_next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,26 +145,30 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		playArea.add(btn_next);
 		
 		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(160, 92, 75, 21);
+		btn_upload.setBounds(157, 91, 75, 21);
 		btn_upload.addActionListener(this);
 		playArea.add(btn_upload);
 		
 		btn_open = new JButton("Open");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(0, 91, 68, 23);
+		btn_open.setBounds(7, 91, 68, 23);
 		playArea.add(btn_open);
 		
 		btn_del = new JButton("Delete");
-		btn_del.setBounds(80, 91, 68, 23);
+		btn_del.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btn_del.setBounds(82, 91, 68, 23);
 		playArea.add(btn_del);
 		
 		btn_stop = new JButton("");
-		btn_stop.setIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_s.png")));
+		btn_stop.setIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_n.png")));
 		btn_stop.setBounds(2, 10, 45, 38);
 		playArea.add(btn_stop);
 		
 		btn_pause = new JButton("");
-		btn_pause.setIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_s.png")));
+		btn_pause.setIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_n.png")));
 		btn_pause.setBounds(190, 9, 45, 40);
 		playArea.add(btn_pause);
 		
@@ -185,23 +196,33 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		btn_stop.addMouseListener(this);
 		btn_pause.addMouseListener(this);
 		
-		ha = new HaMelGomPot();
-		MuList = new ArrayList<File>();
-		ImageIcon pl_n = new ImageIcon("play_p");
-		ImageIcon pl_p = new ImageIcon("play_s");
-		ImageIcon pl_r = new ImageIcon("play_n");
+		btn_play.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/play_t.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
+		btn_next.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
+		btn_pre.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
+		btn_stop.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
+		btn_pause.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
 		
-		btn_play.setPressedIcon(pl_p);
-		btn_play.setRolloverIcon(pl_r);
-	
+		btn_play.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/play_s.png"))); //踰��쇱�� ���몄����
+		btn_next.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_s.png"))); //踰��쇱�� ���몄����
+		btn_pre.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_s.png"))); //踰��쇱�� ���몄����
+		btn_stop.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_s.png"))); //踰��쇱�� ���몄����
+		btn_pause.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_s.png")));
+		
+		slider = new JSlider();
+		slider.setBounds(0, 126, 232, 26);
+		playArea.add(slider);
+		
+		ha = new HaMelGomPot();
+		MuList = new ArrayList();
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 145, 240, 65);
+		scrollPane.setBounds(12, 182, 240, 65);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		String columnName[]= {"Music","Time"};
 	
-		model = new DefaultTableModel(columnName,0) {
+		model = new DefaultTableModel(columnName,1) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -209,10 +230,9 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		};
 		
 		table = new JTable(model);
-		table.setFont(new Font("굴림", Font.PLAIN, 15));
-		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
-		scrollPane.setViewportView(table);
-		
+		table.setFont(new Font("援대┝", Font.PLAIN, 15));
+		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable �� 而щ�� 湲몄�� 議곗��
+		scrollPane.setColumnHeaderView(table);
 		
 	}
 	
@@ -244,7 +264,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		JFileChooser chooser = new JFileChooser();
 		chooser.setAcceptAllFileFilterUsed(false);
 		
-		chooser.addChoosableFileFilter(new FileNameExtensionFilter("mp3 파일(*.mp3)","mp3"));
+		chooser.addChoosableFileFilter(new FileNameExtensionFilter("mp3 ����(*.mp3)","mp3"));
 		
 		chooser.setSelectedFile(new File("*.mp3"));
 		
@@ -253,9 +273,20 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 	}
 	
 	public String getFile() {
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser("C:");
 		chooser.showOpenDialog(this);
+		
 		File f=chooser.getSelectedFile();
+		
+		String path = "";
+		String filename = "";
+		
+		path = f.getParentFile().toString();
+		filename = f.getName(); //�대�留� 異�異�
+		
+		int idx = filename.lastIndexOf(".");  //���μ�� ��嫄�
+		String _fileName = filename.substring(0,idx);
+		
 		return f.getPath();
 	}
 	
@@ -268,7 +299,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 			 
 			int retVal = choo.showOpenDialog(this);
 			 
-			if(retVal==0) {//열기 버튼 클릭한 경우
+			if(retVal==0) {//�닿린 踰��� �대┃�� 寃쎌��
 				File file = choo.getSelectedFile();
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
@@ -276,17 +307,25 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 
 				dao.upload(vo);
 				 
-			 }else {//취소 버튼 클릭한 경우
+			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��
 				 return;
 			 }
 			
 		}else if(e.getSource()==btn_open) {
-				//열기 버튼 클릭한 경우
+				//�닿린 踰��� �대┃�� 寃쎌��
+				model.setRowCount(0);
+			
 				String file = getFile();	
 				musicName = file;
 				textField.setText(file);
 				
+				MuList.add(file);
+				model.addRow(new Vector<String>(MuList));
 				
+				for(String value : MuList) {
+					System.out.println(value); 
+					}
+
 //				songFile = choo.getSelectedFile();
 //				textField.setText(songFile.getName());
 				 
@@ -299,20 +338,33 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
+//		table = (JTable) e.getComponent();
+//		model = (DefaultTableModel) table.getModel();
+//		
+//		model.getValueAt(1, 1);
 		
-		if(btn==btn_stop) {//멈춤
+		if(btn==btn_stop) {//硫�異�
 			ha.stop();
-		}else if(btn==btn_pause) { //일시정지
+		}else if(btn==btn_pause) { //�쇱����吏�
 			
-			//일시멈춤 후 재시작을 위한 코드
+			//�쇱��硫�異� �� �ъ������ ���� 肄���
 			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
 			ha.suspend();
 		}else if(btn==btn_next) {
-//			a = objlist.length + 1;
+			a = MuList.size() + 1;
 			ha.stop();
 			ha.open(musicName);
 			ha.start();
 			ha.stateCode = ha.STATE_INIT;
+			System.out.println("�ㅼ�� 怨�");
+		}else if(btn==btn_pre) {
+			a = MuList.size() - 1;
+			ha.stop();
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+		}else if(btn==btn_del) {
+			MuList.remove(textField.getName());
 		}
 	}
 
@@ -353,7 +405,13 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 			ha.resume();
 		}
 	}
+
+	@Override
+	public void stateChanged(ChangeEvent arg0) {
+		int i = slider.getValue();
 		
+		ha.setVolune(i);
+	}
 }
 
 

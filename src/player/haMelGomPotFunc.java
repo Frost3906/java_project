@@ -212,52 +212,52 @@ public class haMelGomPotFunc implements Runnable {
 			System.out.println("되돌리기");
 	} //8.일시정지와 되돌리기
 }
-//	static LinkedList<Line> speakers = new LinkedList<Line>();
-//
-//	final static void findSpeakers() {
-//		Mixer.Info[] imxers = AudioSystem.getMixerInfo();
-//		
-//		for(Mixer.Info mixerInfo : mixers) {
-//			if(!mixerInfo.getName().equals("java sound Audio Engine")) continue;
-//			
-//			Mixer mixer = AudioSystem.getMixer(mixerInfo);
-//			Line.Info[] lines = mixer.getSourceLineInfo();
-//			
-//			for(Line.Info info : lines) {
-//				try {
-//					Line line = mixer.getLine(info);
-//					speakers.add(line);
-//					
-//				} catch (LineUnavailableException e) {
-//					e.printStackTrace(); 
-//				} catch (IllegalAccessError e) {
-//					// TODO: handle exception
-//				}
-//			}
-//			
-//		}
-//	}
-//	static(findSpeakers());
-//
-//	public void setVolune(float level) {
-//		System.out.println("setting volume to "+level);
-//		for(Line line : speakers) {
-//			try {
-//				line.open();
-//				FloatControl control = (FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN);
-//				control.setValue(limit(control,level));
-//				
-//			} catch (LineUnavailableException e) {
-//				e.printStackTrace(); 
-//			} catch (IllegalAccessError e) {
-//				// TODO: handle exception
-//			}
-//			private static float limit(FloatControl control,float level) {
-//				return Math.min(control.getMaximum(), Math.max(control.getMinimum(), level));
-//		}
-//		
-//	}// 9. 볼륨 조절
-//}
+	static LinkedList<Line> speakers = new LinkedList<Line>();
+
+	final static void findSpeakers() {
+		Mixer.Info[] imxers = AudioSystem.getMixerInfo();
+		
+		for(Mixer.Info mixerInfo : mixers) {
+			if(!mixerInfo.getName().equals("java sound Audio Engine")) continue;
+			
+			Mixer mixer = AudioSystem.getMixer(mixerInfo);
+			Line.Info[] lines = mixer.getSourceLineInfo();
+			
+			for(Line.Info info : lines) {
+				try {
+					Line line = mixer.getLine(info);
+					speakers.add(line);
+					
+				} catch (LineUnavailableException e) {
+					e.printStackTrace(); 
+				} catch (IllegalAccessError e) {
+					// TODO: handle exception
+				}
+			}
+			
+		}
+	}
+	static(findSpeakers());
+
+	public void setVolune(float level) {
+		System.out.println("setting volume to "+level);
+		for(Line line : speakers) {
+			try {
+				line.open();
+				FloatControl control = (FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN);
+				control.setValue(limit(control,level));
+				
+			} catch (LineUnavailableException e) {
+				e.printStackTrace(); 
+			} catch (IllegalAccessError e) {
+				// TODO: handle exception
+			}
+			private static float limit(FloatControl control,float level) {
+				return Math.min(control.getMaximum(), Math.max(control.getMinimum(), level));
+		}
+		
+	}// 9. 볼륨 조절
+}
 
 
 

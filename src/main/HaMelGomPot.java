@@ -2,7 +2,13 @@ package main;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 
 import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.Decoder;
@@ -213,4 +219,75 @@ public class HaMelGomPot implements Runnable {
 			System.out.println("정지");
 		}
 	}
+	
+	static LinkedList<Line> speakers = new LinkedList<Line>();
+	
+	final static void findSpeakers() {
+		Mixer.Info[] imxers = AudioSystem.getMixerInfo();
+		
+		for(Mixer.Info mixerInfo : imxers) {
+			if(!mixerInfo.getName().equals("java sound Audio Engine")) continue;
+			
+			Mixer mixer = AudioSystem.getMixer(mixerInfo);
+			Line.Info[] lines = mixer.getSourceLineInfo();
+			
+			for(Line.Info info : lines) {
+				try {
+					Line line = mixer.getLine(info);
+					speakers.add(line);
+					
+				} catch (LineUnavailableException e) {
+					e.printStackTrace(); 
+				} catch (IllegalAccessError e) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
+	static{findSpeakers();
 }
+
+public void setVolune(float level) {
+	
+	System.out.println("setting volume to "+level);
+	for(Line line : speakers) {
+		try {
+			line.open();
+			FloatControl control = (FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN);
+			control.setValue(limit(control,level));
+			
+		} catch (LineUnavailableException e) {
+			continue; 
+		} catch (IllegalAccessError e) {
+			continue;
+		}
+	}
+}
+		private static float limit(FloatControl control,float level) {
+			return Math.min(control.getMaximum(), Math.max(control.getMinimum(), level));
+		}
+	}// 9. 볼륨 조절
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
