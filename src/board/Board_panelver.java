@@ -34,15 +34,8 @@ public class Board_panelver extends JFrame implements ActionListener{
 	private BoardPanel boardPanel;
 	private JTextField textField;
 	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_loop, btn_open, btn_del, btn_upload;
-	private JButton btn_write, btn_search, btn_read, btn_refresh;
 	private JToggleButton btn_play;
-	private JTextField textField_1;
-	private JTable table;
-	private JTextField txt_search;
-	private DefaultTableModel model;
 	
-	private JComboBox cbox;
-	private JLabel la_id;
 	private static LoginVO voo;
 
 	/**

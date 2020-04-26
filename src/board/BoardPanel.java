@@ -3,6 +3,7 @@ package board;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -20,6 +21,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 public class BoardPanel extends JPanel implements ActionListener{
@@ -31,10 +34,12 @@ public class BoardPanel extends JPanel implements ActionListener{
 	private JButton btn_search, btn_write, btn_read, btn_refresh;
 	private DefaultTableModel model;
 	private JTextField txt_search;
+	private JInternalFrame bw;
 	
 	private JComboBox cbox;
 	private JLabel la_id;
 	private LoginVO voo;
+	private JLabel lblNewLabel;
 	
 	
 
@@ -69,6 +74,9 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		la_id = new JLabel(voo.getId());
 		board_HeadPanel.add(la_id);
+		
+		lblNewLabel = new JLabel("님 환영합니다.");
+		board_HeadPanel.add(lblNewLabel);
 
 		
 	    board_FooterPanel = new JPanel();
@@ -85,7 +93,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 		btn_refresh.addActionListener(this);
 		board_FooterPanel.add(btn_refresh);
 		
-	 board_contentsPanel = new JScrollPane();
+		board_contentsPanel = new JScrollPane();
 		add(board_contentsPanel, BorderLayout.CENTER);
 		
 		
@@ -195,8 +203,36 @@ public class BoardPanel extends JPanel implements ActionListener{
 		}
 		else if(e.getSource()==btn_write) {   //  글 쓰기
 			BoardWrite bw = new BoardWrite(voo);
+			bw.addWindowListener(new WindowListener() {
+				
+				@Override
+				public void windowOpened(WindowEvent e) {
+					
+				}
+				@Override
+				public void windowIconified(WindowEvent e) {
+				}
+				
+				@Override
+				public void windowDeiconified(WindowEvent e) {
+				}
+				@Override
+				public void windowDeactivated(WindowEvent e) {
+					
+				}
+				@Override
+				public void windowClosing(WindowEvent e) {
+					refresh();
+				}
+				@Override
+				public void windowClosed(WindowEvent e) {
+					refresh();
+				}
+				@Override
+				public void windowActivated(WindowEvent arg0) {
+				}
+			});
 			bw.show();
-			
 			
 		}
 				
@@ -208,20 +244,13 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		
 	}
+
 	public void refresh() {
 		model.setNumRows(0);
 		addview();
 	}
 	
-	public void getrs(int rs) {
-		if(rs!=0) {
-			refresh();
-		}
-	}
 
-	
-	
-	
 	public void view() {
 		BoardDAO dao = new BoardDAO();
 		BoardVO bo = new BoardVO();
@@ -238,24 +267,50 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		b+=1;
 		int boardno = Integer.parseInt(a);
-		BoardViewPanel bvp = new BoardViewPanel();
+		BoardViewContent bvp = new BoardViewContent(voo);
+		bvp.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				refresh();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				refresh();
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+		});
 		String idval = la_id.getText();
 		
 		
 		if(idval2.equals(la_id.getText())) {
-			bvp.getvo(voo);
 			bvp.textfill(boardno);
 			bvp.show();
 			int c = Integer.parseInt(a);
 			dao.viewcount(b, c);
-			System.out.println(la_id.getText());
-			System.out.println(idval2);
 		}else {
 			bvp.unvi();
-			System.out.println(la_id.getText());
-			System.out.println(idval2);
 			bvp.unvi();
-			bvp.getvo(voo);
 			bvp.textfill(boardno);
 			bvp.show();
 			int c = Integer.parseInt(a);

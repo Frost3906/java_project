@@ -33,16 +33,15 @@ public class viewTest extends JFrame {
 	 */
 	public viewTest() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900	, 300);
+		setBounds(100, 100, 900	, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		boardview = new BoardViewPanel();
+		boardview.setSize(860, 491);
+		boardview.setLocation(12, 0);
 		contentPane.add(boardview);
-		
-		JPanel panel = new JPanel();
-		boardview.add(panel);
 	}
 
 }
