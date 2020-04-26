@@ -113,19 +113,13 @@ public class BoardWrite extends JFrame implements ActionListener{
 		}
 		
 		if(btn == btn_back) {
-			Board board = new Board();
-			board.refresh();
-			board.getvo(vo);
 			dispose();
 		}
 		
 		
 	}
 	
-	public int sendrs() {
-		
-		return result;
-	}
+
 	
 
 

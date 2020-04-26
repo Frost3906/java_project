@@ -3,6 +3,7 @@ package board;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -20,6 +21,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 public class BoardPanel extends JPanel implements ActionListener{
@@ -31,6 +34,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 	private JButton btn_search, btn_write, btn_read, btn_refresh;
 	private DefaultTableModel model;
 	private JTextField txt_search;
+	private JInternalFrame bw;
 	
 	private JComboBox cbox;
 	private JLabel la_id;
@@ -195,8 +199,36 @@ public class BoardPanel extends JPanel implements ActionListener{
 		}
 		else if(e.getSource()==btn_write) {   //  글 쓰기
 			BoardWrite bw = new BoardWrite(voo);
+			bw.addWindowListener(new WindowListener() {
+				
+				@Override
+				public void windowOpened(WindowEvent e) {
+					
+				}
+				@Override
+				public void windowIconified(WindowEvent e) {
+				}
+				
+				@Override
+				public void windowDeiconified(WindowEvent e) {
+				}
+				@Override
+				public void windowDeactivated(WindowEvent e) {
+					
+				}
+				@Override
+				public void windowClosing(WindowEvent e) {
+					refresh();
+				}
+				@Override
+				public void windowClosed(WindowEvent e) {
+					refresh();
+				}
+				@Override
+				public void windowActivated(WindowEvent arg0) {
+				}
+			});
 			bw.show();
-			
 			
 		}
 				
@@ -208,20 +240,13 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		
 	}
+
 	public void refresh() {
 		model.setNumRows(0);
 		addview();
 	}
 	
-	public void getrs(int rs) {
-		if(rs!=0) {
-			refresh();
-		}
-	}
 
-	
-	
-	
 	public void view() {
 		BoardDAO dao = new BoardDAO();
 		BoardVO bo = new BoardVO();
