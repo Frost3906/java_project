@@ -1,11 +1,15 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,7 +33,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.Blob;
 
-import codecLib.mpa.Decoder;
 import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.JavaLayerException;
@@ -40,7 +43,6 @@ import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
-import player.HaMelGomPot;
 import javazoom.jl.decoder.*;
 
 import javax.swing.JButton;
@@ -49,38 +51,31 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JToggleButton;
 import javax.swing.UIManager;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-
-
-public class MainInterface extends JFrame implements ActionListener,ItemListener{
+public class MainInterface extends JFrame implements ActionListener,MouseListener,ItemListener{
 	
 	private JPanel contentPane;
-	private JButton btn_upload, btn_open;
-	private JPanel panel_1;
+	private JButton btn_upload, btn_open,btn_pre,btn_next,btn_del,btn_stop,btn_pause;
+	private JToggleButton btn_play;
+	private JPanel playArea;
 	private JTextField textField;
-	private JButton btnNewButton_2;
 	private Player play;
 	private File songFile;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_3;
-	private JToggleButton btn_play;
 	private Thread thread = new Thread();
 	private JTable table;
 	private DefaultTableModel model;
-<<<<<<< HEAD
 	private JFileChooser choo;
 	private HaMelGomPot ha;
-	private String musicname;
-=======
-	SoundJLayer soundToPlay;
-	private JScrollPane scrollPane_1;
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
+	private String musicName;
+	private ButtonGroup gl;
+	private ArrayList<File> MuList;
+	int a = 0;
 	
 
 	public static void main(String[] args) {
@@ -101,66 +96,106 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 
 	public MainInterface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 766, 421);
+		setBounds(100, 100, 282, 259);
 		setTitle("Music Player");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		panel_1 = new JPanel();
-		panel_1.setBounds(12, 10, 431, 65);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		playArea = new JPanel();
+		playArea.setBounds(12, 10, 240, 125);
+		contentPane.add(playArea);
+		playArea.setLayout(null);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(12, 5, 251, 23);
-		panel_1.add(textField);
+		textField.setBounds(0, 58, 232, 23);
+		playArea.add(textField);
 		textField.setColumns(10);
 		
-		btnNewButton_2 = new JButton("◁");
-		btnNewButton_2.setBounds(12, 36, 45, 23);
-		panel_1.add(btnNewButton_2);
+		btn_pre = new JButton("");
+		btn_pre.setIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_s.png")));
+		btn_pre.setFont(btn_pre.getFont().deriveFont(btn_pre.getFont().getSize() - 1f));
+		btn_pre.setBounds(50, 10, 45, 38);
+		playArea.add(btn_pre);
 		
 		btn_play = new JToggleButton();
-		btn_play.setText("PLAY / STOP");
-//		btn_play.addActionListener(this); 
+//		btn_play.addActionListener(this);
 		btn_play.addItemListener(this);
-		btn_play.setIcon(null);
-		btn_play.setBounds(66, 36, 140, 23);
-		panel_1.add(btn_play);
+		btn_play.setIcon(new ImageIcon(MainInterface.class.getResource("/main/play_p.png")));
+		btn_play.setBounds(96, 10, 45, 38);
+		playArea.add(btn_play);
 		
-		btnNewButton = new JButton("▷");
-		btnNewButton.addActionListener(new ActionListener() {
+		btn_next = new JButton("");
+		btn_next.setIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_s.png")));
+		btn_next.setFont(btn_next.getFont().deriveFont(btn_next.getFont().getSize() - 1f));
+		btn_next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(218, 36, 45, 23);
-		panel_1.add(btnNewButton);
+		btn_next.setBounds(145, 10, 45, 40);
+		playArea.add(btn_next);
 		
 		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(332, 37, 91, 21);
+		btn_upload.setBounds(160, 92, 75, 21);
 		btn_upload.addActionListener(this);
-		panel_1.add(btn_upload);
-		
-		btnNewButton_1 = new JButton("∞");
-		btnNewButton_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(275, 36, 45, 23);
-		panel_1.add(btnNewButton_1);
+		playArea.add(btn_upload);
 		
 		btn_open = new JButton("Open");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(275, 5, 68, 23);
-		panel_1.add(btn_open);
+		btn_open.setBounds(0, 91, 68, 23);
+		playArea.add(btn_open);
 		
-		JButton btnNewButton_4 = new JButton("Delete");
-		btnNewButton_4.setBounds(355, 5, 68, 23);
-		panel_1.add(btnNewButton_4);
+		btn_del = new JButton("Delete");
+		btn_del.setBounds(80, 91, 68, 23);
+		playArea.add(btn_del);
 		
+		btn_stop = new JButton("");
+		btn_stop.setIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_s.png")));
+		btn_stop.setBounds(2, 10, 45, 38);
+		playArea.add(btn_stop);
 		
+		btn_pause = new JButton("");
+		btn_pause.setIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_s.png")));
+		btn_pause.setBounds(190, 9, 45, 40);
+		playArea.add(btn_pause);
+		
+		btn_play.setBorderPainted(false);
+		btn_next.setBorderPainted(false);
+		btn_pre.setBorderPainted(false);
+		btn_stop.setBorderPainted(false);
+		btn_pause.setBorderPainted(false);
+		
+		btn_play.setFocusPainted(false);
+		btn_next.setFocusPainted(false);
+		btn_pre.setFocusPainted(false);
+		btn_stop.setFocusPainted(false);
+		btn_pause.setFocusPainted(false);
+		
+		btn_play.setContentAreaFilled(false);
+		btn_next.setContentAreaFilled(false);
+		btn_pre.setContentAreaFilled(false);
+		btn_stop.setContentAreaFilled(false);
+		btn_pause.setContentAreaFilled(false);
+		
+		btn_play.addMouseListener(this);
+		btn_next.addMouseListener(this);
+		btn_pre.addMouseListener(this);
+		btn_stop.addMouseListener(this);
+		btn_pause.addMouseListener(this);
+		
+		ha = new HaMelGomPot();
+		MuList = new ArrayList<File>();
+		ImageIcon pl_n = new ImageIcon("play_p");
+		ImageIcon pl_p = new ImageIcon("play_s");
+		ImageIcon pl_r = new ImageIcon("play_n");
+		
+		btn_play.setPressedIcon(pl_p);
+		btn_play.setRolloverIcon(pl_r);
+	
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 85, 431, 284);
+		scrollPane.setBounds(12, 145, 240, 65);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -177,10 +212,6 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 		table.getColumnModel().getColumn(0).setPreferredWidth(300);  //JTable 의 컬럼 길이 조절
 		scrollPane.setViewportView(table);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(493, 121, 119, 158);
-		contentPane.add(scrollPane_1);
 		
 		
 	}
@@ -221,6 +252,13 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 		return chooser;
 	}
 	
+	public String getFile() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.showOpenDialog(this);
+		File f=chooser.getSelectedFile();
+		return f.getPath();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btn_upload) {
@@ -241,41 +279,85 @@ public class MainInterface extends JFrame implements ActionListener,ItemListener
 			 }else {//취소 버튼 클릭한 경우
 				 return;
 			 }
-		}else if(e.getSource()==btn_open) {
-			JFileChooser choo = getChooser();
-			 
-			int retVal = choo.showOpenDialog(this);
-			 
-			if(retVal==0) {//열기 버튼 클릭한 경우
-				songFile = choo.getSelectedFile();
-				textField.setText(songFile.getName());
-				
-				
-				Object[] objlist = {songFile.getName()};
-				model.addRow(objlist);
 			
-			}
+		}else if(e.getSource()==btn_open) {
+				//열기 버튼 클릭한 경우
+				String file = getFile();	
+				musicName = file;
+				textField.setText(file);
+				
+				
+//				songFile = choo.getSelectedFile();
+//				textField.setText(songFile.getName());
+				 
+//				Object[] objlist = {songFile.getName()};
+//				model.addRow(objlist);		
+			
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JButton btn = (JButton) e.getSource();
+		
+		if(btn==btn_stop) {//멈춤
+			ha.stop();
+		}else if(btn==btn_pause) { //일시정지
+			
+			//일시멈춤 후 재시작을 위한 코드
+			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
+			ha.suspend();
+		}else if(btn==btn_next) {
+//			a = objlist.length + 1;
+			ha.stop();
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
 
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e)  {
-		
-		if(e.getStateChange()==1) {
-			//일시 정지 후 다시 재생 버튼을 누를 때 기존의 스레드 중지
-			ha.stop();
-			
-			//open 파일 경로
-			ha.open(musicname);
-			ha.start();
-			
-			//일시멈춤 후 재시작 버튼이 아니라 플레이 버튼을 누르는 경우
-			HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
-		}
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if(e.getStateChange() == 1) {
+			ha.stop();
+			
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+			
+		}else {
+			
+			ha.resume();
+		}
+	}
+		
 }
+
+
+
 
 
 
