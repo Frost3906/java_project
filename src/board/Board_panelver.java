@@ -144,14 +144,14 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		btn_ListOpen = new JButton(">>");
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(611, 5, 57, 23);
+		btn_ListOpen.setBounds(612, 1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
 		btn_ListClose = new JButton("<<");
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(611, 5, 57, 23);
+		btn_ListClose.setBounds(612, 1, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("Open");
