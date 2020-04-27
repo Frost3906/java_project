@@ -86,6 +86,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	 * Create the frame.
 	 */
 	public Board_panelver(LoginVO vo) {
+		
 		setTitle("Music Player");
 		
 		icon = new ImageIcon(Board_panelver.class.getResource("intro_board.jpg"));
@@ -94,7 +95,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 700, 560);
+		setBounds(700,300,700,560);
 		
 		contentPane = new JPanel() {
 			public void paintComponent(Graphics g) {

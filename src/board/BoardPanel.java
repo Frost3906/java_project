@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import login.LoginVO;
+import ui.CircleButton;
 import ui.RoundedButton;
 
 import java.awt.Font;
@@ -59,7 +60,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 		add(board_HeadPanel);
 		board_HeadPanel.setLayout(null);
 		
-		btn_write = new RoundedButton("글쓰기");
+		btn_write = new CircleButton("글쓰기");
 		btn_write.setBounds(9, 5, 88, 23);
 		btn_write.setFont(new Font("굴림", Font.BOLD, 12));
 		btn_write.setBackground(new Color(70, 130, 180));

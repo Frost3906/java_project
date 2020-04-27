@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import login.LoginVO;
+import ui.RoundedButton;
 
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -73,13 +75,17 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	}
 
 	public BoardViewContent(LoginVO vo) {
+		
+		
 		voo = vo;
 		la_id.setText(voo.getId());
 		setResizable(false);
 		setBounds(100, 100, 900, 450);
 		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(255, 240, 245));
 		setTitle("게시판");
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -87,10 +93,12 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(5, 5, 874, 31);
+		panel.setBackground(new Color(255, 240, 245));
 		contentPane.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel = new JLabel("글제목 : ");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 12));
 		panel.add(lblNewLabel);
 		
 		txt_main = new JTextField();
@@ -116,35 +124,55 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	
 		
 		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 240, 245));
 		panel_1.setBounds(5, 374, 874, 33);
 		contentPane.add(panel_1);
 		
-		btn_cancel = new JButton("뒤로가기");
+		btn_cancel = new RoundedButton("뒤로가기");
+		btn_cancel.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_cancel.setBackground(new Color(70, 130, 180));
+		btn_cancel.setForeground(new Color(255, 240, 245));
+		btn_cancel.setBounds(452, 5, 81, 23);
 		btn_cancel.addActionListener(this);
 		 
-		btn_concancel = new JButton("댓글 접기");
+		btn_concancel = new RoundedButton("댓글 접기");
+		btn_concancel.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_concancel.setBackground(new Color(70, 130, 180));
+		btn_concancel.setForeground(new Color(255, 240, 245));
+		btn_concancel.setBounds(355, 5, 85, 23);
 		btn_concancel.addActionListener(this);
 		btn_concancel.setVisible(false);
 		
-		btn_conview = new JButton("댓글 보기");
+		btn_conview = new RoundedButton("댓글 보기");
+		btn_conview.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_conview.setBackground(new Color(70, 130, 180));
+		btn_conview.setForeground(new Color(255, 240, 245));
+		btn_conview.setBounds(355, 5, 85, 23);
+		panel_1.setLayout(null);
 		panel_1.add(btn_concancel);
 		panel_1.add(btn_conview);
 		panel_1.add(btn_cancel);
 		
 		JLabel lblNewLabel_3 = new JLabel("                         ");
+		lblNewLabel_3.setBounds(442, 9, 100, 15);
 		panel_1.add(lblNewLabel_3);
 		
-		btn_delete = new JButton("글 삭제");
+		btn_delete = new RoundedButton("글 삭제");
+		btn_delete.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_delete.setBackground(new Color(70, 130, 180));
+		btn_delete.setForeground(new Color(255, 240, 245));
+		btn_delete.setBounds(547, 5, 73, 23);
 		panel_1.add(btn_delete);
 		
 		JLabel lblNewLabel_1 = new JLabel("글내용");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setBounds(5, 36, 45, 338);
 		contentPane.add(lblNewLabel_1);
 		
 		txt_content = new JTextArea();
 		txt_content.setLineWrap(true);
 		txt_content.setWrapStyleWord(true);
-		txt_content.setBounds(77, 36, 802, 338);
+		txt_content.setBounds(62, 36, 817, 338);
 		contentPane.add(txt_content);
 		txt_content.setEditable(false);
 		txt_main.setEditable(false);
@@ -206,11 +234,15 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		txt_con.setBounds(78, 475, 693, 50);
 		contentPane.add(txt_con);
 		
-		btn_con = new JButton("댓글작성");
-		btn_con.setBounds(783, 475, 96, 50);
+		btn_con = new RoundedButton("댓글작성");
+		btn_con.setFont(new Font("굴림", Font.BOLD, 11));
+		btn_con.setBackground(new Color(70, 130, 180));
+		btn_con.setForeground(new Color(255, 240, 245));
+		btn_con.setBounds(771, 475, 113, 50);
 		contentPane.add(btn_con);
 		
 		la_conid = new JLabel("id");
+		la_conid.setHorizontalAlignment(SwingConstants.CENTER);
 		la_conid.setBounds(5, 475, 70, 50);
 		contentPane.add(la_conid);
 		btn_endwrite.addActionListener(this);
@@ -228,7 +260,11 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		
 		//panel_1.add(la_id);
 		
-		btn_rewrite = new JButton("글 수정");
+		btn_rewrite = new RoundedButton("글 수정");
+		btn_rewrite.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_rewrite.setBackground(new Color(70, 130, 180));
+		btn_rewrite.setForeground(new Color(255, 240, 245));
+		btn_rewrite.setBounds(625, 5, 73, 23);
 		panel_1.add(btn_rewrite);
 		btn_rewrite.addActionListener(this);
 		
