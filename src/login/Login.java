@@ -38,6 +38,7 @@ public class Login extends JFrame implements ActionListener {
 	private JTextField txt_id = new JTextField();	
 	private JLabel lb_pw = new JLabel("Password");	
 
+	
 	private JPasswordField txt_pw = new JPasswordField();	
 
 
@@ -111,7 +112,8 @@ public class Login extends JFrame implements ActionListener {
 
 		setVisible(true);
 		btn_login.addActionListener(this);
-		btn_reg.addActionListener(this);			
+		btn_reg.addActionListener(this);	
+		
 	}
 	
 

@@ -18,6 +18,7 @@ import login.LoginVO;
 
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
@@ -53,9 +54,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload;
+	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
 	private JToggleButton btn_play;
 	private ArrayList<String> MuList;
+	private Vector<File> songfile;
 	private DefaultTableModel model;
 	private String musicName;
 	private HaMelGomPot ha;
@@ -65,6 +67,12 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JButton btn_stop;
 	private JButton btn_pause;
 	private JButton btn_play_n;
+	private JTable table;
+	
+	
+	//리스트에서 선택한 파일 위치
+	private int pos;
+	
 	
 	/**
 	 * Launch the application.
@@ -92,6 +100,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		icon = new ImageIcon(Board_panelver.class.getResource("intro_board.jpg"));
 		
 		voo=vo;
+	//	listvo=new ListVO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -178,28 +187,40 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_play_n = new JButton("play_n");
 		btn_play_n.setBounds(320, 5, 73, 23);
 		playerPanel.add(btn_play_n);
+		
+		btn_restart = new JButton("Restart");
+		btn_restart.setBounds(425, 52, 97, 23);
+		playerPanel.add(btn_restart);
+		
+		btn_upload = new JButton("UpLoad");
+		btn_upload.setBounds(546, 28, 122, 23);
+		playerPanel.add(btn_upload);
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
 		JScrollPane listPane = new JScrollPane();
-		listPane.setBounds(695, 10, 125, 512);
+		listPane.setBounds(699, 10, 125, 512);
 		contentPane.add(listPane);
+
+		String columnName[]= {"Music"};
 		
-		btn_upload = new JButton("UpLoad");
-		listPane.setColumnHeaderView(btn_upload);
-		
-		model =  new DefaultTableModel(){
+		model = new DefaultTableModel(columnName,0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 		
-		JList list = new JList();
-		listPane.setViewportView(list);
+		table = new JTable(model);
+		table.addMouseListener(this);
+		listPane.setViewportView(table);
+		
 		
 		ha =  new HaMelGomPot();
+		MuList = new ArrayList();
+		songfile = new Vector<>();
 		
+		btn_restart.addActionListener(this);
 		
 	}
 	
@@ -239,23 +260,14 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		return chooser;
 	}
 	
-	public String getFile() {
-		JFileChooser chooser = new JFileChooser("C:");
+	public File getFile() {
+		JFileChooser chooser = new JFileChooser("D:\\Billboard Hot 100");
 		chooser.showOpenDialog(this);
 		
-		File f=chooser.getSelectedFile();
+		File f=chooser.getSelectedFile();	
 		
-		String path = "";
-		String filename = "";
-		
-		path = f.getParentFile().toString();
-		filename = f.getName(); //�대�留� 異�異�
-		
-		int idx = filename.lastIndexOf(".");  //���μ�� ��嫄�
-		String _fileName = filename.substring(0,idx);
-		
-		return f.getPath();
-	}
+		return f;	
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -287,40 +299,39 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 				mdao.upload(vo);
 				 
-			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��
+			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��dfcrex
 				 return;
 			 }
 			
 		}else if(e.getSource()==btn_open) {
-				//�닿린 踰��� �대┃�� 寃쎌��
-				model.setRowCount(0);
 			
-				String file = getFile();	
-				musicName = file;
-				textField.setText(file);
-				
-				MuList.add(file);
-				model.addRow(new Vector<String>(MuList));
-				
-				for(String value : MuList) {
-					System.out.println(value); 
-					}
+				File file = getFile();	
 
-//				songFile = choo.getSelectedFile();
-//				textField.setText(songFile.getName());
-				 
-//				Object[] objlist = {songFile.getName()};
-//				model.addRow(objlist);		
+				if(file!=null) {
+					//테이블 초기화
+					model.setRowCount(0);
+				}
+				//사용자가 선택한 파일명 보여주기
+				textField.setText(file.getName());
+				
+				//사용자가 선택한 파일 Vector 담기
+				songfile.add(file);			
+				//재생할 음악리스트명(파일경로 필요)
+				musicName = file.getPath();
+				MuList.add(musicName);
+				
+				//Vector 에 담긴 file을 파일명과 경로명을 포함한 파일명으로 분리 추출
+				for(File f:songfile) {
+					//  보여줄 음악리스트 명
+					Vector<String> vec=new Vector<>();
+					vec.add(f.getName());
+					model.addRow(vec);
+				}				
 			
-		}else if(btn == btn_play_n) {
-			ha.stop();
-			
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
-			
-		}else {
-			ha.resume();
+		}else if(btn == btn_play_n) { //플레이
+			play(MuList.get(pos));			
+		}else if(btn==btn_restart){ //재시작
+			ha.resume();			
 		}
 		
 		if(btn==btn_stop) {
@@ -328,19 +339,25 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		}else if(btn==btn_pause) { 
 			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
 			ha.suspend();
-		}else if(btn==btn_next) {
-			a = MuList.size() + 1;
-			ha.stop();
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
-			System.out.println("�ㅼ�� 怨�");
+		}else if(btn==btn_next) {		
+			System.out.println("다음 곡" + MuList.size());
+			if(pos < MuList.size()) {
+				pos+=1;
+			}else if(pos == MuList.size()){
+				//pos=MuList.size()-1;
+				pos = 0;
+				System.out.println("다음곡 : "+MuList.get(pos)+" 위치 : "+pos);
+			}
+			play(MuList.get(pos));			
 		}else if(btn==btn_pre) {
-			a = MuList.size() - 1;
-			ha.stop();
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
+			System.out.println("이전 곡");
+			if(pos==0) {   // 첫번째 곡일때 이전 버튼 처리
+				pos = 0;
+			}else if(pos < MuList.size()) { //
+				pos -= 1;
+				System.out.println("이전곡 : "+MuList.get(pos)+" 위치 : "+pos);
+			}			
+			play(MuList.get(pos));			
 		}else if(btn==btn_del) {
 			MuList.remove(textField.getName());
 		}
@@ -348,7 +365,18 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		JButton btn = (JButton) e.getSource();
+		
+		if(e.getClickCount()==2) {
+		// 사용자가 선택한 파일 인덱스
+		pos=table.getSelectedRow();
+		
+		//리스트에서 사용자가 선택한 음악파일명 보여주기 
+		textField.setText(songfile.get(pos).toString());
+	
+		//사용자가 선택한 파일 플레이
+		play(MuList.get(pos));
+		
+		}
 	}
 
 	@Override
@@ -374,7 +402,29 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		// TODO Auto-generated method stub
 		
 	}	
+	
+	public void play(String musicName) {		
+		ha.stop();		
+		ha.open(musicName);
+		ha.start();
+		HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
 	
 
