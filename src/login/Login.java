@@ -108,7 +108,6 @@ public class Login extends JFrame implements ActionListener {
 		btn_login.setBounds(223, 202, 85, 23);
 		background.add(btn_login);
 
-		
 		setVisible(true);
 		btn_login.addActionListener(this);
 		btn_reg.addActionListener(this);			
