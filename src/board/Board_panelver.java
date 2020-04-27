@@ -6,7 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.cj.jdbc.Blob;
 
 import login.LoginVO;
 
@@ -18,25 +22,42 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
+import main.*;
+import javax.swing.JList;
 
-public class Board_panelver extends JFrame implements ActionListener{
+public class Board_panelver extends JFrame implements ActionListener,ItemListener{
 
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_loop, btn_open, btn_del, btn_upload;
+	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload;
 	private JToggleButton btn_play;
+	private ArrayList<String> MuList;
+	private DefaultTableModel model;
+	private String musicName;
+	private HaMelGomPot ha;
+	int a = 0;
 	
 	private static LoginVO voo;
+	private JButton btn_stop;
+	private JButton btn_pause;
+	private JButton btn_play_n;
 
 	/**
 	 * Launch the application.
@@ -88,17 +109,13 @@ public class Board_panelver extends JFrame implements ActionListener{
 		
 		btn_play = new JToggleButton();
 		btn_play.setText("PLAY / STOP");
-		btn_play.setBounds(332, 5, 140, 23);
+		btn_play.setBounds(322, 5, 45, 23);
 		playerPanel.add(btn_play);
+		btn_play.addItemListener(this);
 		
 		btn_next = new JButton("▷");
-		btn_next.setBounds(484, 5, 45, 23);
+		btn_next.setBounds(583, 5, 45, 23);
 		playerPanel.add(btn_next);
-		
-		btn_loop = new JButton("∞");
-		btn_loop.setFont(new Font("굴림", Font.PLAIN, 15));
-		btn_loop.setBounds(541, 5, 45, 23);
-		playerPanel.add(btn_loop);
 		
 		btn_ListOpen = new JButton(">>");
 		btn_ListOpen.addActionListener(this); 	
@@ -113,12 +130,28 @@ public class Board_panelver extends JFrame implements ActionListener{
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("Open");
-		btn_open.setBounds(598, 5, 68, 23);
+		btn_open.addActionListener(this);
+		btn_open.setBounds(640, 5, 45, 23);
 		playerPanel.add(btn_open);
 		
 		btn_del = new JButton("Delete");
-		btn_del.setBounds(680, 5, 123, 23);
+		btn_del.addActionListener(this);
+		btn_del.setBounds(696, 5, 67, 23);
 		playerPanel.add(btn_del);
+		
+		btn_pause = new JButton("pause");
+		btn_pause.setBounds(501, 5, 73, 23);
+		playerPanel.add(btn_pause);
+		
+		btn_stop = new JButton("stop");
+		btn_stop.addActionListener(this);
+		btn_stop.setBounds(429, 5, 73, 23);
+		playerPanel.add(btn_stop);
+		
+		btn_play_n = new JButton("play_n");
+		btn_play_n.setBounds(379, 5, 51, 23);
+		playerPanel.add(btn_play_n);
+		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
 		JScrollPane listPane = new JScrollPane();
@@ -128,14 +161,73 @@ public class Board_panelver extends JFrame implements ActionListener{
 		btn_upload = new JButton("UpLoad");
 		listPane.setColumnHeaderView(btn_upload);
 		
+		JList list = new JList();
+		listPane.setViewportView(list);
+		
+		ha =  new HaMelGomPot();
+		
+		
+	}
+	
+	private static byte[] toByteArray(String filePath) {
+		byte[] returnValue = null;
+		
+		
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				FileInputStream fis = new FileInputStream(filePath)) {
+			
+			
+			byte[] buf = new byte[1024];
+			int read = 0;
+			
+			while((read=fis.read(buf, 0, buf.length)) != -1) {
+				baos.write(buf, 0, read);
+			}
+			
+			returnValue = baos.toByteArray();
+		}catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+	
+		return returnValue;
+	}
+
+	private JFileChooser getChooser() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setAcceptAllFileFilterUsed(false);
+		
+		chooser.addChoosableFileFilter(new FileNameExtensionFilter("mp3 ����(*.mp3)","mp3"));
+		
+		chooser.setSelectedFile(new File("*.mp3"));
+		
+		
+		return chooser;
+	}
+	
+	public String getFile() {
+		JFileChooser chooser = new JFileChooser("C:");
+		chooser.showOpenDialog(this);
+		
+		File f=chooser.getSelectedFile();
+		
+		String path = "";
+		String filename = "";
+		
+		path = f.getParentFile().toString();
+		filename = f.getName(); //�대�留� 異�異�
+		
+		int idx = filename.lastIndexOf(".");  //���μ�� ��嫄�
+		String _fileName = filename.substring(0,idx);
+		
+		return f.getPath();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		BoardDAO dao = new BoardDAO();
-		
-	
+		JButton btn = (JButton) e.getSource();
 		
 		if(e.getSource()==btn_ListOpen) {		
 			setSize(1056, 600);
@@ -146,14 +238,97 @@ public class Board_panelver extends JFrame implements ActionListener{
 			setSize(910, 600);
 			btn_ListOpen.setVisible(true);
 			btn_ListClose.setVisible(false);
-		}
+		}else if(e.getSource()==btn_upload) {
+			MusicVO vo = new MusicVO();
+			MusicDAO mdao = new MusicDAO();
+			JFileChooser choo = getChooser();
+			 
+			int retVal = choo.showOpenDialog(this);
+			 
+			if(retVal==0) {//�닿린 踰��� �대┃�� 寃쎌��
+				File file = choo.getSelectedFile();
+				Blob blob = new Blob(toByteArray(file.getPath()),null);
+				vo.setBlob(blob);
+				vo.setTitle(file.getName());
+
+				mdao.upload(vo);
+				 
+			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��
+				 return;
+			 }
+			
+		}else if(e.getSource()==btn_open) {
+				//�닿린 踰��� �대┃�� 寃쎌��
+//				model.setRowCount(0);
+			
+				String file = getFile();	
+				musicName = file;
+				textField.setText(file);
+				
+				MuList.add(file);
+//				model.addRow(new Vector<String>(MuList));
+				
+				for(String value : MuList) {
+					System.out.println(value); 
+					}
+
+//				songFile = choo.getSelectedFile();
+//				textField.setText(songFile.getName());
+				 
+//				Object[] objlist = {songFile.getName()};
+//				model.addRow(objlist);		
+			
+		}else if(btn == btn_play_n) {
+			ha.stop();
+			
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+			
+		}else {
+			
+			ha.resume();
 		
-	}
-	public void getvo(LoginVO vo) {
-		this.voo = vo;
+		}if(btn==btn_stop) {//硫�異�
+			ha.stop();
+		}if(btn==btn_pause) { //�쇱����吏�
+			
+			//�쇱��硫�異� �� �ъ������ ���� 肄���
+			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
+			ha.suspend();
+		}if(btn==btn_next) {
+			a = MuList.size() + 1;
+			ha.stop();
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+			System.out.println("�ㅼ�� 怨�");
+		}if(btn==btn_pre) {
+			a = MuList.size() - 1;
+			ha.stop();
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+		}if(btn==btn_del) {
+			MuList.remove(textField.getName());
+		}
 	}
 
-
-	
-	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if(e.getStateChange() == 1) {
+			ha.stop();
+			
+			ha.open(musicName);
+			ha.start();
+			ha.stateCode = ha.STATE_INIT;
+			
+		}else {
+			
+			ha.resume();
+		}
+	}	
 }
+		
+	
+

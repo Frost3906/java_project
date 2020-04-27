@@ -240,9 +240,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 			refresh();
 		}	
 		
-		
-		
-		
+	
 	}
 
 	public void refresh() {
