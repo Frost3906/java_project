@@ -18,6 +18,7 @@ import board.Board;
 import board.Board_panelver;
 import main.*;
 import main.FirstPanel;
+import ui.RoundedButton;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,8 +32,8 @@ public class Login extends JFrame implements ActionListener {
 	
 	private JScrollPane scrollPane;
 	private ImageIcon icon;	
-	private JButton btn_reg = new JButton("Sign Up");
-	private JButton btn_login = new JButton("Sign In");
+	private JButton btn_reg = new RoundedButton("Sign Up");
+	private JButton btn_login = new RoundedButton("Sign In");
 	private JLabel lb_id = new JLabel("Username");
 	private JTextField txt_id = new JTextField();	
 	private JLabel lb_pw = new JLabel("Password");	
@@ -59,8 +60,8 @@ public class Login extends JFrame implements ActionListener {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Music Player");	
-		setBounds(700, 300, 450, 300);
-		//setResizable(false);
+		setSize(450, 300);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		
 		icon = new ImageIcon(Login.class.getResource("intro.jpg"));

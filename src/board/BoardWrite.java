@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class BoardWrite extends JFrame implements ActionListener{
 
@@ -60,10 +62,12 @@ public class BoardWrite extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 240, 245));
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNewLabel = new JLabel("제목");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 12));
 		panel.add(lblNewLabel);
 		
 		txt_main = new JTextField();
@@ -76,12 +80,17 @@ public class BoardWrite extends JFrame implements ActionListener{
 		panel.add(la_id);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 240, 245));
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		btn_write = new RoundedButton("게시하기");
+		btn_write.setBackground(new Color(70, 130, 180));
+		btn_write.setForeground(new Color(255, 240, 245));
 		panel_1.add(btn_write);
 		
 		btn_back = new RoundedButton("돌아가기");
+		btn_back.setBackground(new Color(70, 130, 180));
+		btn_back.setForeground(new Color(255, 240, 245));
 		panel_1.add(btn_back);
 		
 		 txt_content = new JTextArea();
