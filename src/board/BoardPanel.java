@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import login.LoginVO;
+import ui.CircleButton;
 import ui.RoundedButton;
 
 import java.awt.Font;
@@ -59,7 +60,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 		add(board_HeadPanel);
 		board_HeadPanel.setLayout(null);
 		
-		btn_write = new RoundedButton("글쓰기");
+		btn_write = new CircleButton("글쓰기");
 		btn_write.setBounds(9, 5, 88, 23);
 		btn_write.setFont(new Font("굴림", Font.BOLD, 12));
 		btn_write.setBackground(new Color(70, 130, 180));
@@ -69,12 +70,12 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 
 		cbox = new JComboBox();
-		cbox.setBounds(108, 6, 62, 21);
+		cbox.setBounds(108, 6, 72, 21);
 		cbox.setModel(new DefaultComboBoxModel(new String[] {"제목", "글내용", "작성자"}));
 		board_HeadPanel.add(cbox);
 		
 		txt_search = new JTextField();
-		txt_search.setBounds(172, 6, 242, 21);
+		txt_search.setBounds(188, 6, 226, 21);
 		txt_search.addActionListener(this);
 		txt_search.setColumns(20);
 		board_HeadPanel.add(txt_search);

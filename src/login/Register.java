@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ui.RoundedButton;
+
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -118,7 +120,7 @@ public class Register extends JFrame implements ActionListener{
 		
 		JPanel panel_1 = new JPanel();
 		
-		btn_regcheck = new JButton("등록");
+		btn_regcheck = new RoundedButton("등록");
 		btn_regcheck.addActionListener(this);
 		btn_regcheck.setForeground(new Color(255, 255, 255));
 		btn_regcheck.setBackground(new Color(0, 51, 102));
@@ -126,7 +128,7 @@ public class Register extends JFrame implements ActionListener{
 		btn_regcheck.setBounds(147, 211, 70, 26);
 		background.add(btn_regcheck);
 		
-		btn_regcancel = new JButton("취소");
+		btn_regcancel = new RoundedButton("취소");
 		btn_regcancel.addActionListener(this);
 		btn_regcancel.setForeground(new Color(255, 255, 255));
 		btn_regcancel.setBackground(new Color(0, 51, 120));
