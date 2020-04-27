@@ -45,6 +45,7 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import main.*;
+import ui.CircleButton;
 
 import javax.swing.JList;
 
@@ -55,7 +56,6 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private BoardPanel boardPanel;
 	private JTextField textField;
 	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
-	private JToggleButton btn_play;
 	private ArrayList<String> MuList;
 	private Vector<File> songfile;
 	private DefaultTableModel model;
@@ -132,22 +132,18 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(12, 5, 251, 23);
+		textField.setBounds(14, 5, 251, 23);
 		playerPanel.add(textField);
 		
-		btn_pre = new JButton("◁");
-		btn_pre.setBounds(275, 5, 45, 23);
+		btn_pre = new JButton("");
+		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/prebtn_n.png")));
+		btn_pre.setBounds(81, 38, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
-
-		btn_play = new JToggleButton();
-		btn_play.setText("PLAY / STOP");
-		btn_play.setBounds(136, 28, 127, 23);
-		playerPanel.add(btn_play);
-		
-		btn_next = new JButton("▷");
-		btn_next.setBounds(394, 5, 45, 23);
+		btn_next = new JButton("");
+		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/nextbtn_n.png")));
+		btn_next.setBounds(226, 38, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -165,36 +161,41 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		btn_open = new JButton("Open");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(451, 5, 71, 23);
+		btn_open.setBounds(528, 5, 71, 23);
 		playerPanel.add(btn_open);
 		
 		btn_del = new JButton("Delete");
 		btn_del.addActionListener(this);
-		btn_del.setBounds(454, 28, 67, 23);
+		btn_del.setBounds(528, 52, 71, 23);
 		playerPanel.add(btn_del);
 		
-		btn_pause = new JButton("pause");
+		btn_pause = new JButton("");
+		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/pausebtn_n.png")));
 
-		btn_pause.setBounds(320, 52, 73, 23);
+		btn_pause.setBounds(154, 57, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
-		btn_stop = new JButton("stop");
+		btn_stop = new JButton("");
+		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/stop_n.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(320, 28, 73, 23);
+		btn_stop.setBounds(194, 38, 39, 38);
 		playerPanel.add(btn_stop);
 		
-		btn_play_n = new JButton("play_n");
-		btn_play_n.setBounds(320, 5, 73, 23);
-		playerPanel.add(btn_play_n);
-		
 		btn_restart = new JButton("Restart");
-		btn_restart.setBounds(425, 52, 97, 23);
+		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_p.png")));
+		btn_restart.setText("");
+		btn_restart.setBounds(154, 29, 39, 38);
 		playerPanel.add(btn_restart);
 		
 		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(546, 28, 122, 23);
+		btn_upload.setBounds(528, 29, 71, 22);
 		playerPanel.add(btn_upload);
+		
+		btn_play_n = new JButton("");
+		btn_play_n.setBounds(117, 38, 39, 38);
+		playerPanel.add(btn_play_n);
+		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/play_p.png")));
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
@@ -221,6 +222,41 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		songfile = new Vector<>();
 		
 		btn_restart.addActionListener(this);
+		
+		btn_play_n.setBorderPainted(false);
+		btn_next.setBorderPainted(false);
+		btn_pre.setBorderPainted(false);
+		btn_stop.setBorderPainted(false);
+		btn_pause.setBorderPainted(false);
+		btn_restart.setBorderPainted(false);
+		
+		btn_play_n.setFocusPainted(false);
+		btn_next.setFocusPainted(false);
+		btn_pre.setFocusPainted(false);
+		btn_stop.setFocusPainted(false);
+		btn_pause.setFocusPainted(false);
+		btn_restart.setFocusPainted(false);
+			
+		btn_play_n.setContentAreaFilled(false);
+		btn_next.setContentAreaFilled(false);
+		btn_pre.setContentAreaFilled(false);
+		btn_stop.setContentAreaFilled(false);
+		btn_pause.setContentAreaFilled(false);
+		btn_restart.setContentAreaFilled(false);
+		
+		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_t.png"))); //마우스 오버
+		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_r.png"))); 
+		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_r.png"))); 
+		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_r.png"))); 
+		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_r.png"))); 
+		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_r.png"))); 
+		
+		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_s.png"))); //마우스 클릭 시
+		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_s.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_s.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_s.png"))); 
+		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_s.png")));
+		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_s.png")));
 		
 	}
 	

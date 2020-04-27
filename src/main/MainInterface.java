@@ -197,16 +197,16 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		btn_stop.addMouseListener(this);
 		btn_pause.addMouseListener(this);
 		
-		btn_play.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/play_t.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
-		btn_next.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
-		btn_pre.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
-		btn_stop.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
-		btn_pause.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_r.png"))); //踰��쇱�� 留��곗�ㅺ� �щ�� 媛�����
+		btn_play.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/play_t.png"))); //마우스 오버
+		btn_next.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_r.png"))); 
+		btn_pre.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_r.png"))); 
+		btn_stop.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_r.png"))); 
+		btn_pause.setRolloverIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_r.png"))); 
 		
-		btn_play.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/play_s.png"))); //踰��쇱�� ���몄����
-		btn_next.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_s.png"))); //踰��쇱�� ���몄����
-		btn_pre.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_s.png"))); //踰��쇱�� ���몄����
-		btn_stop.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_s.png"))); //踰��쇱�� ���몄����
+		btn_play.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/play_s.png"))); //마우스 클릭 시
+		btn_next.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/nextbtn_s.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/prebtn_s.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/stop_s.png"))); 
 		btn_pause.setPressedIcon(new ImageIcon(MainInterface.class.getResource("/main/pausebtn_s.png")));
 		
 		slider = new JSlider();
