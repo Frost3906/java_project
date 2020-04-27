@@ -255,14 +255,14 @@ public class Board extends JFrame implements ActionListener{
 			}
 						
 		}		
-		if(btn==btn_write) {   //  글 쓰기
-			BoardWrite bw = new BoardWrite();
-			bw.getvo(voo);
-			bw.show();
-			dispose();
-			
-			
-		}
+//		if(btn==btn_write) {   //  글 쓰기
+//			BoardWrite bw = new BoardWrite();
+//			bw.getvo(voo);
+//			bw.show();
+//			dispose();
+//			
+//			
+//		}
 				
 		if(btn==btn_refresh) {   //  새로고침
 			refresh();
