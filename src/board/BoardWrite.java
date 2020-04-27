@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import login.LoginVO;
+import ui.RoundedButton;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -77,10 +78,10 @@ public class BoardWrite extends JFrame implements ActionListener{
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		btn_write = new JButton("게시하기");
+		btn_write = new RoundedButton("게시하기");
 		panel_1.add(btn_write);
 		
-		btn_back = new JButton("돌아가기");
+		btn_back = new RoundedButton("돌아가기");
 		panel_1.add(btn_back);
 		
 		 txt_content = new JTextArea();

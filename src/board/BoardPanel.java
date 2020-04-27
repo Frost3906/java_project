@@ -2,6 +2,8 @@ package board;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
@@ -15,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import login.LoginVO;
+import ui.RoundedButton;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -24,6 +27,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
+import java.awt.FlowLayout;
 
 public class BoardPanel extends JPanel implements ActionListener{
 	
@@ -46,54 +50,75 @@ public class BoardPanel extends JPanel implements ActionListener{
 	
 	public BoardPanel(LoginVO vo) {
 		this.voo=vo;
-		setBounds(12, 54, 884, 496);
-		setLayout(new BorderLayout(0, 0));
+		setBounds(12, 120, 670, 400);
+		setLayout(null);
 		
 		board_HeadPanel = new JPanel();
-		add(board_HeadPanel, BorderLayout.NORTH);
+		board_HeadPanel.setBackground(new Color(255, 240, 245));
+		board_HeadPanel.setBounds(0, 0, 670, 33);
+		add(board_HeadPanel);
+		board_HeadPanel.setLayout(null);
+		
+		btn_write = new RoundedButton("글쓰기");
+		btn_write.setBounds(9, 5, 88, 23);
+		btn_write.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_write.setBackground(new Color(70, 130, 180));
+		btn_write.setForeground(new Color(255, 240, 245));
+		board_HeadPanel.add(btn_write);
+		btn_write.addActionListener(this);
 		
 
 		cbox = new JComboBox();
+		cbox.setBounds(108, 6, 62, 21);
 		cbox.setModel(new DefaultComboBoxModel(new String[] {"제목", "글내용", "작성자"}));
 		board_HeadPanel.add(cbox);
 		
 		txt_search = new JTextField();
+		txt_search.setBounds(172, 6, 242, 21);
 		txt_search.addActionListener(this);
 		txt_search.setColumns(20);
 		board_HeadPanel.add(txt_search);
 		
-		btn_search = new JButton("검색");
+		btn_search = new  RoundedButton("검색");
+		btn_search.setBounds(419, 5, 57, 23);
+		btn_search.setForeground(new Color(255, 240, 245));
+		btn_search.setBackground(new Color(70, 130, 180));
 		board_HeadPanel.add(btn_search);
 		
-		JLabel lblNewLabel_1 = new JLabel("                    ");
-		board_HeadPanel.add(lblNewLabel_1);
-		
-		btn_write = new JButton("글 쓰기");
-		btn_write.setHorizontalAlignment(SwingConstants.RIGHT);
-		board_HeadPanel.add(btn_write);
-		
 		la_id = new JLabel(voo.getId());
+		la_id.setFont(new Font("굴림", Font.BOLD, 9));
+		la_id.setBounds(488, 10, 65, 15);
 		board_HeadPanel.add(la_id);
 		
 		lblNewLabel = new JLabel("님 환영합니다.");
+		lblNewLabel.setBounds(554, 9, 104, 15);
 		board_HeadPanel.add(lblNewLabel);
 
+//		============================================================================
 		
 	    board_FooterPanel = new JPanel();
-		add(board_FooterPanel, BorderLayout.SOUTH);
-		
-		
-		
-		btn_read = new JButton("글보기");
+	    board_FooterPanel.setBackground(new Color(255, 240, 245));
+	    board_FooterPanel.setBounds(0, 363, 670, 37);
+		add(board_FooterPanel);
+			
+		btn_read = new  RoundedButton("글보기");
+		btn_read.setFont(new Font("굴림", Font.BOLD, 15));
+		btn_read.setBackground(new Color(169, 169, 169));
 		btn_read.addActionListener(this);
 		btn_read.setHorizontalAlignment(SwingConstants.RIGHT);
 		board_FooterPanel.add(btn_read);
 		
-		btn_refresh = new JButton("새로고침");
+		btn_refresh = new RoundedButton("새로고침");
+		btn_refresh.setFont(new Font("굴림", Font.BOLD, 15));
+		btn_refresh.setBackground(new Color(169, 169, 169));
 		btn_refresh.addActionListener(this);
 		board_FooterPanel.add(btn_refresh);
 		
+//		============================================================================
+		
 		board_contentsPanel = new JScrollPane();
+		board_contentsPanel.setBounds(0, 33, 670, 330);
+		
 		add(board_contentsPanel, BorderLayout.CENTER);
 		
 		
@@ -108,12 +133,12 @@ public class BoardPanel extends JPanel implements ActionListener{
 		table = new JTable(model);
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 		board_contentsPanel.setViewportView(table);
-		table.getColumnModel().getColumn(0).setPreferredWidth(800);  //JTable 의 컬럼 길이 조절
+		table.getColumnModel().getColumn(0).setPreferredWidth(400);  //JTable 의 컬럼 길이 조절
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);  //JTable 의 컬럼 길이 조절
 		table.getColumnModel().getColumn(3).setPreferredWidth(120);  //JTable 의 컬럼 길이 조절
 		table.setRowHeight(22);
 		
 		btn_search.addActionListener(this);
-		btn_write.addActionListener(this);
 		table.addMouseListener(new MouseListener() {
 			
 			@Override
