@@ -59,9 +59,8 @@ public class Login extends JFrame implements ActionListener {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Music Player");	
-		setResizable(false);
 		setBounds(700, 300, 450, 300);
-		setResizable(false);
+		//setResizable(false);
 		setLocationRelativeTo(null);
 		
 		icon = new ImageIcon(Login.class.getResource("intro.jpg"));

@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,9 +18,12 @@ import login.LoginVO;
 
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -45,6 +49,7 @@ import javax.swing.JList;
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
+	private ImageIcon icon;
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
@@ -81,14 +86,29 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	 * Create the frame.
 	 */
 	public Board_panelver(LoginVO vo) {
+		setTitle("Music Player");
+		
+		icon = new ImageIcon(Board_panelver.class.getResource("intro_board.jpg"));
+		
 		voo=vo;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 910, 595);
-		contentPane = new JPanel();
+		setLocationRelativeTo(null);
+		setBounds(100, 100, 700, 560);
+		
+		contentPane = new JPanel() {
+			public void paintComponent(Graphics g) {
+				super.paintComponents(g);
+				Dimension d = getSize();
+				g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+			}
+		};
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		// =============================================================
 		
 		/*보드 패널 생성*/
 		boardPanel = new BoardPanel(voo);
@@ -96,7 +116,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		playerPanel = new JPanel();
 		playerPanel.setLayout(null);
-		playerPanel.setBounds(12, 10, 884, 34);
+		playerPanel.setBounds(12, 10, 669, 95);
 		contentPane.add(playerPanel);
 		
 		textField = new JTextField();
@@ -110,56 +130,58 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
+
 		btn_play = new JToggleButton();
 		btn_play.setText("PLAY / STOP");
-		btn_play.setBounds(322, 5, 45, 23);
+		btn_play.setBounds(136, 28, 127, 23);
 		playerPanel.add(btn_play);
 		
 		btn_next = new JButton("▷");
-		btn_next.setBounds(583, 5, 45, 23);
+		btn_next.setBounds(394, 5, 45, 23);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
 		btn_ListOpen = new JButton(">>");
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(815, 5, 57, 23);
+		btn_ListOpen.setBounds(611, 5, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
 		btn_ListClose = new JButton("<<");
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(815, 5, 57, 23);
+		btn_ListClose.setBounds(611, 5, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("Open");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(640, 5, 45, 23);
+		btn_open.setBounds(451, 5, 71, 23);
 		playerPanel.add(btn_open);
 		
 		btn_del = new JButton("Delete");
 		btn_del.addActionListener(this);
-		btn_del.setBounds(696, 5, 67, 23);
+		btn_del.setBounds(454, 28, 67, 23);
 		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("pause");
-		btn_pause.setBounds(501, 5, 73, 23);
+
+		btn_pause.setBounds(320, 52, 73, 23);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("stop");
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(429, 5, 73, 23);
+		btn_stop.setBounds(320, 28, 73, 23);
 		playerPanel.add(btn_stop);
 		
 		btn_play_n = new JButton("play_n");
-		btn_play_n.setBounds(379, 5, 51, 23);
+		btn_play_n.setBounds(320, 5, 73, 23);
 		playerPanel.add(btn_play_n);
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
 		JScrollPane listPane = new JScrollPane();
-		listPane.setBounds(905, 10, 125, 540);
+		listPane.setBounds(695, 10, 125, 512);
 		contentPane.add(listPane);
 		
 		btn_upload = new JButton("UpLoad");
@@ -240,12 +262,12 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		JButton btn = (JButton) e.getSource();
 		
 		if(e.getSource()==btn_ListOpen) {		
-			setSize(1056, 600);
+			setSize(840, 560);
 			btn_ListOpen.setVisible(false);
 			btn_ListClose.setVisible(true);
 		}
 		else if(e.getSource()==btn_ListClose) {
-			setSize(910, 600);
+			setSize(700, 560);
 			btn_ListOpen.setVisible(true);
 			btn_ListClose.setVisible(false);
 		}else if(e.getSource()==btn_upload) {
