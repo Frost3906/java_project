@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import board.Board;
+import board.Board_panelver;
 import main.*;
 import main.FirstPanel;
 
@@ -53,12 +54,15 @@ public class Login extends JFrame implements ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Login() {
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Music Player");	
+		setResizable(false);
 		setBounds(700, 300, 450, 300);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
 		
@@ -75,9 +79,7 @@ public class Login extends JFrame implements ActionListener {
 			
 		scrollPane = new JScrollPane(background);
 		setContentPane(scrollPane);	
-			
-			
-			
+					
 		lb_id.setBounds(129, 100, 63, 15);
 		background.add(lb_id);
 		
@@ -117,16 +119,12 @@ public class Login extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
-		
 		if((e.getSource() == btn_login) || (e.getSource() == txt_pw)) {
 			LoginDAO dao = new LoginDAO();
 			LoginVO vo = new LoginVO();
 			vo = dao.login(txt_id.getText(), txt_pw.getText());
-			if(vo.getName()!=null) {
-				String a = txt_id.getText();
-				Board board = new Board();
-				board.getvo(vo);
+			if(vo!=null) {
+				Board_panelver board = new Board_panelver(vo);
 				board.show();
 				dispose();
 			}else {

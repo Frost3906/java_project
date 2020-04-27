@@ -32,7 +32,7 @@ public class Register extends JFrame implements ActionListener{
 	private ImageIcon icon;
 	private LoginDAO ldao;
 	private JTextField txt_regid;
-	private JTextField txt_regpw;
+	private JPasswordField txt_regpw;
 	private JTextField txt_regname;
 	private JTextField txt_regmail;
 	private JButton btn_regcheck;
@@ -54,8 +54,11 @@ public class Register extends JFrame implements ActionListener{
 
 	public Register() {
 		setTitle("회원가입");
-		
+
+		setResizable(false);
+
 		setBounds(700, 330, 450, 300);
+		setLocationRelativeTo(null);
 		
 		ldao = new LoginDAO();
 		
@@ -90,7 +93,7 @@ public class Register extends JFrame implements ActionListener{
 		lb_regpw.setBounds(133, 95, 67, 15);
 		background.add(lb_regpw);
 		
-		txt_regpw = new JTextField();
+		txt_regpw = new JPasswordField();
 		txt_regpw.setBounds(215, 90, 116, 21);
 		background.add(txt_regpw);
 		txt_regpw.setColumns(10);
@@ -125,7 +128,6 @@ public class Register extends JFrame implements ActionListener{
 		
 		btn_regcancel = new JButton("취소");
 		btn_regcancel.addActionListener(this);
-
 		btn_regcancel.setForeground(new Color(255, 255, 255));
 		btn_regcancel.setBackground(new Color(0, 51, 120));
 		btn_regcancel.setFont(new Font("굴림", Font.BOLD, 15));
@@ -133,10 +135,9 @@ public class Register extends JFrame implements ActionListener{
 		background.add(btn_regcancel);
 		
 	
-		setContentPane(scrollPane);	
 		setVisible(true);
+		setContentPane(scrollPane);	
 		
-		btn_regcheck.addActionListener(this);
 			
 	}
 
@@ -154,8 +155,8 @@ public class Register extends JFrame implements ActionListener{
 			int result = ldao.reg(vo);
 			
 			if(result > 0) {
-				this.dispose();
 				JOptionPane.showMessageDialog(this, "성공");				
+				this.dispose();
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
 			}
