@@ -171,7 +171,6 @@ public class Board extends JFrame implements ActionListener{
 		addview();
 		setVisible(true);
 		
-		System.out.println(la_id.getText()+"접속자 id");
 
 		
 		
@@ -315,12 +314,8 @@ public class Board extends JFrame implements ActionListener{
 			int c = Integer.parseInt(a);
 			dao.viewcount(b, c);
 			dispose();
-			System.out.println(la_id.getText());
-			System.out.println(idval2);
 		}else {
 			bvc.unvi();
-			System.out.println(la_id.getText());
-			System.out.println(idval2);
 			bvc.unvi();
 			bvc.getvo(voo);
 			bvc.textfill(boardno);

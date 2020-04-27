@@ -75,7 +75,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	public BoardViewContent() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 540);
+		setBounds(100, 100, 900, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setTitle("게시판");
@@ -209,8 +209,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		btn_con.addActionListener(this);
 		btn_conview.addActionListener(this);
 		
-//		System.out.println(la_id.getText()+"접속자 id");
-//		System.out.println(la_id2.getText()+"작성자 id");
 		
 		
 		scrollPane.setVisible(false);
@@ -219,6 +217,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		la_conid.setVisible(false);
 		
 		panel_1.add(la_id);
+		
+		la_id.setVisible(false);
 		
 		setVisible(true);
 		
@@ -417,7 +417,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				
 				String option[]= {"예","아니오",};
 				int a = JOptionPane.showOptionDialog(this, "정말로 삭제하시겠습니까?", "게시글 삭제", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
-				System.out.println(a);
 				if(a==0) {
 					int result = dao.delete(no);
 					

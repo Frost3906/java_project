@@ -354,5 +354,7 @@ public class BoardDAO {
 		
 	}
 	
+//	public BoardVO countcomment();
+	
 	
 }
