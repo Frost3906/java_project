@@ -79,7 +79,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 	private JTable table;
 	private DefaultTableModel model;
 	private JFileChooser choo;
-	private HaMelGomPot ha;
+	private hamel1 ha;
 	private String musicName;
 	private ButtonGroup gl;
 	private ArrayList<String> MuList;
@@ -213,7 +213,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		slider.setBounds(0, 126, 232, 26);
 		playArea.add(slider);
 		
-		ha = new HaMelGomPot();
+		ha = new hamel1();
 		MuList = new ArrayList();
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -288,7 +288,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		int idx = filename.lastIndexOf(".");  //���μ�� ��嫄�
 		String _fileName = filename.substring(0,idx);
 		
-		return f.getPath();
+		return f.getName();
 	}
 	
 	@Override
@@ -349,21 +349,21 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 		}else if(btn==btn_pause) { //�쇱����吏�
 			
 			//�쇱��硫�異� �� �ъ������ ���� 肄���
-			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
+			hamel1.stateCode = hamel1.STATE_SUSPENDED;
 			ha.suspend();
 		}else if(btn==btn_next) {
 			a = MuList.size() + 1;
 			ha.stop();
 			ha.open(musicName);
 			ha.start();
-			ha.stateCode = ha.STATE_INIT;
+			hamel1.stateCode = hamel1.STATE_INIT;
 			System.out.println("�ㅼ�� 怨�");
 		}else if(btn==btn_pre) {
 			a = MuList.size() - 1;
 			ha.stop();
 			ha.open(musicName);
 			ha.start();
-			ha.stateCode = ha.STATE_INIT;
+			hamel1.stateCode = hamel1.STATE_INIT;
 		}else if(btn==btn_del) {
 			MuList.remove(textField.getName());
 		}
@@ -399,7 +399,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 			
 			ha.open(musicName);
 			ha.start();
-			ha.stateCode = ha.STATE_INIT;
+			hamel1.stateCode = hamel1.STATE_INIT;
 			
 		}else {
 			

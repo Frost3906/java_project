@@ -25,7 +25,7 @@ public class music extends JFrame implements ActionListener{
 	private JButton btnPlay,btnPause,btnStop;
 	private JButton btnFile;
 	
-	private HaMelGomPot pot;
+	private hamel1 pot;
 	
 	//현재 재생할 곡 
 	private String musicName;
@@ -79,7 +79,7 @@ public class music extends JFrame implements ActionListener{
 		
 		
 		//player 초기화
-		pot = new HaMelGomPot();
+		pot = new hamel1();
 		
 		btnFile.addActionListener(this);
 		btnPlay.addActionListener(this);
@@ -98,7 +98,7 @@ public class music extends JFrame implements ActionListener{
 			pot.open(musicName);			
 			pot.start();
 			//일시멈춤 후 재시작 버튼이 아니라 플레이 버튼을 누르는 경우
-			HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
+			hamel1.stateCode = hamel1.STATE_INIT;
 		}else if(btn==btnStop) {//멈춤
 			pot.stop();			
 		}else if(btn==btnFile) { //음악 파일 선택
@@ -108,7 +108,7 @@ public class music extends JFrame implements ActionListener{
 		}else if(btn==btnPause) { //일시정지
 			
 			//일시멈춤 후 재시작을 위한 코드
-			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
+			hamel1.stateCode = hamel1.STATE_SUSPENDED;
 			pot.suspend();
 			
 		}else if(btn==btnRestart) { //일시정지 후 재시작

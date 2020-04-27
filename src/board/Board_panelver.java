@@ -231,8 +231,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		int idx = filename.lastIndexOf(".");  //���μ�� ��嫄�
 		String _fileName = filename.substring(0,idx);
 		
-		return f.getPath();
-	}
+		return f.getName();	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -264,7 +263,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 				mdao.upload(vo);
 				 
-			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��
+			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��dfcrex
 				 return;
 			 }
 			

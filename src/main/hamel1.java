@@ -18,7 +18,7 @@ import javazoom.jl.decoder.SampleBuffer;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
 
-public class HaMelGomPot implements Runnable {
+public class hamel1 implements Runnable {
 	
 	public static final int BUFFER_SIZE = 10000;
 	private Decoder decoder;
@@ -97,7 +97,7 @@ public class HaMelGomPot implements Runnable {
 		try {
 			decoder = new Decoder();
 			out = FactoryRegistry.systemRegistry().createAudioDevice();
-			playes = new ArrayList<HaMelGomPot.Sample>(BUFFER_SIZE);
+			playes = new ArrayList<hamel1.Sample>(BUFFER_SIZE);
 			length = 0;  //0
 			out.open(decoder);
 			getPlayes(path);
