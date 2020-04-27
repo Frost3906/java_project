@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.Blob;
 
+import board.HaMelGomPot;
 import login.LoginVO;
 
 import javax.swing.JTextField;
@@ -39,9 +40,10 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import main.*;
+
 import javax.swing.JList;
 
-public class Board_panelver extends JFrame implements ActionListener,ItemListener{
+public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
@@ -58,7 +60,7 @@ public class Board_panelver extends JFrame implements ActionListener,ItemListene
 	private JButton btn_stop;
 	private JButton btn_pause;
 	private JButton btn_play_n;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -105,16 +107,17 @@ public class Board_panelver extends JFrame implements ActionListener,ItemListene
 		
 		btn_pre = new JButton("◁");
 		btn_pre.setBounds(275, 5, 45, 23);
+		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_play = new JToggleButton();
 		btn_play.setText("PLAY / STOP");
 		btn_play.setBounds(322, 5, 45, 23);
 		playerPanel.add(btn_play);
-		btn_play.addItemListener(this);
 		
 		btn_next = new JButton("▷");
 		btn_next.setBounds(583, 5, 45, 23);
+		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
 		btn_ListOpen = new JButton(">>");
@@ -141,6 +144,7 @@ public class Board_panelver extends JFrame implements ActionListener,ItemListene
 		
 		btn_pause = new JButton("pause");
 		btn_pause.setBounds(501, 5, 73, 23);
+		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("stop");
@@ -160,6 +164,13 @@ public class Board_panelver extends JFrame implements ActionListener,ItemListene
 		
 		btn_upload = new JButton("UpLoad");
 		listPane.setColumnHeaderView(btn_upload);
+		
+		model =  new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		
 		JList list = new JList();
 		listPane.setViewportView(list);
@@ -259,14 +270,14 @@ public class Board_panelver extends JFrame implements ActionListener,ItemListene
 			
 		}else if(e.getSource()==btn_open) {
 				//�닿린 踰��� �대┃�� 寃쎌��
-//				model.setRowCount(0);
+				model.setRowCount(0);
 			
 				String file = getFile();	
 				musicName = file;
 				textField.setText(file);
 				
 				MuList.add(file);
-//				model.addRow(new Vector<String>(MuList));
+				model.addRow(new Vector<String>(MuList));
 				
 				for(String value : MuList) {
 					System.out.println(value); 
@@ -286,47 +297,59 @@ public class Board_panelver extends JFrame implements ActionListener,ItemListene
 			ha.stateCode = ha.STATE_INIT;
 			
 		}else {
-			
 			ha.resume();
+		}
 		
-		}if(btn==btn_stop) {//硫�異�
+		if(btn==btn_stop) {
 			ha.stop();
-		}if(btn==btn_pause) { //�쇱����吏�
-			
-			//�쇱��硫�異� �� �ъ������ ���� 肄���
+		}else if(btn==btn_pause) { 
 			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
 			ha.suspend();
-		}if(btn==btn_next) {
+		}else if(btn==btn_next) {
 			a = MuList.size() + 1;
 			ha.stop();
 			ha.open(musicName);
 			ha.start();
 			ha.stateCode = ha.STATE_INIT;
 			System.out.println("�ㅼ�� 怨�");
-		}if(btn==btn_pre) {
+		}else if(btn==btn_pre) {
 			a = MuList.size() - 1;
 			ha.stop();
 			ha.open(musicName);
 			ha.start();
 			ha.stateCode = ha.STATE_INIT;
-		}if(btn==btn_del) {
+		}else if(btn==btn_del) {
 			MuList.remove(textField.getName());
 		}
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
-		if(e.getStateChange() == 1) {
-			ha.stop();
-			
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
-			
-		}else {
-			
-			ha.resume();
-		}
+	public void mouseClicked(MouseEvent e) {
+		JButton btn = (JButton) e.getSource();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}	
 }
 		

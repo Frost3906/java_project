@@ -38,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.Blob;
 
+import board.HaMelGomPot;
 import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.JavaLayerException;
