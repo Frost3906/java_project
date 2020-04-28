@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -67,6 +68,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JButton btn_pause;
 	private JButton btn_play_n;
 	private JTable table;
+	private Cursor cursor;
 	
 	
 	//리스트에서 선택한 파일 위치
@@ -99,6 +101,8 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		icon = new ImageIcon(Board_panelver.class.getResource("/image/intro_board.jpg"));
 		
 		voo=vo;
+		
+		cursor = new Cursor(cursor.HAND_CURSOR);
 	//	listvo=new ListVO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -258,6 +262,14 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
 		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
+		
+		
+		  btn_stop.addMouseListener(this);
+		  btn_pause.addMouseListener(this);
+		  btn_play_n.addMouseListener(this);
+		  btn_next.addMouseListener(this);
+		  btn_pre.addMouseListener(this);
+		  btn_restart.addMouseListener(this);
 		JButton btnNewButton = new JButton("Loader");
 		btnNewButton.setBounds(541, 45, 71, 23);
 		playerPanel.add(btnNewButton);
@@ -462,7 +474,28 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+//		  btn_next.addMouseListener(this);
+//		  btn_pre.addMouseListener(this);
+//		  btn_restart.addMouseListener(this);
+		if(e.getSource()==btn_stop) {
+			btn_stop.setCursor(cursor);
+		}
+		if(e.getSource()==btn_pause) {
+			btn_pause.setCursor(cursor);
+		}
+		if(e.getSource()==btn_play_n) {
+			btn_play_n.setCursor(cursor);
+		}
+		if(e.getSource()==btn_next) {
+			btn_next.setCursor(cursor);
+		}
+		if(e.getSource()==btn_pre) {
+			btn_pre.setCursor(cursor);
+		}
+		if(e.getSource()==btn_restart) {
+			btn_restart.setCursor(cursor);
+		}
 		
 	}
 
