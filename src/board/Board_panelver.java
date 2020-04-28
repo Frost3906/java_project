@@ -54,7 +54,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
+	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart,btn_down;
 	private ArrayList<String> MuList;
 	private Vector<File> songfile;
 	private DefaultTableModel model;
@@ -131,18 +131,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(12, 34, 251, 23);
+		textField.setBounds(25, 13, 232, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
-		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_n.png")));
-		btn_pre.setBounds(81, 38, 39, 38);
+		btn_pre.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre.png")));
+		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre_p.png")));
+		btn_pre.setBounds(459, 10, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
-		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_n.png")));
-		btn_next.setBounds(226, 38, 39, 38);
+		btn_next.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next.png")));
+		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next_p.png")));
+		btn_next.setBounds(561, 10, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -151,53 +153,68 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_ListOpen.setBounds(612, 1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
-		
 		btn_ListClose = new JButton("<<");
 		btn_ListClose.addActionListener(this);
 		
 		btn_ListClose.setBounds(612, 1, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
-		btn_open = new JButton("Open");
+		btn_open = new JButton("");
+		btn_open.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2.png")));
+		btn_open.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2_p.png")));
 		btn_open.addActionListener(this);
-		btn_open.setBounds(541, 0, 71, 23);
+		btn_open.setBounds(25, 48, 40, 38);
 		playerPanel.add(btn_open);
 		
-		btn_del = new JButton("Delete");
+		btn_del = new JButton("");
+		btn_del.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del.png")));
+		btn_del.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del_p.png")));
 		btn_del.addActionListener(this);
-		btn_del.setBounds(541, 68, 71, 23);
+		btn_del.setBounds(92, 48, 39, 38);
 		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("");
-		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_n.png")));
+		btn_pause.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause.png")));
+		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause_p.png")));
 
-		btn_pause.setBounds(387, 38, 39, 38);
+		btn_pause.setBounds(407, 10, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("");
-		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_n.png")));
+		btn_stop.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop.png")));
+		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop_p.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(427, 19, 39, 38);
+		btn_stop.setBounds(510, 10, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
-		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
+		btn_restart.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat.png")));
+		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(387, 10, 39, 38);
+		btn_restart.setBounds(356, 48, 39, 38);
 		playerPanel.add(btn_restart);
 		
-		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(541, 23, 71, 22);
+		btn_upload = new JButton("");
+		btn_upload.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload_p.png")));
+		btn_upload.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload.png")));
+		btn_upload.setBounds(218, 46, 39, 38);
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(350, 19, 39, 38);
+		btn_play_n.setBounds(356, 10, 39, 38);
 		playerPanel.add(btn_play_n);
-		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
+		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_play_p.png")));
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
+		
+		btn_down = new JButton("");
+		btn_down.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
+		btn_down.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download.png")));
+		btn_down.setBounds(151, 46, 39, 37);
+		btn_down.addActionListener(this);
+		playerPanel.add(btn_down);
 		
 		JScrollPane listPane = new JScrollPane();
 		listPane.setBounds(699, 10, 125, 512);
@@ -229,6 +246,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setBorderPainted(false);
 		btn_pause.setBorderPainted(false);
 		btn_restart.setBorderPainted(false);
+		btn_upload.setBorderPainted(false);
+		btn_del.setBorderPainted(false);
+		btn_open.setBorderPainted(false);
+		btn_down.setBorderPainted(false);
 		
 		btn_play_n.setFocusPainted(false);
 		btn_next.setFocusPainted(false);
@@ -236,6 +257,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setFocusPainted(false);
 		btn_pause.setFocusPainted(false);
 		btn_restart.setFocusPainted(false);
+		btn_upload.setFocusPainted(false);
+		btn_del.setFocusPainted(false);
+		btn_open.setFocusPainted(false);
+		btn_down.setFocusPainted(false);
 			
 		btn_play_n.setContentAreaFilled(false);
 		btn_next.setContentAreaFilled(false);
@@ -243,24 +268,26 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setContentAreaFilled(false);
 		btn_pause.setContentAreaFilled(false);
 		btn_restart.setContentAreaFilled(false);
+		btn_upload.setContentAreaFilled(false);
+		btn_del.setContentAreaFilled(false);
+		btn_open.setContentAreaFilled(false);
+		btn_down.setContentAreaFilled(false);
 		
-		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
-		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
-		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_r.png"))); 
-		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_r.png"))); 
-		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_r.png"))); 
-		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
+//		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
+//		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
+//		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_r.png"))); 
+//		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_r.png"))); 
+//		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_r.png"))); 
+//		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
 		
-		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_s.png"))); //마우스 클릭 시
-		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_s.png"))); 
-		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_s.png"))); 
-		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_s.png"))); 
-		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
-		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
+		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_play.png"))); //마우스 클릭 시
+//		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_s.png"))); 
+//		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_s.png"))); 
+//		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_s.png"))); 
+//		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
+//		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
+//		
 		
-		JButton btnNewButton = new JButton("Loader");
-		btnNewButton.setBounds(541, 45, 71, 23);
-		playerPanel.add(btnNewButton);
 		
 	}
 	
@@ -339,6 +366,12 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 			setSize(700, 560);
 			btn_ListOpen.setVisible(true);
 			btn_ListClose.setVisible(false);
+		}
+		else if(e.getSource()==btn_del) {
+			System.out.println("del");
+			pos=table.getSelectedRow();
+			model.removeRow(pos);
+
 		}else if(e.getSource()==btn_upload) {
 			MusicVO vo = new MusicVO();
 			MusicDAO mdao = new MusicDAO();
@@ -440,9 +473,6 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 //				System.out.println("이전곡 : "+MuList.get(pos)+" 위치 : "+pos);
 //			}			
 //			play(MuList.get(pos));
-			
-		}else if(btn==btn_del) {
-			MuList.remove(textField.getName());
 		}
 	}
 }
