@@ -56,7 +56,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
+	private JButton btn_downloader, btn_upload, btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_restart;
 	private ArrayList<String> MuList;
 	private Vector<File> songfile;
 	private DefaultTableModel model;
@@ -194,7 +194,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_restart.setBounds(181, 38, 39, 38);
 		playerPanel.add(btn_restart);
 		
-		btn_upload = new JButton("UpLoad");
+		btn_upload = new JButton("Upload");
 		btn_upload.setBounds(541, 23, 71, 22);
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
@@ -265,9 +265,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
 		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
-		JButton btnNewButton = new JButton("Loader");
-		btnNewButton.setBounds(541, 45, 71, 23);
-		playerPanel.add(btnNewButton);
+		btn_downloader = new JButton("Download");
+		btn_downloader.addActionListener(this);
+		btn_downloader.setBounds(541, 45, 71, 23);
+		playerPanel.add(btn_downloader);
 		
 	}
 	
@@ -365,6 +366,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 				 return;
 			 }
 			
+		}else if(e.getSource()==btn_downloader) {
+			MusicDBLoader loader = new MusicDBLoader();
+			loader.show();
 		}else if(e.getSource()==btn_open) {
 			
 				File[] file = getFile();	

@@ -147,8 +147,32 @@ public class MusicDBLoader extends JFrame implements ActionListener, MouseListen
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getClickCount()==2) {
+			blob= vecList.get(DB_Table.getSelectedRow()).getBlob();
+			chooser = getChooser();
+			int retVal = chooser.showSaveDialog(this);
+			
+			if(retVal==0) {
+				File file = chooser.getSelectedFile();
+				if(file.getPath().lastIndexOf(".")<0) {
+					file = new File(file.getPath()+".mp3");
+				}
+				try (InputStream inputStream = blob.getBinaryStream();
+					OutputStream outputStream = new FileOutputStream(file.getPath())
+							){
+					
+		            int bytesRead = -1;
+		            byte[] buffer = new byte[1024];
+		            while ((bytesRead = inputStream.read(buffer)) != -1) {
+		                outputStream.write(buffer, 0, bytesRead);
+		            }
+
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 		
+			}else return;
+			}
 	}
 
 
