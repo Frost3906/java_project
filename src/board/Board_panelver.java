@@ -44,7 +44,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
-import main.*;
 import ui.CircleButton;
 import ui.RoundedButton;
 
@@ -99,7 +98,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		setTitle("Music Player");
 		
-		icon = new ImageIcon(Board_panelver.class.getResource("intro_board.jpg"));
+		icon = new ImageIcon(Board_panelver.class.getResource("/image/intro_board.jpg"));
 		
 		voo=vo;
 	//	listvo=new ListVO();
@@ -135,18 +134,18 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(16, 16, 251, 23);
+		textField.setBounds(14, 19, 251, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
-		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/prebtn_n.png")));
-		btn_pre.setBounds(342, 28, 39, 38);
+		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_n.png")));
+		btn_pre.setBounds(81, 38, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
-		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/nextbtn_n.png")));
-		btn_next.setBounds(494, 28, 39, 38);
+		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_n.png")));
+		btn_next.setBounds(226, 38, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -166,29 +165,44 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
+		btn_open = new JButton("Open");
+		btn_open.addActionListener(this);
+		btn_open.setBounds(541, 0, 71, 23);
+		playerPanel.add(btn_open);
+		
+		btn_del = new JButton("Delete");
+		btn_del.addActionListener(this);
+		btn_del.setBounds(541, 68, 71, 23);
+		playerPanel.add(btn_del);
+		
 		btn_pause = new JButton("");
-		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/pausebtn_n.png")));
+		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_n.png")));
 
-		btn_pause.setBounds(443, 13, 39, 38);
+		btn_pause.setBounds(387, 38, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("");
-		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/stop_n.png")));
+		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_n.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(394, 47, 39, 38);
+		btn_stop.setBounds(427, 19, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
-		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_p.png")));
+		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(444, 47, 39, 38);
+		btn_restart.setBounds(387, 10, 39, 38);
 		playerPanel.add(btn_restart);
 		
+		btn_upload = new JButton("UpLoad");
+		btn_upload.setBounds(541, 23, 71, 22);
+		btn_upload.addActionListener(this);
+		playerPanel.add(btn_upload);
+		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(393, 13, 39, 38);
+		btn_play_n.setBounds(350, 19, 39, 38);
 		playerPanel.add(btn_play_n);
-		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/play_p.png")));
+		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
@@ -237,41 +251,23 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setContentAreaFilled(false);
 		btn_restart.setContentAreaFilled(false);
 		
-		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_t.png"))); //마우스 오버
-		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_r.png"))); 
-		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_r.png"))); 
-		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_r.png"))); 
-		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_r.png"))); 
-		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_r.png"))); 
+		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
+		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
+		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_r.png"))); 
+		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_r.png"))); 
+		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_r.png"))); 
+		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
 		
-		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_s.png"))); //마우스 클릭 시
-		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_s.png"))); 
-		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_s.png"))); 
-		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_s.png"))); 
-		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_s.png")));
-		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_s.png")));
+		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_s.png"))); //마우스 클릭 시
+		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_s.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_s.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_s.png"))); 
+		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
+		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
-		btn_del = new RoundedButton("Delete");
-		btn_del.setBounds(107, 49, 71, 23);
-		playerPanel.add(btn_del);
-		btn_del.setFont(new Font("굴림", Font.BOLD, 12));
-		btn_del.setForeground(new Color(220, 220, 220));
-		btn_del.setBackground(new Color(128, 128, 128));
-		
-		btn_open = new RoundedButton("Open");
-		btn_open.setBounds(196, 49, 71, 23);
-		playerPanel.add(btn_open);
-		btn_open.setForeground(new Color(220, 220, 220));
-		btn_open.setFont(new Font("굴림", Font.BOLD, 12));
-		btn_open.setBackground(new Color(128, 128, 128));
-		
-		btn_upload = new RoundedButton("UpLoad");
-		btn_upload.setBounds(16, 49, 71, 22);
-		playerPanel.add(btn_upload);
-		btn_upload.setForeground(new Color(220, 220, 220));
-		btn_upload.setBackground(new Color(128, 128, 128));
-		btn_open.addActionListener(this);
-		btn_del.addActionListener(this);
+		JButton btnNewButton = new JButton("Loader");
+		btnNewButton.setBounds(541, 45, 71, 23);
+		playerPanel.add(btnNewButton);
 		
 	}
 	
@@ -300,10 +296,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	}
 
 	private JFileChooser getChooser() {
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser("C:");
 		chooser.setAcceptAllFileFilterUsed(false);
 		
-		chooser.addChoosableFileFilter(new FileNameExtensionFilter("mp3 ����(*.mp3)","mp3"));
+		chooser.addChoosableFileFilter(new FileNameExtensionFilter("mp3 file(*.mp3)","mp3"));
 		
 		chooser.setSelectedFile(new File("*.mp3"));
 		
@@ -311,13 +307,25 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		return chooser;
 	}
 	
-	public File getFile() {
-		JFileChooser chooser = new JFileChooser("D:\\Billboard Hot 100");
+	public File[] getFile() {
+		JFileChooser chooser = new JFileChooser("C:");
+		chooser.setMultiSelectionEnabled(true); //파일 다중 선택
 		chooser.showOpenDialog(this);
 		
-		File f=chooser.getSelectedFile();	
+		File[] filelist = chooser.getSelectedFiles();
 		
-		return f;	
+		//단일 선택
+//		File f=chooser.getSelectedFile();	
+			
+		// 여러 파일 읽기
+		
+//		File[] filelist = f.listFiles();
+//		
+//		for(File file : filelist) {
+//			if(file.isFile());
+//		}
+		
+		return filelist;	
 		}
 
 	@Override
@@ -325,6 +333,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		BoardDAO dao = new BoardDAO();
 		JButton btn = (JButton) e.getSource();
+		
+		
+		
 		
 		if(e.getSource()==btn_ListOpen) {		
 			setSize(840, 560);
@@ -342,7 +353,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 			 
 			int retVal = choo.showOpenDialog(this);
 			 
-			if(retVal==0) {//�닿린 踰��� �대┃�� 寃쎌��
+			if(retVal==0) {//열기 버튼을 눌렀을때
 				File file = choo.getSelectedFile();
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
@@ -350,27 +361,32 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 				mdao.upload(vo);
 				 
-			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��dfcrex
+			 }else {//닫기 버튼을 눌렀을때
 				 return;
 			 }
 			
 		}else if(e.getSource()==btn_open) {
 			
-				File file = getFile();	
+				File[] file = getFile();	
 
 				if(file!=null) {
 					//테이블 초기화
 					model.setRowCount(0);
 				}
 				//사용자가 선택한 파일명 보여주기
-				textField.setText(file.getName());
+//				textField.setText(file.getName());
 				
-				//사용자가 선택한 파일 Vector 담기
-				songfile.add(file);			
-				//재생할 음악리스트명(파일경로 필요)
-				musicName = file.getPath();
-				MuList.add(musicName);
 				
+				for(File f:file) {
+					//사용자가 선택한 파일 Vector 담기
+					songfile.add(f);		
+					MuList.add(f.getPath());					
+				}
+				
+				//재생할 음악리스트명(파일경로 필요) gfdgf
+//				musicName = file.getPath();
+								
+
 				//Vector 에 담긴 file을 파일명과 경로명을 포함한 파일명으로 분리 추출
 				for(File f:songfile) {
 					//  보여줄 음악리스트 명
@@ -390,29 +406,53 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		}else if(btn==btn_pause) { 
 			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
 			ha.suspend();
-		}else if(btn==btn_next) {		
+		}else if(btn==btn_next) {	// 다음 곡 	
 			System.out.println("다음 곡" + MuList.size());
-			if(pos < MuList.size()) {
-				pos+=1;
-			}else if(pos == MuList.size()){
-				//pos=MuList.size()-1;
+			pos += 1;
+	
+			if(pos == MuList.size()) {
 				pos = 0;
-				System.out.println("다음곡 : "+MuList.get(pos)+" 위치 : "+pos);
 			}
-			play(MuList.get(pos));			
-		}else if(btn==btn_pre) {
+			table.changeSelection(pos, 0, false, false);
+			ha.stop();
+			play(MuList.get(pos));
+			
+			//리스트에서 사용자가 넘긴 음악파일명 보여주기 
+			textField.setText(songfile.get(pos).getName().toString());
+			
+
+//			else if(pos == MuList.size()){
+//				//pos=MuList.size()-1;
+//				pos = 0;
+//				System.out.println("다음곡 : "+MuList.get(pos)+" 위치 : "+pos);
+//			}
+//			play(MuList.get(pos));		
+			
+		}else if(btn==btn_pre) { 
 			System.out.println("이전 곡");
-			if(pos==0) {   // 첫번째 곡일때 이전 버튼 처리
+			pos -= 1;
+			if(pos == -1) {   // 첫번째 곡일때 이전 버튼 처리
 				pos = 0;
-			}else if(pos < MuList.size()) { //
-				pos -= 1;
-				System.out.println("이전곡 : "+MuList.get(pos)+" 위치 : "+pos);
-			}			
-			play(MuList.get(pos));			
+				
+			//테이블도 변화
+			table.changeSelection(pos, 0, false, false);
+			ha.stop();
+			play(MuList.get(pos));
+			
+			//리스트에서 사용자가 선택한 음악파일명 보여주기 
+			textField.setText(songfile.get(pos).getName().toString());
+
+//			}else if(pos < MuList.size()) { //
+//				pos -= 1;
+//				System.out.println("이전곡 : "+MuList.get(pos)+" 위치 : "+pos);
+//			}			
+//			play(MuList.get(pos));
+			
 		}else if(btn==btn_del) {
 			MuList.remove(textField.getName());
 		}
 	}
+}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -422,7 +462,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		pos=table.getSelectedRow();
 		
 		//리스트에서 사용자가 선택한 음악파일명 보여주기 
-		textField.setText(songfile.get(pos).toString());
+		textField.setText(songfile.get(pos).getName().toString());
 	
 		//사용자가 선택한 파일 플레이
 		play(MuList.get(pos));
@@ -461,6 +501,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
 		
 	}
+	
 }
 
 

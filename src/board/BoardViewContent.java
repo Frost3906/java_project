@@ -57,6 +57,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 	private JButton  btn_concancel;
 	private JScrollPane scrollPane;
 	private static LoginVO voo;
+	private BoardVO bvo;
 
 
 	
@@ -121,7 +122,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		lblNewLabel_5 = new JLabel("작성자 : ");
 		panel.add(lblNewLabel_5);
 		
-	
+		
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 240, 245));
@@ -234,6 +235,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		txt_con.setBounds(78, 475, 693, 50);
 		contentPane.add(txt_con);
 		
+		
 		btn_con = new RoundedButton("댓글작성");
 		btn_con.setFont(new Font("굴림", Font.BOLD, 11));
 		btn_con.setBackground(new Color(70, 130, 180));
@@ -251,8 +253,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		btn_con.addActionListener(this);
 		btn_conview.addActionListener(this);
 		
-//		System.out.println(la_id.getText()+"접속자 id");
-//		System.out.println(la_id2.getText()+"작성자 id");
 		
 		
 		scrollPane.setVisible(false);
@@ -269,6 +269,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		btn_rewrite.setBounds(625, 5, 73, 23);
 		panel_1.add(btn_rewrite);
 		btn_rewrite.addActionListener(this);
+		
+		la_id.setVisible(false);
 		
 		setVisible(true);
 		
@@ -290,30 +292,17 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		la_boardno.setText(vo.getBoardno()+"");
 		la_id2.setText(vo.getWriter());
 		
-		
-		
-		
-		
-		
+		vo = dao.commentcount(boardno);
+		int result = vo.getCount();
+		if(result != 0) {
+		btn_conview.setText("댓글 보기"+" ("+result+")");
+		}
 //		txt_writer.setText(vo2.get());
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { // 댓글 보기
 		JButton btn = (JButton) e.getSource();
 		
 		if(btn==btn_conview) {
@@ -380,7 +369,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 				BoardVO vo2 = new BoardVO();
 				vo2 = dao.gettime(vo2);
 				Object[] obj = {la_conid.getText(),txt_con.getText(),vo2.getWritedate()};
-				model.addRow(obj);			
+				model.addRow(obj);
 				int comment = table_1.getRowCount();
 				int size = comment*30;
 				if(size>=240) {
@@ -484,6 +473,7 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		BoardDAO dao = new BoardDAO();
 //		model = (DefaultTableModel) table.getModel();
 		int boardno = Integer.parseInt(la_boardno.getText());
+		System.out.println(boardno);
 		Vector<BoardVO> vec = dao.commentSearch(boardno);
 		
 		for(BoardVO vo:vec) {

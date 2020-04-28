@@ -355,4 +355,27 @@ public class BoardDAO {
 	}
 	
 	
+	
+//	public BoardVO countcomment();
+	public BoardVO commentcount(int boardno) {
+		String sql = "select count(comment) from commenter where boardno = ?";
+		BoardVO vo = new BoardVO();
+		
+		try (Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1,boardno);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				vo.setCount(rs.getInt("count(comment)"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+		
+	}
+	
 }

@@ -14,10 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import board.Board;
 import board.Board_panelver;
-import main.*;
-import main.FirstPanel;
 import ui.RoundedButton;
 
 import javax.swing.JLabel;
@@ -65,7 +62,7 @@ public class Login extends JFrame implements ActionListener {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
-		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
+		icon = new ImageIcon(Login.class.getResource("/image/intro.jpg"));
 		
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -109,14 +106,13 @@ public class Login extends JFrame implements ActionListener {
 		btn_login.setFont(new Font("굴림", Font.BOLD, 12));
 		btn_login.setBounds(223, 202, 85, 23);
 		background.add(btn_login);
-
 		setVisible(true);
 		btn_login.addActionListener(this);
 		btn_reg.addActionListener(this);	
 		
 	}
 	
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		

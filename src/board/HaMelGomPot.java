@@ -28,12 +28,12 @@ public class HaMelGomPot implements Runnable {
 	
 	//플레이 모드 지정
 	private Thread thisThread;
-	final static int STATE_INIT = 0;
+	public final static int STATE_INIT = 0;
 	final static int STATE_STARTED = 1;
-	final static int STATE_SUSPENDED = 2;
+	public final static int STATE_SUSPENDED = 2;
 	final static int STATE_STOPPED = 3;
 	
-	static int stateCode = STATE_INIT;
+	public static int stateCode = STATE_INIT;
 	
 	
 	// 디코딩 목적

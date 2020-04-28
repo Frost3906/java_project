@@ -182,11 +182,24 @@ public class BoardPanel extends JPanel implements ActionListener{
 		BoardDAO dao = new BoardDAO();
 		model = (DefaultTableModel) table.getModel();
 		Vector<BoardVO> vec = dao.ViewBoard();
+		int result;
+		
+//		for(BoardVO vo:vec) {
+//		}
+		
 		
 		for(BoardVO vo:vec) {
-			Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
-			model.addRow(objlist);		
-		}		
+			BoardVO bvo = dao.commentcount(vo.getBoardno());
+			result = bvo.getCount();
+			if(result != 0) {
+			
+			Object[] objlist = {vo.getContentname()+" ("+result+")",vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
+			model.addRow(objlist);
+			
+			}else {
+				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
+				model.addRow(objlist);}
+			}
 	}
 
 	@Override
@@ -343,6 +356,15 @@ public class BoardPanel extends JPanel implements ActionListener{
 			dao.viewcount(b, c);
 			
 		}
+		
+	}
+	
+	public BoardVO countcomment(int boardno) {
+		BoardVO bvo = new BoardVO();
+		BoardDAO dao = new BoardDAO();
+		int result=0;
+		bvo = dao.commentcount(boardno);
+		return bvo;
 		
 	}
 
