@@ -1,4 +1,4 @@
-package main;
+package board;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
