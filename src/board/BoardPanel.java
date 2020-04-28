@@ -4,11 +4,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
-<<<<<<< HEAD
 import java.awt.Component;
-=======
 import java.awt.Cursor;
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;

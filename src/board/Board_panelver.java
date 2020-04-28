@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.cj.jdbc.Blob;
 
 import board.HaMelGomPot;
+import login.Login;
 import login.LoginVO;
 
 import javax.swing.JTextField;
@@ -25,6 +27,8 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,6 +40,7 @@ import java.awt.event.MouseListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -52,6 +57,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
+
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
@@ -130,8 +136,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		/*보드 패널 생성*/
 		boardPanel = new BoardPanel(voo);
 		contentPane.add(boardPanel);
+	
 		
 		playerPanel = new JPanel();
+					
 		playerPanel.setBackground(new Color(220, 220, 220));
 		playerPanel.setLayout(null);
 		playerPanel.setBounds(12, 10, 669, 95);
@@ -140,20 +148,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(25, 13, 232, 23);
+		textField.setBounds(24, 16, 232, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
 		btn_pre.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre.png")));
 		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre_p.png")));
-		btn_pre.setBounds(459, 10, 39, 38);
+		btn_pre.setBounds(287, 35, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
 		btn_next.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next.png")));
 		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next_p.png")));
-		btn_next.setBounds(561, 10, 39, 38);
+		btn_next.setBounds(541, 35, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -177,21 +185,21 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_open.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2.png")));
 		btn_open.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2_p.png")));
 		btn_open.addActionListener(this);
-		btn_open.setBounds(25, 48, 40, 38);
+		btn_open.setBounds(629, 24, 40, 38);
 		playerPanel.add(btn_open);
 		
 		btn_del = new JButton("");
 		btn_del.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del.png")));
 		btn_del.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del_p.png")));
 		btn_del.addActionListener(this);
-		btn_del.setBounds(92, 48, 39, 38);
+		btn_del.setBounds(630, 57, 39, 38);
 		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("");
 		btn_pause.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause.png")));
 		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause_p.png")));
 
-		btn_pause.setBounds(407, 10, 39, 38);
+		btn_pause.setBounds(440, 35, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
@@ -199,25 +207,25 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop.png")));
 		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop_p.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(510, 10, 39, 38);
+		btn_stop.setBounds(338, 35, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
 		btn_restart.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat.png")));
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(561, 48, 39, 38);
+		btn_restart.setBounds(491, 35, 39, 38);
 		playerPanel.add(btn_restart);
 		
 		btn_upload = new JButton("");
 		btn_upload.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload_p.png")));
 		btn_upload.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload.png")));
-		btn_upload.setBounds(218, 46, 39, 38);
+		btn_upload.setBounds(34, 49, 38, 39);
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(356, 10, 39, 38);
+		btn_play_n.setBounds(389, 35, 39, 38);
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_play_p.png")));
 		btn_play_n.addActionListener(this);
@@ -226,7 +234,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_downloader = new JButton("");
 		btn_downloader.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
 		btn_downloader.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download.png")));
-		btn_downloader.setBounds(151, 46, 39, 37);
+		btn_downloader.setBounds(84, 49, 38, 39);
 		btn_downloader.addActionListener(this);
 		playerPanel.add(btn_downloader);
 		
@@ -590,7 +598,6 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
 		
 	}
-	
 }
 
 
