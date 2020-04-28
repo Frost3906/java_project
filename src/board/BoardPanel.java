@@ -90,11 +90,11 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 		btn_search = new  RoundedButton("검색");
 		btn_search.setBounds(419, 5, 57, 23);
 		btn_search.setForeground(new Color(255, 240, 245));
-		btn_search.setBackground(new Color(70, 130, 180));
+		btn_search.setBackground(new Color(119, 136, 153));
 		board_HeadPanel.add(btn_search);
 		
 		la_id = new JLabel(voo.getId());
-		la_id.setFont(new Font("굴림", Font.BOLD, 9));
+		la_id.setFont(new Font("굴림", Font.BOLD, 10));
 		la_id.setBounds(488, 10, 65, 15);
 		board_HeadPanel.add(la_id);
 		
@@ -110,15 +110,17 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 		add(board_FooterPanel);
 			
 		btn_read = new  RoundedButton("글보기");
+		btn_read.setForeground(new Color(255, 240, 245));
 		btn_read.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_read.setBackground(new Color(169, 169, 169));
+		btn_read.setBackground(new Color(70, 130, 180));
 		btn_read.addActionListener(this);
 		btn_read.setHorizontalAlignment(SwingConstants.RIGHT);
 		board_FooterPanel.add(btn_read);
 		
 		btn_refresh = new RoundedButton("새로고침");
 		btn_refresh.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_refresh.setBackground(new Color(169, 169, 169));
+		btn_refresh.setForeground(new Color(255, 240, 245));
+		btn_refresh.setBackground(new Color(70, 130, 180));
 		btn_refresh.addActionListener(this);
 		board_FooterPanel.add(btn_refresh);
 		

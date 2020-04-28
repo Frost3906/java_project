@@ -46,8 +46,10 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import ui.CircleButton;
+import ui.RoundedButton;
 
 import javax.swing.JList;
+import java.awt.Color;
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
@@ -55,7 +57,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
+	private JButton btn_downloader, btn_upload, btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_restart;
 	private ArrayList<String> MuList;
 	private Vector<File> songfile;
 	private DefaultTableModel model;
@@ -128,6 +130,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		contentPane.add(boardPanel);
 		
 		playerPanel = new JPanel();
+		playerPanel.setBackground(new Color(220, 220, 220));
 		playerPanel.setLayout(null);
 		playerPanel.setBounds(12, 10, 669, 95);
 		contentPane.add(playerPanel);
@@ -135,7 +138,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(12, 34, 251, 23);
+		textField.setBounds(14, 19, 251, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
@@ -150,16 +153,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
-		btn_ListOpen = new JButton(">>");
+		btn_ListOpen = new RoundedButton(">>");
+		btn_ListOpen.setForeground(new Color(220, 220, 220));
+		btn_ListOpen.setBackground(new Color(70, 130, 180));
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(612, 1, 57, 23);
+		btn_ListOpen.setBounds(612, -1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
-		btn_ListClose = new JButton("<<");
+		btn_ListClose = new RoundedButton("<<");
+		btn_ListClose.setForeground(new Color(220, 220, 220));
+		btn_ListClose.setBackground(new Color(70, 130, 180));
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(612, 1, 57, 23);
+		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("Open");
@@ -188,16 +195,16 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_restart = new JButton("Restart");
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(387, 10, 39, 38);
+		btn_restart.setBounds(181, 38, 39, 38);
 		playerPanel.add(btn_restart);
 		
-		btn_upload = new JButton("UpLoad");
+		btn_upload = new JButton("Upload");
 		btn_upload.setBounds(541, 23, 71, 22);
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(350, 19, 39, 38);
+		btn_play_n.setBounds(115, 38, 39, 38);
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);
@@ -273,6 +280,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		JButton btnNewButton = new JButton("Loader");
 		btnNewButton.setBounds(541, 45, 71, 23);
 		playerPanel.add(btnNewButton);
+		btn_downloader = new JButton("Download");
+		btn_downloader.addActionListener(this);
+		btn_downloader.setBounds(541, 45, 71, 23);
+		playerPanel.add(btn_downloader);
 		
 	}
 	
@@ -312,13 +323,25 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		return chooser;
 	}
 	
-	public File getFile() {
+	public File[] getFile() {
 		JFileChooser chooser = new JFileChooser("C:");
+		chooser.setMultiSelectionEnabled(true); //파일 다중 선택
 		chooser.showOpenDialog(this);
 		
-		File f=chooser.getSelectedFile();	
+		File[] filelist = chooser.getSelectedFiles();
 		
-		return f;	
+		//단일 선택
+//		File f=chooser.getSelectedFile();	
+			
+		// 여러 파일 읽기
+		
+//		File[] filelist = f.listFiles();
+//		
+//		for(File file : filelist) {
+//			if(file.isFile());
+//		}
+		
+		return filelist;	
 		}
 
 	@Override
@@ -358,25 +381,31 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 				 return;
 			 }
 			
+		}else if(e.getSource()==btn_downloader) {
+			MusicDBLoader loader = new MusicDBLoader();
+			loader.show();
 		}else if(e.getSource()==btn_open) {
 			
-				File file = getFile();	
+				File[] file = getFile();	
 
 				if(file!=null) {
 					//테이블 초기화
 					model.setRowCount(0);
 				}
 				//사용자가 선택한 파일명 보여주기
-				textField.setText(file.getName());
+//				textField.setText(file.getName());
 				
-				//사용자가 선택한 파일 Vector 담기
-				songfile.add(file);		
 				
-				//재생할 음악리스트명(파일경로 필요)
-				musicName = file.getPath();
+				for(File f:file) {
+					//사용자가 선택한 파일 Vector 담기
+					songfile.add(f);		
+					MuList.add(f.getPath());					
+				}
 				
-				MuList.add(musicName);
-				
+				//재생할 음악리스트명(파일경로 필요) gfdgf
+//				musicName = file.getPath();
+								
+
 				//Vector 에 담긴 file을 파일명과 경로명을 포함한 파일명으로 분리 추출
 				for(File f:songfile) {
 					//  보여줄 음악리스트 명
