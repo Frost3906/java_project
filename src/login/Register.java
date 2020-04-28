@@ -64,7 +64,7 @@ public class Register extends JFrame implements ActionListener{
 		
 		ldao = new LoginDAO();
 		
-		icon = new ImageIcon(Register.class.getResource("intro_register.jpg"));
+		icon = new ImageIcon(Register.class.getResource("/image/intro_register.jpg"));
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
 				super.paintComponents(g);
@@ -147,24 +147,47 @@ public class Register extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_regcheck) {
 			LoginVO vo = new LoginVO();
-		
-			vo.setId(txt_regid.getText());
-			vo.setPasswd(txt_regpw.getText());
-			vo.setName(txt_regname.getText());
-			vo.setEmail(txt_regmail.getText());
-					
-			//db에 입력하기
-			int result = ldao.reg(vo);
+			StringBuilder message = new StringBuilder();
 			
-			if(result > 0) {
-				JOptionPane.showMessageDialog(this, "성공");				
-				this.dispose();
-			}else {
-				JOptionPane.showMessageDialog(this, "실패");
+			if(!(txt_regid.getText().equals(""))) {
+				vo.setId(txt_regid.getText());
+			} else {
+				message.append("Username");
+			}
+			if(!(txt_regpw.getText().equals(""))) {
+				vo.setPasswd(txt_regpw.getText());
+			} else {
+				message.append("\nPassword");
+			}
+			if(!(txt_regname.getText().equals(""))) {
+				vo.setName(txt_regname.getText());
+			} else {
+				message.append("\n이름");
+			}
+			if(!(txt_regmail.getText().equals(""))) {
+				vo.setEmail(txt_regmail.getText());
+			} else {
+				message.append("\nEmail");
 			}
 			
+			
+			//db에 입력하기
+			
+			if(vo.getId()!=null && vo.getPasswd()!=null && vo.getName()!=null && vo.getEmail()!=null) {
+				int result = ldao.reg(vo);
+				if(result > 0) {
+					JOptionPane.showMessageDialog(this, "성공");				
+					this.dispose();
+				}else {
+					JOptionPane.showMessageDialog(this, "Username 또는 Email이 중복됩니다.");
+				}
+			}else {
+				JOptionPane.showMessageDialog(this, "다음의 항목을 확인해 주세요.\n\n"+message);
+			}
 		}else {
 			dispose();
 		}
+			
+			
 	}
 }

@@ -97,7 +97,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		setTitle("Music Player");
 		
-		icon = new ImageIcon(Board_panelver.class.getResource("intro_board.jpg"));
+		icon = new ImageIcon(Board_panelver.class.getResource("/image/intro_board.jpg"));
 		
 		voo=vo;
 	//	listvo=new ListVO();
@@ -136,14 +136,14 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
-		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/prebtn_n.png")));
-		btn_pre.setBounds(314, 19, 39, 38);
+		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_n.png")));
+		btn_pre.setBounds(81, 38, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
-		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/nextbtn_n.png")));
-		btn_next.setBounds(459, 19, 39, 38);
+		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_n.png")));
+		btn_next.setBounds(226, 38, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -170,20 +170,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("");
-		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/pausebtn_n.png")));
+		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_n.png")));
 
 		btn_pause.setBounds(387, 38, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("");
-		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/stop_n.png")));
+		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_n.png")));
 		btn_stop.addActionListener(this);
 		btn_stop.setBounds(427, 19, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
-		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_p.png")));
+		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
 		btn_restart.setBounds(387, 10, 39, 38);
 		playerPanel.add(btn_restart);
@@ -196,7 +196,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_play_n = new JButton("");
 		btn_play_n.setBounds(350, 19, 39, 38);
 		playerPanel.add(btn_play_n);
-		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/play_p.png")));
+		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
@@ -245,19 +245,19 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setContentAreaFilled(false);
 		btn_restart.setContentAreaFilled(false);
 		
-		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_t.png"))); //마우스 오버
-		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_r.png"))); 
-		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_r.png"))); 
-		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_r.png"))); 
-		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_r.png"))); 
-		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_r.png"))); 
+		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
+		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
+		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_r.png"))); 
+		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_r.png"))); 
+		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_r.png"))); 
+		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
 		
-		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_s.png"))); //마우스 클릭 시
-		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_s.png"))); 
-		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_s.png"))); 
-		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_s.png"))); 
-		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_s.png")));
-		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_s.png")));
+		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_s.png"))); //마우스 클릭 시
+		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_s.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_s.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_s.png"))); 
+		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
+		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
 		JButton btnNewButton = new JButton("Loader");
 		btnNewButton.setBounds(541, 45, 71, 23);
@@ -315,6 +315,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		BoardDAO dao = new BoardDAO();
 		JButton btn = (JButton) e.getSource();
+		
+		
+		
 		
 		if(e.getSource()==btn_ListOpen) {		
 			setSize(840, 560);
