@@ -14,7 +14,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-//import board.Board;
 import board.Board_panelver;
 import ui.RoundedButton;
 
@@ -63,7 +62,7 @@ public class Login extends JFrame implements ActionListener {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
-		icon = new ImageIcon(Login.class.getResource("intro.jpg"));
+		icon = new ImageIcon(Login.class.getResource("/image/intro.jpg"));
 		
 		JPanel background = new JPanel() {
 			public void paintComponent(Graphics g) {
