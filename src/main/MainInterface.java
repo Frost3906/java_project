@@ -300,7 +300,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 			 
 			int retVal = choo.showOpenDialog(this);
 			 
-			if(retVal==0) {//�닿린 踰��� �대┃�� 寃쎌��
+			if(retVal==0) {
 				File file = choo.getSelectedFile();
 				Blob blob = new Blob(toByteArray(file.getPath()),null);
 				vo.setBlob(blob);
@@ -308,7 +308,7 @@ public class MainInterface extends JFrame implements ActionListener,MouseListene
 
 				dao.upload(vo);
 				 
-			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��
+			 }else {
 				 return;
 			 }
 			
