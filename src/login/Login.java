@@ -111,12 +111,8 @@ public class Login extends JFrame implements ActionListener {
 		background.add(btn_login);
 		setVisible(true);
 		btn_login.addActionListener(this);
-<<<<<<< HEAD
-		btn_reg.addActionListener(this);
-=======
 		btn_reg.addActionListener(this);	
 		
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 	}
 	
 	
@@ -133,7 +129,7 @@ public class Login extends JFrame implements ActionListener {
 				dispose();
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
-			}			
+			}
 		
 		}else if(e.getSource()==btn_reg) {		
 				Register register = new Register();
