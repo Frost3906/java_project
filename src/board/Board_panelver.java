@@ -45,8 +45,10 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import ui.CircleButton;
+import ui.RoundedButton;
 
 import javax.swing.JList;
+import java.awt.Color;
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
@@ -124,6 +126,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		contentPane.add(boardPanel);
 		
 		playerPanel = new JPanel();
+		playerPanel.setBackground(new Color(220, 220, 220));
 		playerPanel.setLayout(null);
 		playerPanel.setBounds(12, 10, 669, 95);
 		contentPane.add(playerPanel);
@@ -131,7 +134,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(12, 5, 251, 23);
+		textField.setBounds(14, 19, 251, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
@@ -146,16 +149,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
-		btn_ListOpen = new JButton(">>");
+		btn_ListOpen = new RoundedButton(">>");
+		btn_ListOpen.setForeground(new Color(220, 220, 220));
+		btn_ListOpen.setBackground(new Color(70, 130, 180));
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(612, 1, 57, 23);
+		btn_ListOpen.setBounds(612, -1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
-		btn_ListClose = new JButton("<<");
+		btn_ListClose = new RoundedButton("<<");
+		btn_ListClose.setForeground(new Color(220, 220, 220));
+		btn_ListClose.setBackground(new Color(70, 130, 180));
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(612, 1, 57, 23);
+		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("Open");
@@ -376,7 +383,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 					MuList.add(f.getPath());					
 				}
 				
-				//재생할 음악리스트명(파일경로 필요)
+				//재생할 음악리스트명(파일경로 필요) gfdgf
 //				musicName = file.getPath();
 								
 
