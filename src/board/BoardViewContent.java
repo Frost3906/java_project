@@ -251,8 +251,6 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		btn_con.addActionListener(this);
 		btn_conview.addActionListener(this);
 		
-//		System.out.println(la_id.getText()+"접속자 id");
-//		System.out.println(la_id2.getText()+"작성자 id");
 		
 		
 		scrollPane.setVisible(false);
@@ -269,6 +267,8 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		btn_rewrite.setBounds(625, 5, 73, 23);
 		panel_1.add(btn_rewrite);
 		btn_rewrite.addActionListener(this);
+		
+		la_id.setVisible(false);
 		
 		setVisible(true);
 		

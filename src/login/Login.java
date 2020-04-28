@@ -108,14 +108,13 @@ public class Login extends JFrame implements ActionListener {
 		btn_login.setFont(new Font("굴림", Font.BOLD, 12));
 		btn_login.setBounds(223, 202, 85, 23);
 		background.add(btn_login);
-
 		setVisible(true);
 		btn_login.addActionListener(this);
 		btn_reg.addActionListener(this);	
 		
 	}
 	
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -129,7 +128,7 @@ public class Login extends JFrame implements ActionListener {
 				dispose();
 			}else {
 				JOptionPane.showMessageDialog(this, "실패");
-			}			
+			}
 		
 		}else if(e.getSource()==btn_reg) {		
 				Register register = new Register();
