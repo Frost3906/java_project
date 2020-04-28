@@ -73,7 +73,7 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 		btn_write.setBounds(9, 5, 88, 23);
 		btn_write.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_write.setBackground(new Color(70, 130, 180));
-		btn_write.setForeground(new Color(255, 240, 245));
+		btn_write.setForeground(new Color(255, 255, 255));
 		board_HeadPanel.add(btn_write);
 		btn_write.addActionListener(this);
 		btn_write.addMouseListener(this);

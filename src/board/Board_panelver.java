@@ -106,7 +106,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	 */
 	public Board_panelver(LoginVO vo) {
 		
-		setTitle("Music Player");
+		setTitle("WaterMelone");
 		
 		icon = new ImageIcon(Board_panelver.class.getResource("/image/intro_board.jpg"));
 		
@@ -166,7 +166,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		playerPanel.add(btn_next);
 		
 		btn_ListOpen = new RoundedButton(">>");
-		btn_ListOpen.setForeground(new Color(0, 0, 0));
+		btn_ListOpen.setForeground(new Color(255, 69, 0));
 		btn_ListOpen.setBackground(new Color(255, 248, 220));
 		btn_ListOpen.addActionListener(this); 	
 		btn_ListOpen.setBounds(612, 0, 57, 23);
