@@ -174,7 +174,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		
 		btn_ListClose = new RoundedButton("<<");
-		btn_ListClose.setForeground(new Color(0, 0, 0));
+		btn_ListClose.setForeground(new Color(255, 69, 0));
 		btn_ListClose.setBackground(new Color(255, 248, 220));
 		btn_ListClose.addActionListener(this);
 		
