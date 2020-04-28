@@ -74,7 +74,7 @@ public class MusicDBLoader extends JFrame implements ActionListener, MouseListen
 		scrollPane.getViewport().setBackground(new Color(245, 255, 250));
 		contentPane.add(scrollPane);
 		
-		String columnName[] = {"title"};
+		String columnName[] = {"TITLE"};
 		model = new DefaultTableModel(columnName,0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
