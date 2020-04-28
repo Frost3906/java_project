@@ -46,8 +46,10 @@ import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import main.*;
 import ui.CircleButton;
+import ui.RoundedButton;
 
 import javax.swing.JList;
+import java.awt.Color;
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
@@ -125,6 +127,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		contentPane.add(boardPanel);
 		
 		playerPanel = new JPanel();
+		playerPanel.setBackground(new Color(220, 220, 220));
 		playerPanel.setLayout(null);
 		playerPanel.setBounds(12, 10, 669, 95);
 		contentPane.add(playerPanel);
@@ -132,68 +135,58 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(14, 5, 251, 23);
+		textField.setBounds(16, 16, 251, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
 		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/prebtn_n.png")));
-		btn_pre.setBounds(81, 38, 39, 38);
+		btn_pre.setBounds(342, 28, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
 		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/nextbtn_n.png")));
-		btn_next.setBounds(226, 38, 39, 38);
+		btn_next.setBounds(494, 28, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
-		btn_ListOpen = new JButton(">>");
+		btn_ListOpen = new RoundedButton(">>");
+		btn_ListOpen.setForeground(new Color(220, 220, 220));
+		btn_ListOpen.setBackground(new Color(70, 130, 180));
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(612, 1, 57, 23);
+		btn_ListOpen.setBounds(612, -1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
-		btn_ListClose = new JButton("<<");
+		btn_ListClose = new RoundedButton("<<");
+		btn_ListClose.setForeground(new Color(220, 220, 220));
+		btn_ListClose.setBackground(new Color(70, 130, 180));
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(612, 1, 57, 23);
+		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
-		
-		btn_open = new JButton("Open");
-		btn_open.addActionListener(this);
-		btn_open.setBounds(528, 5, 71, 23);
-		playerPanel.add(btn_open);
-		
-		btn_del = new JButton("Delete");
-		btn_del.addActionListener(this);
-		btn_del.setBounds(528, 52, 71, 23);
-		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("");
 		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/pausebtn_n.png")));
 
-		btn_pause.setBounds(154, 57, 39, 38);
+		btn_pause.setBounds(443, 13, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("");
 		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/stop_n.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(194, 38, 39, 38);
+		btn_stop.setBounds(394, 47, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(154, 29, 39, 38);
+		btn_restart.setBounds(444, 47, 39, 38);
 		playerPanel.add(btn_restart);
 		
-		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(528, 29, 71, 22);
-		playerPanel.add(btn_upload);
-		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(117, 38, 39, 38);
+		btn_play_n.setBounds(393, 13, 39, 38);
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/play_p.png")));
 		btn_play_n.addActionListener(this);
@@ -257,6 +250,28 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_s.png"))); 
 		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_s.png")));
 		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_s.png")));
+		
+		btn_del = new RoundedButton("Delete");
+		btn_del.setBounds(107, 49, 71, 23);
+		playerPanel.add(btn_del);
+		btn_del.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_del.setForeground(new Color(220, 220, 220));
+		btn_del.setBackground(new Color(128, 128, 128));
+		
+		btn_open = new RoundedButton("Open");
+		btn_open.setBounds(196, 49, 71, 23);
+		playerPanel.add(btn_open);
+		btn_open.setForeground(new Color(220, 220, 220));
+		btn_open.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_open.setBackground(new Color(128, 128, 128));
+		
+		btn_upload = new RoundedButton("UpLoad");
+		btn_upload.setBounds(16, 49, 71, 22);
+		playerPanel.add(btn_upload);
+		btn_upload.setForeground(new Color(220, 220, 220));
+		btn_upload.setBackground(new Color(128, 128, 128));
+		btn_open.addActionListener(this);
+		btn_del.addActionListener(this);
 		
 	}
 	
