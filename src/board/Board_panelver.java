@@ -494,6 +494,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
 		
 	}
+	
 }
 
 
