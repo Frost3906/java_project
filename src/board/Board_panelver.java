@@ -25,6 +25,8 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -71,7 +73,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JButton btn_play_n;
 	private JTable table;
 	private Cursor cursor;
-	
+	Image image;
 	
 	//리스트에서 선택한 파일 위치
 	private int pos;
@@ -303,6 +305,11 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_del.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del.png")));
 		btn_open.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2.png")));
 		btn_downloader.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/음표 연두색.gif")));
+		lblNewLabel.setBounds(0, -1, 669, 96);
+		playerPanel.add(lblNewLabel);
 				
 		btn_stop.addMouseListener(this);
 		btn_pause.addMouseListener(this);
@@ -588,7 +595,6 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
 		
 	}
-	
 }
 
 
