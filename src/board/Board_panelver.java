@@ -166,16 +166,16 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		playerPanel.add(btn_next);
 		
 		btn_ListOpen = new RoundedButton(">>");
-		btn_ListOpen.setForeground(new Color(220, 220, 220));
-		btn_ListOpen.setBackground(new Color(70, 130, 180));
+		btn_ListOpen.setForeground(new Color(0, 0, 0));
+		btn_ListOpen.setBackground(new Color(255, 248, 220));
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(612, -1, 57, 23);
+		btn_ListOpen.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
 		btn_ListClose = new RoundedButton("<<");
-		btn_ListClose.setForeground(new Color(220, 220, 220));
-		btn_ListClose.setBackground(new Color(70, 130, 180));
+		btn_ListClose.setForeground(new Color(0, 0, 0));
+		btn_ListClose.setBackground(new Color(255, 248, 220));
 		btn_ListClose.addActionListener(this);
 		
 		btn_ListClose.setBounds(612, 0, 57, 23);

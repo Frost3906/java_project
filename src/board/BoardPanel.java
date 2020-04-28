@@ -64,7 +64,7 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 		cursor = new Cursor(Cursor.HAND_CURSOR);
 		
 		board_HeadPanel = new JPanel();
-		board_HeadPanel.setBackground(new Color(255, 240, 245));
+		board_HeadPanel.setBackground(new Color(255, 248, 220));
 		board_HeadPanel.setBounds(0, 0, 670, 33);
 		add(board_HeadPanel);
 		board_HeadPanel.setLayout(null);
@@ -93,7 +93,7 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 		btn_search = new  RoundedButton("검색");
 		btn_search.setBounds(419, 5, 57, 23);
 		btn_search.setForeground(new Color(255, 240, 245));
-		btn_search.setBackground(new Color(119, 136, 153));
+		btn_search.setBackground(new Color(105, 105, 105));
 		board_HeadPanel.add(btn_search);
 		
 		la_id = new JLabel(voo.getId());
@@ -108,7 +108,7 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 //		============================================================================
 		
 	    board_FooterPanel = new JPanel();
-	    board_FooterPanel.setBackground(new Color(255, 240, 245));
+	    board_FooterPanel.setBackground(new Color(255, 248, 220));
 	    board_FooterPanel.setBounds(0, 363, 670, 37);
 		add(board_FooterPanel);
 			
@@ -149,7 +149,7 @@ public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 				// TODO Auto-generated method stub
 				JComponent component = (JComponent)  super.prepareRenderer(renderer, row, column);
 				
-				component.setBackground(new Color(245, 255, 250));
+				component.setBackground(new Color(240, 255, 255));
 				
 				return component;
 			}
