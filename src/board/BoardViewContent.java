@@ -233,6 +233,11 @@ public class BoardViewContent extends JFrame implements ActionListener{
 		txt_con.setLineWrap(true);
 		txt_con.setBounds(78, 475, 693, 50);
 		contentPane.add(txt_con);
+//		BoardDAO dao = new BoardDAO();
+//		int boardno =  Integer.parseInt(la_boardno.getText());
+//		BoardVO bvo = dao.commentcount(boardno);
+//		int result;
+//		result = bvo.getCount();
 		
 		btn_con = new RoundedButton("댓글작성");
 		btn_con.setFont(new Font("굴림", Font.BOLD, 11));
