@@ -56,7 +56,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
+	private JButton btn_downloader, btn_upload, btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_restart;
 	private ArrayList<String> MuList;
 	private Vector<File> songfile;
 	private DefaultTableModel model;
@@ -191,16 +191,29 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_restart = new JButton("Restart");
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
+<<<<<<< HEAD
 		btn_restart.setBounds(385, 52, 39, 38);
+=======
+		btn_restart.setBounds(181, 38, 39, 38);
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 		playerPanel.add(btn_restart);
 		
+<<<<<<< HEAD
 		btn_upload = new RoundedButton("UpLoad");
 		btn_upload.setBounds(202, 52, 71, 22);
+=======
+		btn_upload = new JButton("Upload");
+		btn_upload.setBounds(541, 23, 71, 22);
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
+<<<<<<< HEAD
 		btn_play_n.setBounds(346, 6, 39, 38);
+=======
+		btn_play_n.setBounds(115, 38, 39, 38);
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);
@@ -265,10 +278,17 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
 		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
+<<<<<<< HEAD
 		JButton btnNewButton = new RoundedButton("Loader");
 		btnNewButton.setText("Download");
 		btnNewButton.setBounds(598, 72, 71, 23);
 		playerPanel.add(btnNewButton);
+=======
+		btn_downloader = new JButton("Download");
+		btn_downloader.addActionListener(this);
+		btn_downloader.setBounds(541, 45, 71, 23);
+		playerPanel.add(btn_downloader);
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 		
 	}
 	
@@ -366,6 +386,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 				 return;
 			 }
 			
+		}else if(e.getSource()==btn_downloader) {
+			MusicDBLoader loader = new MusicDBLoader();
+			loader.show();
 		}else if(e.getSource()==btn_open) {
 			
 				File[] file = getFile();	
