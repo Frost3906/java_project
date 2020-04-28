@@ -79,19 +79,6 @@ public class MusicDAO {
 			while(rs.next()) {
 				MusicVO vo = new MusicVO();
 				
-				Blob blob = (Blob) rs.getBlob(1);
-                InputStream inputStream = blob.getBinaryStream();
-                OutputStream outputStream = new FileOutputStream("C:\\Users\\admin\\Desktop\\"+(i++)+".mp3");
- 
-                int bytesRead = -1;
-                byte[] buffer = new byte[1024];
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
- 
-                inputStream.close();
-                outputStream.close();
-
 				vo.setTitle((rs.getString(2)));
 			
 				vecList.add(vo);
