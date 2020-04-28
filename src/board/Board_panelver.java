@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -71,6 +72,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JButton btn_pause;
 	private JButton btn_play_n;
 	private JTable table;
+	private Cursor cursor;
 	
 	
 	//리스트에서 선택한 파일 위치
@@ -103,6 +105,8 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		icon = new ImageIcon(Board_panelver.class.getResource("/image/intro_board.jpg"));
 		
 		voo=vo;
+		
+		cursor = new Cursor(cursor.HAND_CURSOR);
 	//	listvo=new ListVO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,18 +140,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(22, 19, 251, 23);
+		textField.setBounds(25, 13, 232, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
-		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_n.png")));
-		btn_pre.setBounds(306, 27, 39, 38);
+		btn_pre.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre.png")));
+		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre_p.png")));
+		btn_pre.setBounds(459, 10, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
-		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_n.png")));
-		btn_next.setBounds(423, 27, 39, 38);
+		btn_next.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next.png")));
+		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next_p.png")));
+		btn_next.setBounds(561, 10, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -167,50 +173,63 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
-		btn_open = new RoundedButton("Open");
+		btn_open = new JButton("");
+		btn_open.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2.png")));
+		btn_open.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2_p.png")));
 		btn_open.addActionListener(this);
-		btn_open.setBounds(112, 52, 71, 23);
+		btn_open.setBounds(25, 48, 40, 38);
 		playerPanel.add(btn_open);
 		
-		btn_del = new RoundedButton("Delete");
+		btn_del = new JButton("");
+		btn_del.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del.png")));
+		btn_del.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del_p.png")));
 		btn_del.addActionListener(this);
-		btn_del.setBounds(22, 52, 71, 23);
+		btn_del.setBounds(92, 48, 39, 38);
 		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("");
-		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_n.png")));
+		btn_pause.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause.png")));
+		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause_p.png")));
 
-		btn_pause.setBounds(384, 5, 39, 38);
+		btn_pause.setBounds(407, 10, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("");
-		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_n.png")));
+		btn_stop.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop.png")));
+		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop_p.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(347, 52, 39, 38);
+		btn_stop.setBounds(510, 10, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
-		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
+		btn_restart.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat.png")));
+		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat_p.png")));
 		btn_restart.setText("");
-
-		btn_restart.setBounds(471, 27, 39, 38);
+		btn_restart.setBounds(561, 48, 39, 38);
 		playerPanel.add(btn_restart);
 		
-
-		btn_upload = new JButton("Upload");
-		btn_upload.setBounds(202, 52, 71, 22);
-
+		btn_upload = new JButton("");
+		btn_upload.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload_p.png")));
+		btn_upload.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload.png")));
+		btn_upload.setBounds(218, 46, 39, 38);
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(394, 52, 39, 38);
-
+		btn_play_n.setBounds(356, 10, 39, 38);
 		playerPanel.add(btn_play_n);
-		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
+		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_play_p.png")));
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
+		
+		btn_downloader = new JButton("");
+		btn_downloader.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
+		btn_downloader.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download.png")));
+		btn_downloader.setBounds(151, 46, 39, 37);
+		btn_downloader.addActionListener(this);
+		playerPanel.add(btn_downloader);
+		
 		
 		JScrollPane listPane = new JScrollPane();
 		listPane.setBounds(699, 10, 125, 512);
@@ -243,6 +262,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setBorderPainted(false);
 		btn_pause.setBorderPainted(false);
 		btn_restart.setBorderPainted(false);
+		btn_upload.setBorderPainted(false);
+		btn_del.setBorderPainted(false);
+		btn_open.setBorderPainted(false);
+		btn_downloader.setBorderPainted(false);
 		
 		btn_play_n.setFocusPainted(false);
 		btn_next.setFocusPainted(false);
@@ -250,6 +273,10 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setFocusPainted(false);
 		btn_pause.setFocusPainted(false);
 		btn_restart.setFocusPainted(false);
+		btn_upload.setFocusPainted(false);
+		btn_del.setFocusPainted(false);
+		btn_open.setFocusPainted(false);
+		btn_downloader.setFocusPainted(false);
 			
 		btn_play_n.setContentAreaFilled(false);
 		btn_next.setContentAreaFilled(false);
@@ -257,26 +284,40 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_stop.setContentAreaFilled(false);
 		btn_pause.setContentAreaFilled(false);
 		btn_restart.setContentAreaFilled(false);
+		btn_upload.setContentAreaFilled(false);
+		btn_del.setContentAreaFilled(false);
+		btn_open.setContentAreaFilled(false);
+		btn_downloader.setContentAreaFilled(false);
 		
-		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
-		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
-		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_r.png"))); 
-		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_r.png"))); 
-		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_r.png"))); 
-		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
+//		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
+//		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
+//		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_r.png"))); 
+//		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_r.png"))); 
+//		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_r.png"))); 
+//		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
 		
-		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_s.png"))); //마우스 클릭 시
-		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_s.png"))); 
-		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_s.png"))); 
-		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_s.png"))); 
-		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
-		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
+		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_play.png"))); //마우스 클릭 시
+		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop.png"))); 
+		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause.png")));
+		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat.png")));
+		btn_upload.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload_p.png")));
+		btn_del.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del.png")));
+		btn_open.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2.png")));
+		btn_downloader.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
+				
+		btn_stop.addMouseListener(this);
+		btn_pause.addMouseListener(this);
+		btn_play_n.addMouseListener(this);
+		btn_next.addMouseListener(this);
+		btn_pre.addMouseListener(this);
+		btn_restart.addMouseListener(this);
+		btn_upload.addMouseListener(this);
+		btn_del.addMouseListener(this);
+		btn_open.addMouseListener(this);
+		btn_downloader.addMouseListener(this);
 		
-
-		btn_downloader = new RoundedButton("Download");
-		btn_downloader.addActionListener(this);
-		btn_downloader.setBounds(598, 71, 71, 23);
-		playerPanel.add(btn_downloader);
 		
 	}
 	
@@ -355,6 +396,12 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 			setSize(700, 560);
 			btn_ListOpen.setVisible(true);
 			btn_ListClose.setVisible(false);
+		}
+		else if(e.getSource()==btn_del) {
+			System.out.println("del");
+			pos=table.getSelectedRow();
+			model.removeRow(pos);
+
 		}else if(e.getSource()==btn_upload) {
 			MusicVO vo = new MusicVO();
 			MusicDAO mdao = new MusicDAO();
@@ -459,9 +506,6 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 //				System.out.println("이전곡 : "+MuList.get(pos)+" 위치 : "+pos);
 //			}			
 //			play(MuList.get(pos));
-			
-		}else if(btn==btn_del) {
-			MuList.remove(textField.getName());
 		}
 	}
 }
@@ -496,7 +540,40 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+//		  btn_next.addMouseListener(this);
+//		  btn_pre.addMouseListener(this);
+//		  btn_restart.addMouseListener(this);
+		if(e.getSource()==btn_stop) {
+			btn_stop.setCursor(cursor);
+		}
+		if(e.getSource()==btn_pause) {
+			btn_pause.setCursor(cursor);
+		}
+		if(e.getSource()==btn_play_n) {
+			btn_play_n.setCursor(cursor);
+		}
+		if(e.getSource()==btn_next) {
+			btn_next.setCursor(cursor);
+		}
+		if(e.getSource()==btn_pre) {
+			btn_pre.setCursor(cursor);
+		}
+		if(e.getSource()==btn_restart) {
+			btn_restart.setCursor(cursor);
+		}
+		if(e.getSource()==btn_del) {
+			btn_del.setCursor(cursor);
+		}
+		if(e.getSource()==btn_upload) {
+			btn_upload.setCursor(cursor);
+		}
+		if(e.getSource()==btn_downloader) {
+			btn_downloader.setCursor(cursor);
+		}
+		if(e.getSource()==btn_open) {
+			btn_open.setCursor(cursor);
+		}
 		
 	}
 

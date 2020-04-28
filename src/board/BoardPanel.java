@@ -2,8 +2,13 @@ package board;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
+<<<<<<< HEAD
 import java.awt.Component;
+=======
+import java.awt.Cursor;
+>>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -33,7 +38,7 @@ import java.awt.event.WindowListener;
 import java.util.Vector;
 import java.awt.FlowLayout;
 
-public class BoardPanel extends JPanel implements ActionListener{
+public class BoardPanel extends JPanel implements ActionListener,MouseListener{
 	
 
 	private JTable table;
@@ -48,6 +53,8 @@ public class BoardPanel extends JPanel implements ActionListener{
 	private JLabel la_id;
 	private LoginVO voo;
 	private JLabel lblNewLabel;
+	private Cursor cursor;
+	
 	
 	
 
@@ -56,6 +63,8 @@ public class BoardPanel extends JPanel implements ActionListener{
 		this.voo=vo;
 		setBounds(12, 120, 670, 400);
 		setLayout(null);
+		
+		cursor = new Cursor(Cursor.HAND_CURSOR);
 		
 		board_HeadPanel = new JPanel();
 		board_HeadPanel.setBackground(new Color(255, 240, 245));
@@ -70,8 +79,9 @@ public class BoardPanel extends JPanel implements ActionListener{
 		btn_write.setForeground(new Color(255, 240, 245));
 		board_HeadPanel.add(btn_write);
 		btn_write.addActionListener(this);
+		btn_write.addMouseListener(this);
 		
-
+		
 		cbox = new JComboBox();
 		cbox.setBounds(108, 6, 72, 21);
 		cbox.setModel(new DefaultComboBoxModel(new String[] {"제목", "글내용", "작성자"}));
@@ -154,37 +164,9 @@ public class BoardPanel extends JPanel implements ActionListener{
 		table.getColumnModel().getColumn(3).setPreferredWidth(120);  //JTable 의 컬럼 길이 조절
 		table.setRowHeight(22);
 		
+		btn_search.addMouseListener(this);
 		btn_search.addActionListener(this);
-		table.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if(e.getClickCount()==2) {
-					view();
-					
-				}
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
+		table.addMouseListener(this);
 		
 		
 		addview();
@@ -212,6 +194,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 			}else {
 				Object[] objlist = {vo.getContentname(),vo.getWriter(),vo.getBoardno(),vo.getWritedate(),vo.getViewcount()};
 				model.addRow(objlist);}
+				
 			}
 	}
 
@@ -378,6 +361,48 @@ public class BoardPanel extends JPanel implements ActionListener{
 		int result=0;
 		bvo = dao.commentcount(boardno);
 		return bvo;
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource()==table) {
+			if(e.getClickCount()==2) {
+				view();
+				
+			}
+		}
+		
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if(e.getSource()==btn_write) {
+			btn_write.setCursor(cursor);
+		}
+		
+		if(e.getSource()==btn_search) {
+			btn_search.setCursor(cursor);
+		}
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
