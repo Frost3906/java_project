@@ -70,12 +70,12 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 
 		cbox = new JComboBox();
-		cbox.setBounds(108, 6, 62, 21);
+		cbox.setBounds(108, 6, 72, 21);
 		cbox.setModel(new DefaultComboBoxModel(new String[] {"제목", "글내용", "작성자"}));
 		board_HeadPanel.add(cbox);
 		
 		txt_search = new JTextField();
-		txt_search.setBounds(172, 6, 242, 21);
+		txt_search.setBounds(188, 6, 226, 21);
 		txt_search.addActionListener(this);
 		txt_search.setColumns(20);
 		board_HeadPanel.add(txt_search);

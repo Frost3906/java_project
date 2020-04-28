@@ -18,6 +18,7 @@ import login.LoginVO;
 
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
@@ -44,6 +45,7 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import main.*;
+import ui.CircleButton;
 
 import javax.swing.JList;
 
@@ -53,9 +55,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload;
-	private JToggleButton btn_play;
+	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart;
 	private ArrayList<String> MuList;
+	private Vector<File> songfile;
 	private DefaultTableModel model;
 	private String musicName;
 	private HaMelGomPot ha;
@@ -65,6 +67,12 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JButton btn_stop;
 	private JButton btn_pause;
 	private JButton btn_play_n;
+	private JTable table;
+	
+	
+	//리스트에서 선택한 파일 위치
+	private int pos;
+	
 	
 	/**
 	 * Launch the application.
@@ -92,6 +100,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		icon = new ImageIcon(Board_panelver.class.getResource("intro_board.jpg"));
 		
 		voo=vo;
+	//	listvo=new ListVO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -123,83 +132,131 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(12, 5, 251, 23);
+		textField.setBounds(14, 5, 251, 23);
 		playerPanel.add(textField);
 		
-		btn_pre = new JButton("◁");
-		btn_pre.setBounds(275, 5, 45, 23);
+		btn_pre = new JButton("");
+		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/prebtn_n.png")));
+		btn_pre.setBounds(81, 38, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
-
-		btn_play = new JToggleButton();
-		btn_play.setText("PLAY / STOP");
-		btn_play.setBounds(136, 28, 127, 23);
-		playerPanel.add(btn_play);
-		
-		btn_next = new JButton("▷");
-		btn_next.setBounds(394, 5, 45, 23);
+		btn_next = new JButton("");
+		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/nextbtn_n.png")));
+		btn_next.setBounds(226, 38, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
 		btn_ListOpen = new JButton(">>");
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(611, 5, 57, 23);
+		btn_ListOpen.setBounds(612, 1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
 		
 		btn_ListClose = new JButton("<<");
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(611, 5, 57, 23);
+		btn_ListClose.setBounds(612, 1, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("Open");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(451, 5, 71, 23);
+		btn_open.setBounds(528, 5, 71, 23);
 		playerPanel.add(btn_open);
 		
 		btn_del = new JButton("Delete");
 		btn_del.addActionListener(this);
-		btn_del.setBounds(454, 28, 67, 23);
+		btn_del.setBounds(528, 52, 71, 23);
 		playerPanel.add(btn_del);
 		
-		btn_pause = new JButton("pause");
+		btn_pause = new JButton("");
+		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/pausebtn_n.png")));
 
-		btn_pause.setBounds(320, 52, 73, 23);
+		btn_pause.setBounds(154, 57, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
-		btn_stop = new JButton("stop");
+		btn_stop = new JButton("");
+		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/stop_n.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(320, 28, 73, 23);
+		btn_stop.setBounds(194, 38, 39, 38);
 		playerPanel.add(btn_stop);
 		
-		btn_play_n = new JButton("play_n");
-		btn_play_n.setBounds(320, 5, 73, 23);
+		btn_restart = new JButton("Restart");
+		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_p.png")));
+		btn_restart.setText("");
+		btn_restart.setBounds(154, 29, 39, 38);
+		playerPanel.add(btn_restart);
+		
+		btn_upload = new JButton("UpLoad");
+		btn_upload.setBounds(528, 29, 71, 22);
+		playerPanel.add(btn_upload);
+		
+		btn_play_n = new JButton("");
+		btn_play_n.setBounds(117, 38, 39, 38);
 		playerPanel.add(btn_play_n);
+		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/board/play_p.png")));
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
 		JScrollPane listPane = new JScrollPane();
-		listPane.setBounds(695, 10, 125, 512);
+		listPane.setBounds(699, 10, 125, 512);
 		contentPane.add(listPane);
+
+		String columnName[]= {"Music"};
 		
-		btn_upload = new JButton("UpLoad");
-		listPane.setColumnHeaderView(btn_upload);
-		
-		model =  new DefaultTableModel(){
+		model = new DefaultTableModel(columnName,0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 		
-		JList list = new JList();
-		listPane.setViewportView(list);
+		table = new JTable(model);
+		table.addMouseListener(this);
+		listPane.setViewportView(table);
+		
 		
 		ha =  new HaMelGomPot();
+		MuList = new ArrayList();
+		songfile = new Vector<>();
 		
+		btn_restart.addActionListener(this);
+		
+		btn_play_n.setBorderPainted(false);
+		btn_next.setBorderPainted(false);
+		btn_pre.setBorderPainted(false);
+		btn_stop.setBorderPainted(false);
+		btn_pause.setBorderPainted(false);
+		btn_restart.setBorderPainted(false);
+		
+		btn_play_n.setFocusPainted(false);
+		btn_next.setFocusPainted(false);
+		btn_pre.setFocusPainted(false);
+		btn_stop.setFocusPainted(false);
+		btn_pause.setFocusPainted(false);
+		btn_restart.setFocusPainted(false);
+			
+		btn_play_n.setContentAreaFilled(false);
+		btn_next.setContentAreaFilled(false);
+		btn_pre.setContentAreaFilled(false);
+		btn_stop.setContentAreaFilled(false);
+		btn_pause.setContentAreaFilled(false);
+		btn_restart.setContentAreaFilled(false);
+		
+		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_t.png"))); //마우스 오버
+		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_r.png"))); 
+		btn_pre.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_r.png"))); 
+		btn_stop.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_r.png"))); 
+		btn_pause.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_r.png"))); 
+		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_r.png"))); 
+		
+		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/play_s.png"))); //마우스 클릭 시
+		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/nextbtn_s.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/prebtn_s.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/stop_s.png"))); 
+		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/main/pausebtn_s.png")));
+		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/board/restart_s.png")));
 		
 	}
 	
@@ -239,23 +296,14 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		return chooser;
 	}
 	
-	public String getFile() {
-		JFileChooser chooser = new JFileChooser("C:");
+	public File getFile() {
+		JFileChooser chooser = new JFileChooser("D:\\Billboard Hot 100");
 		chooser.showOpenDialog(this);
 		
-		File f=chooser.getSelectedFile();
+		File f=chooser.getSelectedFile();	
 		
-		String path = "";
-		String filename = "";
-		
-		path = f.getParentFile().toString();
-		filename = f.getName(); //�대�留� 異�異�
-		
-		int idx = filename.lastIndexOf(".");  //���μ�� ��嫄�
-		String _fileName = filename.substring(0,idx);
-		
-		return f.getPath();
-	}
+		return f;	
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -287,40 +335,39 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 				mdao.upload(vo);
 				 
-			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��
+			 }else {//痍⑥�� 踰��� �대┃�� 寃쎌��dfcrex
 				 return;
 			 }
 			
 		}else if(e.getSource()==btn_open) {
-				//�닿린 踰��� �대┃�� 寃쎌��
-				model.setRowCount(0);
 			
-				String file = getFile();	
-				musicName = file;
-				textField.setText(file);
-				
-				MuList.add(file);
-				model.addRow(new Vector<String>(MuList));
-				
-				for(String value : MuList) {
-					System.out.println(value); 
-					}
+				File file = getFile();	
 
-//				songFile = choo.getSelectedFile();
-//				textField.setText(songFile.getName());
-				 
-//				Object[] objlist = {songFile.getName()};
-//				model.addRow(objlist);		
+				if(file!=null) {
+					//테이블 초기화
+					model.setRowCount(0);
+				}
+				//사용자가 선택한 파일명 보여주기
+				textField.setText(file.getName());
+				
+				//사용자가 선택한 파일 Vector 담기
+				songfile.add(file);			
+				//재생할 음악리스트명(파일경로 필요)
+				musicName = file.getPath();
+				MuList.add(musicName);
+				
+				//Vector 에 담긴 file을 파일명과 경로명을 포함한 파일명으로 분리 추출
+				for(File f:songfile) {
+					//  보여줄 음악리스트 명
+					Vector<String> vec=new Vector<>();
+					vec.add(f.getName());
+					model.addRow(vec);
+				}				
 			
-		}else if(btn == btn_play_n) {
-			ha.stop();
-			
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
-			
-		}else {
-			ha.resume();
+		}else if(btn == btn_play_n) { //플레이
+			play(MuList.get(pos));			
+		}else if(btn==btn_restart){ //재시작
+			ha.resume();			
 		}
 		
 		if(btn==btn_stop) {
@@ -328,19 +375,25 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		}else if(btn==btn_pause) { 
 			HaMelGomPot.stateCode = HaMelGomPot.STATE_SUSPENDED;
 			ha.suspend();
-		}else if(btn==btn_next) {
-			a = MuList.size() + 1;
-			ha.stop();
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
-			System.out.println("�ㅼ�� 怨�");
+		}else if(btn==btn_next) {		
+			System.out.println("다음 곡" + MuList.size());
+			if(pos < MuList.size()) {
+				pos+=1;
+			}else if(pos == MuList.size()){
+				//pos=MuList.size()-1;
+				pos = 0;
+				System.out.println("다음곡 : "+MuList.get(pos)+" 위치 : "+pos);
+			}
+			play(MuList.get(pos));			
 		}else if(btn==btn_pre) {
-			a = MuList.size() - 1;
-			ha.stop();
-			ha.open(musicName);
-			ha.start();
-			ha.stateCode = ha.STATE_INIT;
+			System.out.println("이전 곡");
+			if(pos==0) {   // 첫번째 곡일때 이전 버튼 처리
+				pos = 0;
+			}else if(pos < MuList.size()) { //
+				pos -= 1;
+				System.out.println("이전곡 : "+MuList.get(pos)+" 위치 : "+pos);
+			}			
+			play(MuList.get(pos));			
 		}else if(btn==btn_del) {
 			MuList.remove(textField.getName());
 		}
@@ -348,7 +401,18 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		JButton btn = (JButton) e.getSource();
+		
+		if(e.getClickCount()==2) {
+		// 사용자가 선택한 파일 인덱스
+		pos=table.getSelectedRow();
+		
+		//리스트에서 사용자가 선택한 음악파일명 보여주기 
+		textField.setText(songfile.get(pos).toString());
+	
+		//사용자가 선택한 파일 플레이
+		play(MuList.get(pos));
+		
+		}
 	}
 
 	@Override
@@ -374,7 +438,29 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		// TODO Auto-generated method stub
 		
 	}	
+	
+	public void play(String musicName) {		
+		ha.stop();		
+		ha.open(musicName);
+		ha.start();
+		HaMelGomPot.stateCode = HaMelGomPot.STATE_INIT;
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
 	
 

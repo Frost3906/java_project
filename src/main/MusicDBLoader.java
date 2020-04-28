@@ -63,7 +63,7 @@ public class MusicDBLoader extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btn_DBsearch) {
 			MusicDAO dao = new MusicDAO();
-			Vector<MusicVO> vecList = dao.getMusicList();
+			Vector<MusicVO> vecList = dao.getMusicList(0);
 			JList<MusicVO> list = new JList<>(vecList);
 			
 			scrollPane.setViewportView(list);
