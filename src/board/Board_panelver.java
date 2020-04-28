@@ -300,13 +300,25 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		return chooser;
 	}
 	
-	public File getFile() {
+	public File[] getFile() {
 		JFileChooser chooser = new JFileChooser("C:");
+		chooser.setMultiSelectionEnabled(true); //파일 다중 선택
 		chooser.showOpenDialog(this);
 		
-		File f=chooser.getSelectedFile();	
+		File[] filelist = chooser.getSelectedFiles();
 		
-		return f;	
+		//단일 선택
+//		File f=chooser.getSelectedFile();	
+			
+		// 여러 파일 읽기
+		
+//		File[] filelist = f.listFiles();
+//		
+//		for(File file : filelist) {
+//			if(file.isFile());
+//		}
+		
+		return filelist;	
 		}
 
 	@Override
@@ -348,23 +360,26 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 			
 		}else if(e.getSource()==btn_open) {
 			
-				File file = getFile();	
+				File[] file = getFile();	
 
 				if(file!=null) {
 					//테이블 초기화
 					model.setRowCount(0);
 				}
 				//사용자가 선택한 파일명 보여주기
-				textField.setText(file.getName());
+//				textField.setText(file.getName());
 				
-				//사용자가 선택한 파일 Vector 담기
-				songfile.add(file);		
+				
+				for(File f:file) {
+					//사용자가 선택한 파일 Vector 담기
+					songfile.add(f);		
+					MuList.add(f.getPath());					
+				}
 				
 				//재생할 음악리스트명(파일경로 필요)
-				musicName = file.getPath();
-				
-				MuList.add(musicName);
-				
+//				musicName = file.getPath();
+								
+
 				//Vector 에 담긴 file을 파일명과 경로명을 포함한 파일명으로 분리 추출
 				for(File f:songfile) {
 					//  보여줄 음악리스트 명
