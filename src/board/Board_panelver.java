@@ -48,6 +48,8 @@ import ui.CircleButton;
 import ui.RoundedButton;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
@@ -191,29 +193,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_restart = new JButton("Restart");
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
-<<<<<<< HEAD
-		btn_restart.setBounds(385, 52, 39, 38);
-=======
-		btn_restart.setBounds(181, 38, 39, 38);
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
+
+		btn_restart.setBounds(471, 27, 39, 38);
 		playerPanel.add(btn_restart);
 		
-<<<<<<< HEAD
-		btn_upload = new RoundedButton("UpLoad");
-		btn_upload.setBounds(202, 52, 71, 22);
-=======
+
 		btn_upload = new JButton("Upload");
-		btn_upload.setBounds(541, 23, 71, 22);
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
+		btn_upload.setBounds(202, 52, 71, 22);
+
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-<<<<<<< HEAD
-		btn_play_n.setBounds(346, 6, 39, 38);
-=======
-		btn_play_n.setBounds(115, 38, 39, 38);
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
+		btn_play_n.setBounds(394, 52, 39, 38);
+
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);
@@ -221,6 +214,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		
 		JScrollPane listPane = new JScrollPane();
 		listPane.setBounds(699, 10, 125, 512);
+		listPane.getViewport().setBackground(new Color(255, 240, 245));
 		contentPane.add(listPane);
 
 		String columnName[]= {"Music"};
@@ -278,17 +272,11 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
 		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
-<<<<<<< HEAD
-		JButton btnNewButton = new RoundedButton("Loader");
-		btnNewButton.setText("Download");
-		btnNewButton.setBounds(598, 72, 71, 23);
-		playerPanel.add(btnNewButton);
-=======
-		btn_downloader = new JButton("Download");
+
+		btn_downloader = new RoundedButton("Download");
 		btn_downloader.addActionListener(this);
-		btn_downloader.setBounds(541, 45, 71, 23);
+		btn_downloader.setBounds(598, 71, 71, 23);
 		playerPanel.add(btn_downloader);
->>>>>>> branch 'master2' of https://github.com/Frost3906/java_project.git
 		
 	}
 	
@@ -381,7 +369,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 				vo.setTitle(file.getName());
 
 				mdao.upload(vo);
-				 
+				JOptionPane.showMessageDialog(this, "업로드 성공");
 			 }else {//닫기 버튼을 눌렀을때
 				 return;
 			 }

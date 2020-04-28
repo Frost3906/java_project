@@ -3,8 +3,10 @@ package board;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -14,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 import login.LoginVO;
@@ -60,9 +63,9 @@ public class BoardPanel extends JPanel implements ActionListener{
 		add(board_HeadPanel);
 		board_HeadPanel.setLayout(null);
 		
-		btn_write = new CircleButton("글쓰기");
+		btn_write = new RoundedButton("글쓰기");
 		btn_write.setBounds(9, 5, 88, 23);
-		btn_write.setFont(new Font("굴림", Font.BOLD, 12));
+		btn_write.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_write.setBackground(new Color(70, 130, 180));
 		btn_write.setForeground(new Color(255, 240, 245));
 		board_HeadPanel.add(btn_write);
@@ -103,7 +106,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 		add(board_FooterPanel);
 			
 		btn_read = new  RoundedButton("글보기");
-		btn_read.setForeground(new Color(255, 240, 245));
+		btn_read.setForeground(new Color(255, 255, 255));
 		btn_read.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_read.setBackground(new Color(70, 130, 180));
 		btn_read.addActionListener(this);
@@ -112,7 +115,7 @@ public class BoardPanel extends JPanel implements ActionListener{
 		
 		btn_refresh = new RoundedButton("새로고침");
 		btn_refresh.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_refresh.setForeground(new Color(255, 240, 245));
+		btn_refresh.setForeground(new Color(255, 255, 255));
 		btn_refresh.setBackground(new Color(70, 130, 180));
 		btn_refresh.addActionListener(this);
 		board_FooterPanel.add(btn_refresh);
@@ -133,7 +136,17 @@ public class BoardPanel extends JPanel implements ActionListener{
 				return false;
 			}
 		};
-		table = new JTable(model);
+		table = new JTable(model) {
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				// TODO Auto-generated method stub
+				JComponent component = (JComponent)  super.prepareRenderer(renderer, row, column);
+				
+				component.setBackground(new Color(245, 255, 250));
+				
+				return component;
+			}
+		};
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 		board_contentsPanel.setViewportView(table);
 		table.getColumnModel().getColumn(0).setPreferredWidth(400);  //JTable 의 컬럼 길이 조절

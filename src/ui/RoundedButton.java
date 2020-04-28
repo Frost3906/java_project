@@ -43,6 +43,7 @@ public class RoundedButton extends JButton {
 		Graphics2D graphics = (Graphics2D) g; 
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
 		
+		// 마우스를 올렸을 시 밝게
 		if (getModel().isArmed()) { 
 			graphics.setColor(getBackground().darker());
 		} else if (getModel().isRollover()) { 
