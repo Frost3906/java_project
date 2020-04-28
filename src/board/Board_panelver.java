@@ -131,7 +131,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(12, 34, 251, 23);
+		textField.setBounds(12, 5, 251, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
@@ -184,7 +184,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_restart = new JButton("Restart");
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(387, 10, 39, 38);
+		btn_restart.setBounds(181, 38, 39, 38);
 		playerPanel.add(btn_restart);
 		
 		btn_upload = new JButton("UpLoad");
@@ -193,7 +193,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(350, 19, 39, 38);
+		btn_play_n.setBounds(115, 38, 39, 38);
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);

@@ -68,7 +68,7 @@ public class MusicDAO {
 		return result;
 		
 	}
-	public Vector<MusicVO> getMusicList(int add){
+	public Vector<MusicVO> getMusicList(){
 		Vector<MusicVO> vecList = new Vector<MusicVO>();
 		String sql = "select * from musicTBL";
 		
@@ -78,20 +78,12 @@ public class MusicDAO {
 			
 			while(rs.next()) {
 				MusicVO vo = new MusicVO();
-				
-				vo.setTitle((rs.getString(2)));
+				Blob blob = (Blob) rs.getBlob(1);
+					vo.setBlob(blob);
+					vo.setTitle((rs.getString(2)));
 			
 				vecList.add(vo);
 			}
-			
-			length = vecList.size();
-			if(add>=length) {
-				add=0;
-			}else if(add<0) {
-				add=length -1;
-			}
-			pre = add;
-			name = vecList.get(add);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

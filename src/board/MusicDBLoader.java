@@ -1,31 +1,40 @@
 package board;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.cj.jdbc.Blob;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 
 public class MusicDBLoader extends JFrame implements ActionListener, MouseListener{
 
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private JButton btn_DBsearch, btn_download;
-	private Vector<MusicVO> vecList;
-	private JTable DBTable;
+	private JTable DB_Table;
 	private DefaultTableModel model;
+	private Vector<MusicVO> vecList;
+	private JFileChooser chooser;
+	private Blob blob;
+
 
 	
 	public static void main(String[] args) {
@@ -62,9 +71,9 @@ public class MusicDBLoader extends JFrame implements ActionListener, MouseListen
 			}
 		};
 		
-		DBTable = new JTable(model);
-		DBTable.addMouseListener(this);
-		scrollPane.setViewportView(DBTable);
+		DB_Table = new JTable(model);
+		DB_Table.addMouseListener(this);
+		scrollPane.setViewportView(DB_Table);
 		
 		btn_DBsearch = new JButton("탐색하기");
 		btn_DBsearch.addActionListener(this);
@@ -77,19 +86,59 @@ public class MusicDBLoader extends JFrame implements ActionListener, MouseListen
 		contentPane.add(btn_download);
 		
 	}
-
+	private JFileChooser getChooser() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setAcceptAllFileFilterUsed(false);
+		
+		chooser.addChoosableFileFilter(new FileNameExtensionFilter("mp3 file(*.mp3)","mp3"));
+		
+		chooser.setSelectedFile(new File(vecList.get(DB_Table.getSelectedRow()).getTitle()));
+		
+		
+		return chooser;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btn_DBsearch) {
+			model.setRowCount(0);
 			MusicDAO dao = new MusicDAO();
-			Vector<MusicVO> vecList = dao.getMusicList(0);
-			model.addRow(vecList);
-			JTable DB_Table = new JTable(model);
+			vecList = dao.getMusicList();
+			for (MusicVO musicvo : vecList) {
+				Object[] objList = {musicvo.getTitle(),musicvo.getBlob()};
+				model.addRow(objList);
+			}
+			DB_Table = new JTable(model);
 			
-			scrollPane.setViewportView(list);
+			scrollPane.setViewportView(DB_Table);
 		}else if(e.getSource()==btn_download){
-			System.out.println(list.getSelected);
+			blob= vecList.get(DB_Table.getSelectedRow()).getBlob();
+			chooser = getChooser();
+			int retVal = chooser.showSaveDialog(this);
+			
+			if(retVal==0) {
+				File file = chooser.getSelectedFile();
+				if(file.getPath().lastIndexOf(".")<0) {
+					file = new File(file.getPath()+".mp3");
+				}
+				try (InputStream inputStream = blob.getBinaryStream();
+					OutputStream outputStream = new FileOutputStream(file.getPath())
+							){
+					
+		            int bytesRead = -1;
+		            byte[] buffer = new byte[1024];
+		            while ((bytesRead = inputStream.read(buffer)) != -1) {
+		                outputStream.write(buffer, 0, bytesRead);
+		            }
+
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+		
+			}else return;
+					
+
+		
 		}
 		
 		
