@@ -134,18 +134,18 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setColumns(10);
-		textField.setBounds(14, 19, 251, 23);
+		textField.setBounds(22, 19, 251, 23);
 		playerPanel.add(textField);
 		
 		btn_pre = new JButton("");
 		btn_pre.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_n.png")));
-		btn_pre.setBounds(81, 38, 39, 38);
+		btn_pre.setBounds(306, 27, 39, 38);
 		btn_pre.addActionListener(this);
 		playerPanel.add(btn_pre);
 		
 		btn_next = new JButton("");
 		btn_next.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_n.png")));
-		btn_next.setBounds(226, 38, 39, 38);
+		btn_next.setBounds(423, 27, 39, 38);
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
@@ -165,42 +165,42 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
-		btn_open = new JButton("Open");
+		btn_open = new RoundedButton("Open");
 		btn_open.addActionListener(this);
-		btn_open.setBounds(541, 0, 71, 23);
+		btn_open.setBounds(112, 52, 71, 23);
 		playerPanel.add(btn_open);
 		
-		btn_del = new JButton("Delete");
+		btn_del = new RoundedButton("Delete");
 		btn_del.addActionListener(this);
-		btn_del.setBounds(541, 68, 71, 23);
+		btn_del.setBounds(22, 52, 71, 23);
 		playerPanel.add(btn_del);
 		
 		btn_pause = new JButton("");
 		btn_pause.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_n.png")));
 
-		btn_pause.setBounds(387, 38, 39, 38);
+		btn_pause.setBounds(384, 5, 39, 38);
 		btn_pause.addActionListener(this);
 		playerPanel.add(btn_pause);
 		
 		btn_stop = new JButton("");
 		btn_stop.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_n.png")));
 		btn_stop.addActionListener(this);
-		btn_stop.setBounds(427, 19, 39, 38);
+		btn_stop.setBounds(347, 52, 39, 38);
 		playerPanel.add(btn_stop);
 		
 		btn_restart = new JButton("Restart");
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(387, 10, 39, 38);
+		btn_restart.setBounds(385, 52, 39, 38);
 		playerPanel.add(btn_restart);
 		
-		btn_upload = new JButton("UpLoad");
-		btn_upload.setBounds(541, 23, 71, 22);
+		btn_upload = new RoundedButton("UpLoad");
+		btn_upload.setBounds(202, 52, 71, 22);
 		btn_upload.addActionListener(this);
 		playerPanel.add(btn_upload);
 		
 		btn_play_n = new JButton("");
-		btn_play_n.setBounds(350, 19, 39, 38);
+		btn_play_n.setBounds(346, 6, 39, 38);
 		playerPanel.add(btn_play_n);
 		btn_play_n.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_p.png")));
 		btn_play_n.addActionListener(this);
@@ -265,8 +265,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
 		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
 		
-		JButton btnNewButton = new JButton("Loader");
-		btnNewButton.setBounds(541, 45, 71, 23);
+		JButton btnNewButton = new RoundedButton("Loader");
+		btnNewButton.setText("Download");
+		btnNewButton.setBounds(598, 72, 71, 23);
 		playerPanel.add(btnNewButton);
 		
 	}
