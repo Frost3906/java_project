@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -45,8 +46,10 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import ui.CircleButton;
+import ui.RoundedButton;
 
 import javax.swing.JList;
+import java.awt.Color;
 
 public class Board_panelver extends JFrame implements ActionListener,MouseListener{
 
@@ -54,7 +57,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JPanel contentPane, playerPanel;
 	private BoardPanel boardPanel;
 	private JTextField textField;
-	private JButton btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_upload, btn_restart,btn_down;
+	private JButton btn_downloader, btn_upload, btn_ListOpen, btn_ListClose, btn_pre, btn_next, btn_open, btn_del, btn_restart;
 	private ArrayList<String> MuList;
 	private Vector<File> songfile;
 	private DefaultTableModel model;
@@ -67,6 +70,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 	private JButton btn_pause;
 	private JButton btn_play_n;
 	private JTable table;
+	private Cursor cursor;
 	
 	
 	//리스트에서 선택한 파일 위치
@@ -99,6 +103,8 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		icon = new ImageIcon(Board_panelver.class.getResource("/image/intro_board.jpg"));
 		
 		voo=vo;
+		
+		cursor = new Cursor(cursor.HAND_CURSOR);
 	//	listvo=new ListVO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +130,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		contentPane.add(boardPanel);
 		
 		playerPanel = new JPanel();
+		playerPanel.setBackground(new Color(220, 220, 220));
 		playerPanel.setLayout(null);
 		playerPanel.setBounds(12, 10, 669, 95);
 		contentPane.add(playerPanel);
@@ -148,15 +155,20 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_next.addActionListener(this);
 		playerPanel.add(btn_next);
 		
-		btn_ListOpen = new JButton(">>");
+		btn_ListOpen = new RoundedButton(">>");
+		btn_ListOpen.setForeground(new Color(220, 220, 220));
+		btn_ListOpen.setBackground(new Color(70, 130, 180));
 		btn_ListOpen.addActionListener(this); 	
-		btn_ListOpen.setBounds(612, 1, 57, 23);
+		btn_ListOpen.setBounds(612, -1, 57, 23);
 		playerPanel.add(btn_ListOpen);
 		
-		btn_ListClose = new JButton("<<");
+		
+		btn_ListClose = new RoundedButton("<<");
+		btn_ListClose.setForeground(new Color(220, 220, 220));
+		btn_ListClose.setBackground(new Color(70, 130, 180));
 		btn_ListClose.addActionListener(this);
 		
-		btn_ListClose.setBounds(612, 1, 57, 23);
+		btn_ListClose.setBounds(612, 0, 57, 23);
 		playerPanel.add(btn_ListClose);
 		
 		btn_open = new JButton("");
@@ -192,7 +204,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_restart.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat.png")));
 		btn_restart.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat_p.png")));
 		btn_restart.setText("");
-		btn_restart.setBounds(356, 48, 39, 38);
+		btn_restart.setBounds(561, 48, 39, 38);
 		playerPanel.add(btn_restart);
 		
 		btn_upload = new JButton("");
@@ -209,12 +221,13 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_play_n.addActionListener(this);
 		btn_ListClose.setVisible(false);
 		
-		btn_down = new JButton("");
-		btn_down.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
-		btn_down.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download.png")));
-		btn_down.setBounds(151, 46, 39, 37);
-		btn_down.addActionListener(this);
-		playerPanel.add(btn_down);
+		btn_downloader = new JButton("");
+		btn_downloader.setSelectedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
+		btn_downloader.setIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download.png")));
+		btn_downloader.setBounds(151, 46, 39, 37);
+		btn_downloader.addActionListener(this);
+		playerPanel.add(btn_downloader);
+		
 		
 		JScrollPane listPane = new JScrollPane();
 		listPane.setBounds(699, 10, 125, 512);
@@ -249,7 +262,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_upload.setBorderPainted(false);
 		btn_del.setBorderPainted(false);
 		btn_open.setBorderPainted(false);
-		btn_down.setBorderPainted(false);
+		btn_downloader.setBorderPainted(false);
 		
 		btn_play_n.setFocusPainted(false);
 		btn_next.setFocusPainted(false);
@@ -260,7 +273,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_upload.setFocusPainted(false);
 		btn_del.setFocusPainted(false);
 		btn_open.setFocusPainted(false);
-		btn_down.setFocusPainted(false);
+		btn_downloader.setFocusPainted(false);
 			
 		btn_play_n.setContentAreaFilled(false);
 		btn_next.setContentAreaFilled(false);
@@ -271,7 +284,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 		btn_upload.setContentAreaFilled(false);
 		btn_del.setContentAreaFilled(false);
 		btn_open.setContentAreaFilled(false);
-		btn_down.setContentAreaFilled(false);
+		btn_downloader.setContentAreaFilled(false);
 		
 //		btn_play_n.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/play_t.png"))); //마우스 오버
 //		btn_next.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_r.png"))); 
@@ -281,13 +294,28 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 //		btn_restart.setRolloverIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_r.png"))); 
 		
 		btn_play_n.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_play.png"))); //마우스 클릭 시
-//		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/nextbtn_s.png"))); 
-//		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/prebtn_s.png"))); 
-//		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/stop_s.png"))); 
-//		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/pausebtn_s.png")));
-//		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/restart_s.png")));
-//		
+		btn_next.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_next.png"))); 
+		btn_pre.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pre.png"))); 
+		btn_stop.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_stop.png"))); 
+		btn_pause.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_pause.png")));
+		btn_restart.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_restrat.png")));
+		btn_upload.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_upload_p.png")));
+		btn_del.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_del.png")));
+		btn_open.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_open2.png")));
+		btn_downloader.setPressedIcon(new ImageIcon(Board_panelver.class.getResource("/image/recbtn_download_p.png")));
+				
+		btn_stop.addMouseListener(this);
+		btn_pause.addMouseListener(this);
+		btn_play_n.addMouseListener(this);
+		btn_next.addMouseListener(this);
+		btn_pre.addMouseListener(this);
+		btn_restart.addMouseListener(this);
+		btn_upload.addMouseListener(this);
+		btn_del.addMouseListener(this);
+		btn_open.addMouseListener(this);
+		btn_downloader.addMouseListener(this);
 		
+
 		
 	}
 	
@@ -391,6 +419,9 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 				 return;
 			 }
 			
+		}else if(e.getSource()==btn_downloader) {
+			MusicDBLoader loader = new MusicDBLoader();
+			loader.show();
 		}else if(e.getSource()==btn_open) {
 			
 				File[] file = getFile();	
@@ -409,7 +440,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 					MuList.add(f.getPath());					
 				}
 				
-				//재생할 음악리스트명(파일경로 필요)
+				//재생할 음악리스트명(파일경로 필요) gfdgf
 //				musicName = file.getPath();
 								
 
@@ -507,7 +538,40 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+//		  btn_next.addMouseListener(this);
+//		  btn_pre.addMouseListener(this);
+//		  btn_restart.addMouseListener(this);
+		if(e.getSource()==btn_stop) {
+			btn_stop.setCursor(cursor);
+		}
+		if(e.getSource()==btn_pause) {
+			btn_pause.setCursor(cursor);
+		}
+		if(e.getSource()==btn_play_n) {
+			btn_play_n.setCursor(cursor);
+		}
+		if(e.getSource()==btn_next) {
+			btn_next.setCursor(cursor);
+		}
+		if(e.getSource()==btn_pre) {
+			btn_pre.setCursor(cursor);
+		}
+		if(e.getSource()==btn_restart) {
+			btn_restart.setCursor(cursor);
+		}
+		if(e.getSource()==btn_del) {
+			btn_del.setCursor(cursor);
+		}
+		if(e.getSource()==btn_upload) {
+			btn_upload.setCursor(cursor);
+		}
+		if(e.getSource()==btn_downloader) {
+			btn_downloader.setCursor(cursor);
+		}
+		if(e.getSource()==btn_open) {
+			btn_open.setCursor(cursor);
+		}
 		
 	}
 
