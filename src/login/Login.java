@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import board.Board_panelver;
-import main.*;
-import main.FirstPanel;
 import ui.RoundedButton;
 
 import javax.swing.JLabel;

@@ -44,7 +44,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
-import main.*;
 import ui.CircleButton;
 
 import javax.swing.JList;
