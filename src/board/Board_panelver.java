@@ -395,7 +395,7 @@ public class Board_panelver extends JFrame implements ActionListener,MouseListen
 					MuList.add(f.getPath());					
 				}
 				
-				//재생할 음악리스트명(파일경로 필요) gfdgf
+				//재생할 음악리스트명(파일경로 필요) 
 //				musicName = file.getPath();
 								
 
